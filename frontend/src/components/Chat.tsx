@@ -163,6 +163,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
       messageId: feedbackModal.messageId,
       text: feedbackModal.text,
     });
+    // Modal closes automatically, feedback stays marked as 'down'
     closeFeedbackModal();
   };
 
@@ -327,6 +328,13 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
                   {/* Smiley when user clicks Yes */}
                   {feedback[message.id] === 'up' && (
                     <div className="text-3xl">😊</div>
+                  )}
+
+                  {/* Thank you message when user submits feedback (No) */}
+                  {feedback[message.id] === 'down' && (
+                    <div className="flex items-center gap-2 text-sm text-slate-400 py-1">
+                      <span>✓ Thank you for your feedback</span>
+                    </div>
                   )}
                 </div>
               )}
