@@ -25,45 +25,86 @@ MONTHS = {
 class Planner:
     def plan(self, question: str) -> Plan:
         q = question.lower()
-        entity_mention = self._extract_entity_mention(question)
+        entity_mentions = self._extract_all_entity_mentions(question)
         period = self._extract_period(q)
+        is_comparison = any(word in q for word in ["compare", "vs", "versus", "between", "both", "each"])
 
         tools: list[ToolCall] = []
-        if entity_mention:
-            tools.append(ToolCall(tool="resolve_entity", params={"mention": entity_mention}))
+
+        # Handle multiple entities for comparison queries
+        if is_comparison and len(entity_mentions) > 1:
+            for mention in entity_mentions:
+                tools.append(ToolCall(tool="resolve_entity", params={"mention": mention}))
+        elif entity_mentions:
+            # Single entity - use first mention
+            tools.append(ToolCall(tool="resolve_entity", params={"mention": entity_mentions[0]}))
 
         if any(word in q for word in ["profit", "profitable", "net"]):
-            params = {"period": period or date.today().strftime("%Y-%m")}
-            if entity_mention:
-                params["truck_id"] = "$resolve_entity.canonical_id"
-            tools.append(ToolCall(tool="get_truck_profit", params=params, depends_on="resolve_entity" if entity_mention else None))
-            return Plan(query_type="STRUCTURED", tools=tools, rationale="Profit questions use the profit tool after entity resolution.")
+            # Handle multiple trucks for comparison
+            if is_comparison and len(entity_mentions) > 1:
+                for i, mention in enumerate(entity_mentions):
+                    params = {"period": period or date.today().strftime("%Y-%m"), "truck_id": f"$resolve_entity_{i}.canonical_id"}
+                    tools.append(ToolCall(tool="get_truck_profit", params=params, depends_on=f"resolve_entity_{i}"))
+            elif entity_mentions:
+                params = {"period": period or date.today().strftime("%Y-%m"), "truck_id": "$resolve_entity.canonical_id"}
+                tools.append(ToolCall(tool="get_truck_profit", params=params, depends_on="resolve_entity"))
+            else:
+                params = {"period": period or date.today().strftime("%Y-%m")}
+                tools.append(ToolCall(tool="get_truck_profit", params=params))
+            return Plan(query_type="STRUCTURED", tools=tools, rationale="Profit comparison queries resolve all entities then fetch profit data.")
 
         if any(word in q for word in ["expense", "expenses", "spend", "spent", "cost"]):
             params = self._date_params(q)
             category = self._extract_expense_category(q)
             if category:
                 params["category"] = category
-            if entity_mention:
+            # Handle multiple trucks for comparison
+            if is_comparison and len(entity_mentions) > 1:
+                for i, mention in enumerate(entity_mentions):
+                    expense_params = {**params, "truck_id": f"$resolve_entity_{i}.canonical_id"}
+                    tools.append(ToolCall(tool="get_expenses", params=expense_params, depends_on=f"resolve_entity_{i}"))
+            elif entity_mentions:
                 params["truck_id"] = "$resolve_entity.canonical_id"
-            tools.append(ToolCall(tool="get_expenses", params=params, depends_on="resolve_entity" if entity_mention else None))
-            return Plan(query_type="STRUCTURED", tools=tools, rationale="Expense questions use the expenses tool with optional category and dates.")
+                tools.append(ToolCall(tool="get_expenses", params=params, depends_on="resolve_entity"))
+            else:
+                tools.append(ToolCall(tool="get_expenses", params=params))
+            return Plan(query_type="STRUCTURED", tools=tools, rationale="Expense comparison queries resolve all entities then fetch expense data.")
 
         if any(word in q for word in ["revenue", "income", "loads", "gross"]):
             params = self._date_params(q)
-            if entity_mention:
+            # Handle multiple trucks for comparison
+            if is_comparison and len(entity_mentions) > 1:
+                for i, mention in enumerate(entity_mentions):
+                    revenue_params = {**params, "truck_id": f"$resolve_entity_{i}.canonical_id"}
+                    tools.append(ToolCall(tool="get_revenue", params=revenue_params, depends_on=f"resolve_entity_{i}"))
+            elif entity_mentions:
                 params["truck_id"] = "$resolve_entity.canonical_id"
-            tools.append(ToolCall(tool="get_revenue", params=params, depends_on="resolve_entity" if entity_mention else None))
-            return Plan(query_type="STRUCTURED", tools=tools, rationale="Revenue questions use the revenue tool.")
+                tools.append(ToolCall(tool="get_revenue", params=params, depends_on="resolve_entity"))
+            else:
+                tools.append(ToolCall(tool="get_revenue", params=params))
+            return Plan(query_type="STRUCTURED", tools=tools, rationale="Revenue comparison queries resolve all entities then fetch revenue data.")
 
         if any(word in q for word in ["document", "documents", "invoice", "registration", "insurance", "inspection", "title"]):
-            params = {}
-            if entity_mention:
-                params["entity_id"] = "$resolve_entity.canonical_id"
-            doc_type = self._extract_doc_type(q)
-            if doc_type:
-                params["doc_type"] = doc_type
-            tools.append(ToolCall(tool="find_document", params=params, depends_on="resolve_entity" if entity_mention else None))
+            # Handle multiple trucks for document comparison
+            if is_comparison and len(entity_mentions) > 1:
+                for i, mention in enumerate(entity_mentions):
+                    params = {"entity_id": f"$resolve_entity_{i}.canonical_id"}
+                    doc_type = self._extract_doc_type(q)
+                    if doc_type:
+                        params["doc_type"] = doc_type
+                    tools.append(ToolCall(tool="find_document", params=params, depends_on=f"resolve_entity_{i}"))
+            elif entity_mentions:
+                params = {"entity_id": "$resolve_entity.canonical_id"}
+                doc_type = self._extract_doc_type(q)
+                if doc_type:
+                    params["doc_type"] = doc_type
+                tools.append(ToolCall(tool="find_document", params=params, depends_on="resolve_entity"))
+            else:
+                params = {}
+                doc_type = self._extract_doc_type(q)
+                if doc_type:
+                    params["doc_type"] = doc_type
+                tools.append(ToolCall(tool="find_document", params=params))
             return Plan(query_type="DOCUMENT", tools=tools, rationale="Document questions use document lookup.")
 
         if any(word in q for word in ["renewal", "renewals", "expire", "expiring", "due"]):
@@ -74,12 +115,13 @@ class Planner:
             tools.append(ToolCall(tool="get_fleet_overview", params={}))
             return Plan(query_type="OVERVIEW", tools=tools, rationale="Fleet summary questions use the overview tool.")
 
-        if entity_mention:
+        if entity_mentions:
             return Plan(query_type="UNKNOWN", tools=tools, rationale="Only entity resolution was confidently identified.")
 
         return Plan(query_type="UNKNOWN", tools=[], rationale="No supported fleet intent was detected.")
 
-    def _extract_entity_mention(self, question: str) -> str | None:
+    def _extract_all_entity_mentions(self, question: str) -> list[str]:
+        """Extract all entity mentions from the question (for comparisons)."""
         patterns = [
             r"\b(?:truck|unit|trk)\s*#?\s*0*\d{1,4}\b",
             r"#\s*0*\d{1,4}\b",
@@ -88,11 +130,23 @@ class Planner:
             r"\b(?:plate|tag)\s+[A-Z0-9-]{2,12}\b",
             r"\b(?:cdl|license)\s+[A-Z0-9-]{5,20}\b",
         ]
+
+        mentions = []
+        seen = set()
+
         for pattern in patterns:
-            match = re.search(pattern, question, flags=re.IGNORECASE)
-            if match:
-                return match.group(0)
-        return None
+            for match in re.finditer(pattern, question, flags=re.IGNORECASE):
+                mention = match.group(0)
+                if mention not in seen:
+                    mentions.append(mention)
+                    seen.add(mention)
+
+        return mentions
+
+    def _extract_entity_mention(self, question: str) -> str | None:
+        """Extract first entity mention (legacy method for backward compatibility)."""
+        mentions = self._extract_all_entity_mentions(question)
+        return mentions[0] if mentions else None
 
     def _extract_period(self, q: str) -> str | None:
         today = date.today()

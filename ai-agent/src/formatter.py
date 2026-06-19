@@ -24,6 +24,20 @@ class Formatter:
         primary = successful[-1] if successful else failed[-1]
         data = primary.data if isinstance(primary.data, dict) else {}
 
+        # Handle comparison queries with multiple results
+        is_comparison = len(successful) > 1
+        comparison_results = [r.data for r in successful if r.ok and r.tool in ["get_expenses", "get_revenue", "get_truck_profit"]]
+
+        if is_comparison and len(comparison_results) > 1:
+            if primary.tool == "get_revenue":
+                return self._format_revenue_comparison(comparison_results), self._revenue_comparison_sources(comparison_results), self._confidence(failed, sum(r.get("load_count", 0) for r in comparison_results))
+
+            if primary.tool == "get_expenses":
+                return self._format_expenses_comparison(comparison_results), self._expenses_comparison_sources(comparison_results), self._confidence(failed, sum(r.get("count", 0) for r in comparison_results))
+
+            if primary.tool == "get_truck_profit":
+                return self._format_profit_comparison(comparison_results), [], self._confidence(failed, sum(len(r.get("trucks", [])) for r in comparison_results))
+
         if primary.tool == "get_expenses":
             return self._format_expenses(data), self._expense_sources(data), self._confidence(failed, data.get("count", 0))
 
@@ -126,3 +140,88 @@ class Formatter:
 
     def _money(self, value: Any) -> str:
         return f"${float(value):,.2f}"
+
+    # Comparison formatting methods
+    def _format_revenue_comparison(self, results: list[dict[str, Any]]) -> str:
+        """Format revenue comparison for multiple trucks."""
+        if not results:
+            return "No revenue data available for comparison."
+
+        comparison_lines = []
+        total_revenue = 0
+        total_loads = 0
+
+        for data in results:
+            total = data.get("total", 0)
+            count = data.get("load_count", 0)
+            total_revenue += float(total)
+            total_loads += count
+            comparison_lines.append(f"  • {self._money(total)} across {count} loads")
+
+        summary = f"Revenue comparison:\n" + "\n".join(comparison_lines)
+        summary += f"\n\nCombined total: {self._money(total_revenue)} across {total_loads} loads"
+        return summary
+
+    def _format_expenses_comparison(self, results: list[dict[str, Any]]) -> str:
+        """Format expense comparison for multiple trucks."""
+        if not results:
+            return "No expense data available for comparison."
+
+        comparison_lines = []
+        total_expenses = 0
+        total_records = 0
+
+        for data in results:
+            total = data.get("total", 0)
+            count = data.get("count", 0)
+            total_expenses += float(total)
+            total_records += count
+            comparison_lines.append(f"  • {self._money(total)} across {count} records")
+
+        summary = f"Expense comparison:\n" + "\n".join(comparison_lines)
+        summary += f"\n\nCombined total: {self._money(total_expenses)} across {total_records} records"
+        return summary
+
+    def _format_profit_comparison(self, results: list[dict[str, Any]]) -> str:
+        """Format profit comparison for multiple trucks."""
+        if not results:
+            return "No profit data available for comparison."
+
+        comparison_lines = []
+        total_revenue = 0
+        total_expenses = 0
+        total_profit = 0
+
+        for data in results:
+            trucks = data.get("trucks", [])
+            for truck in trucks:
+                truck_id = truck.get("id", "Unknown")
+                revenue = float(truck.get("revenue", 0))
+                expenses = float(truck.get("expenses", 0))
+                net = float(truck.get("net", 0))
+                total_revenue += revenue
+                total_expenses += expenses
+                total_profit += net
+                comparison_lines.append(f"  • {truck_id}: {self._money(revenue)} revenue - {self._money(expenses)} expenses = {self._money(net)} profit")
+
+        summary = f"Profit comparison:\n" + "\n".join(comparison_lines)
+        summary += f"\n\nFleet totals: {self._money(total_revenue)} revenue - {self._money(total_expenses)} expenses = {self._money(total_profit)} profit"
+        return summary
+
+    def _revenue_comparison_sources(self, results: list[dict[str, Any]]) -> list[str]:
+        """Extract all load IDs from comparison results."""
+        sources: list[str] = []
+        for data in results:
+            for item in data.get("items", []):
+                if item.get("load_id"):
+                    sources.append(item["load_id"])
+        return sources
+
+    def _expenses_comparison_sources(self, results: list[dict[str, Any]]) -> list[str]:
+        """Extract all doc refs from comparison results."""
+        sources: list[str] = []
+        for data in results:
+            for item in data.get("items", []):
+                if item.get("doc_ref"):
+                    sources.append(item["doc_ref"])
+        return sources
