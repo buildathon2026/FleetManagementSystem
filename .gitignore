@@ -32,4 +32,5 @@ __pycache__/
 *.log
 
 
-FleetDataService/fleet.db-shm
+**/fleet.db-shm
+**/fleet.db
