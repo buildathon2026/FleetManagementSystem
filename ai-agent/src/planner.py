@@ -39,7 +39,7 @@ class Planner:
             # Single entity - use first mention
             tools.append(ToolCall(tool="resolve_entity", params={"mention": entity_mentions[0]}))
 
-        if any(word in q for word in ["profit", "profitable", "net"]):
+        if any(word in q for word in ["profit", "profitable", "net", "earnings", "return", "performance"]):
             # Handle multiple trucks for comparison
             if is_comparison and len(entity_mentions) > 1:
                 for i, mention in enumerate(entity_mentions):
@@ -70,7 +70,7 @@ class Planner:
                 tools.append(ToolCall(tool="get_expenses", params=params))
             return Plan(query_type="STRUCTURED", tools=tools, rationale="Expense comparison queries resolve all entities then fetch expense data.")
 
-        if any(word in q for word in ["revenue", "income", "loads", "gross"]):
+        if any(word in q for word in ["revenue", "income", "loads", "gross", "estimate", "estimates"]):
             params = self._date_params(q)
             # Handle multiple trucks for comparison
             if is_comparison and len(entity_mentions) > 1:
