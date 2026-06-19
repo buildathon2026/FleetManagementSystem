@@ -88,19 +88,17 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
 
       const response = await apiService.ask(text, 'conv-001');
 
-      setMessages((prev) => {
-        const filtered = prev.filter((m) => m.id !== pipelineId);
-        return [
-          ...filtered,
-          {
-            id: (Date.now() + 2).toString(),
-            role: 'assistant',
-            content: response.answer,
-            sources: response.sources,
-            timestamp: new Date(),
-          },
-        ];
-      });
+      // Keep pipeline visible and add response below it
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 2).toString(),
+          role: 'assistant',
+          content: response.answer,
+          sources: response.sources,
+          timestamp: new Date(),
+        },
+      ]);
 
       onToolExecuted({
         queryType: response.query_type,
@@ -109,7 +107,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
       });
     } catch (error) {
       console.error('Error:', error);
-      setMessages((prev) => prev.filter((m) => m.id !== pipelineId));
+      // Keep pipeline visible and add error message below it
       setMessages((prev) => [
         ...prev,
         {
