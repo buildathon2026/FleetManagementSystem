@@ -11,6 +11,7 @@ const seed_1 = require("./seed");
 const audit_1 = require("./middleware/audit");
 // Route imports
 const health_1 = __importDefault(require("./routes/health"));
+const toolsList_1 = __importDefault(require("./routes/toolsList"));
 const expenses_1 = __importDefault(require("./routes/expenses"));
 const revenue_1 = __importDefault(require("./routes/revenue"));
 const profit_1 = __importDefault(require("./routes/profit"));
@@ -28,6 +29,7 @@ app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.defaul
 app.get('/openapi.json', (_req, res) => res.json(swagger_1.swaggerSpec));
 // Routes
 app.use(health_1.default);
+app.use(toolsList_1.default);
 app.use(expenses_1.default);
 app.use(revenue_1.default);
 app.use(profit_1.default);

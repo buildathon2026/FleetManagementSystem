@@ -7,6 +7,7 @@ import { auditMiddleware } from './middleware/audit';
 
 // Route imports
 import healthRouter from './routes/health';
+import toolsListRouter from './routes/toolsList';
 import expensesRouter from './routes/expenses';
 import revenueRouter from './routes/revenue';
 import profitRouter from './routes/profit';
@@ -29,6 +30,7 @@ app.get('/openapi.json', (_req, res) => res.json(swaggerSpec));
 
 // Routes
 app.use(healthRouter);
+app.use(toolsListRouter);
 app.use(expensesRouter);
 app.use(revenueRouter);
 app.use(profitRouter);

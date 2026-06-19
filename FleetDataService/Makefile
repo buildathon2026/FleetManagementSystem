@@ -1,4 +1,4 @@
-.PHONY: setup build run dev seed clean
+.PHONY: setup build run dev mcp seed clean
 
 # Install dependencies
 setup:
@@ -15,6 +15,10 @@ run:
 # Start development server with auto-reload
 dev:
 	npx ts-node-dev --respawn --transpile-only src/index.ts
+
+# Start MCP server (stdio transport — for Claude Desktop, Kiro, LangChain MCP clients)
+mcp:
+	npx ts-node src/mcp-server.ts
 
 # Re-seed the database (drops and recreates data)
 seed:

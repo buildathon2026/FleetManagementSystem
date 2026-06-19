@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "fleet-data": {
+      "command": "npx",
+      "args": ["ts-node", "src/mcp-server.ts"],
+      "cwd": ".",
+      "env": {
+        "DATABASE_PATH": "./fleet.db"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "get_expenses",
+        "get_revenue",
+        "get_truck_profit",
+        "find_document",
+        "resolve_entity",
+        "get_upcoming_renewals",
+        "get_fleet_overview"
+      ]
+    }
+  }
+}
