@@ -12,9 +12,16 @@ from .resolver import EntityResolver, normalize_exact, normalize_unit
 from .seed import seed
 
 
-graph = EntityGraph()
-if graph.is_empty():
-    seed(graph)
+try:
+    graph = EntityGraph()
+    if graph.is_empty():
+        try:
+            seed(graph)
+        except Exception as e:
+            print(f"Warning: Failed to seed graph: {e}", flush=True)
+except Exception as e:
+    print(f"Error: Failed to initialize entity graph: {e}", flush=True)
+    raise
 
 resolver = EntityResolver(graph)
 app = FastAPI(title="Entity Resolution Engine", version="0.1.0")
