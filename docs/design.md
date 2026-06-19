@@ -1,5 +1,11 @@
 # Fleet Intelligence System — AI Techniques Applied at Scale
 
+## Problem
+
+Trucking carriers run on paper. An active fleet generates 50+ documents every week, titles, tax forms, fuel records, registration renewals, maintenance receipts. Today it all lives in filing cabinets, glove boxes, and email threads. Nothing is searchable. Nothing is organized by truck. Operators can't answer basic questions without digging through physical files: which trucks are profitable? How much did I spend on parts last month? Where's the tax form for truck 84? What documents do I need to renew these plates? Build a system that ingests every fleet document, links each one to the correct truck, driver, and trailer, and lets an operator ask any question in plain English. Some questions need a database query, some need document retrieval, some need both in one answer. The system should handle all of them, accurately, grounded, no hallucinations. Sample documents can be synthetic. The messiness should be realistic.
+
+## Overview
+
 How every AI inference and fine-tuning technique solves a specific hard problem in the Fleet Document Intelligence system. Designed for production-scale (1000s of trucks, millions of documents) with hackathon-feasible implementations.
 
 ---
