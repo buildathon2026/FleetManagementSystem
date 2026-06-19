@@ -138,7 +138,6 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
       ...prev,
       [messageId]: 'up',
     }));
-    openFeedbackModal(messageId);
   };
 
   const handleBubbleNo = (messageId: string) => {
@@ -146,6 +145,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
       ...prev,
       [messageId]: 'down',
     }));
+    openFeedbackModal(messageId);
   };
 
   const openFeedbackModal = (messageId: string) => {
@@ -310,35 +310,40 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
                       <span>💬 Was this helpful?</span>
                       <button
                         onClick={() => handleBubbleYes(message.id)}
-                        className="ml-auto px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-full font-medium transition-colors"
+                        className="ml-auto px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-full font-medium transition-colors"
                       >
                         Yes
                       </button>
                       <button
                         onClick={() => handleBubbleNo(message.id)}
-                        className="px-3 py-1 bg-slate-600 hover:bg-slate-700 text-white text-xs rounded-full font-medium transition-colors"
+                        className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-full font-medium transition-colors"
                       >
                         No
                       </button>
                     </div>
                   )}
+
+                  {/* Smiley when user clicks Yes */}
+                  {feedback[message.id] === 'up' && (
+                    <div className="text-3xl">😊</div>
+                  )}
                 </div>
               )}
 
-              {/* Feedback Modal */}
+              {/* Feedback Modal - Shows when user clicks No */}
               {feedbackModal.isOpen && feedbackModal.messageId === message.id && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                   <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 max-w-md w-full mx-4 space-y-4">
-                    <h3 className="text-lg font-semibold text-slate-100">Provide Feedback</h3>
+                    <h3 className="text-lg font-semibold text-slate-100">Help Us Improve</h3>
                     <p className="text-sm text-slate-400">
-                      Help us improve by sharing your thoughts about this response.
+                      What could we have done better with this response?
                     </p>
                     <textarea
                       value={feedbackModal.text}
                       onChange={(e) =>
                         setFeedbackModal((prev) => ({ ...prev, text: e.target.value }))
                       }
-                      placeholder="What could we improve?..."
+                      placeholder="Tell us what went wrong..."
                       className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-24"
                     />
                     <div className="flex gap-3 justify-end">
