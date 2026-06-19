@@ -1,4 +1,4 @@
-FROM node:20-bullseye AS base
+FROM node:20-bullseye
 
 WORKDIR /app
 
@@ -9,51 +9,58 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     python3-venv \
     sqlite3 \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Create Python virtual environment
+# Create and activate Python virtual environment
 RUN python3.9 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH" \
+    VIRTUAL_ENV="/opt/venv"
 
 # Install Python base dependencies
-RUN pip install --no-cache-dir -q fastapi uvicorn pydantic httpx python-multipart chromadb
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir fastapi uvicorn pydantic httpx python-multipart chromadb
 
-# Copy Python requirements and install
+# Copy all Python requirements and install
 COPY DocumentIngestionPipeline/requirements.txt ./ingest_requirements.txt
 COPY ai-agent/requirements.txt ./agent_requirements.txt
 COPY entity-resolution/requirements.txt ./entity_requirements.txt
 
-RUN pip install --no-cache-dir -q -r ingest_requirements.txt && \
-    pip install --no-cache-dir -q -r agent_requirements.txt && \
-    pip install --no-cache-dir -q -r entity_requirements.txt || true
+RUN pip install --no-cache-dir -r ingest_requirements.txt && \
+    pip install --no-cache-dir -r agent_requirements.txt && \
+    pip install --no-cache-dir -r entity_requirements.txt
 
-# Copy Node.js package files and install
+# Copy and build Node.js service
 COPY FleetDataService/package*.json ./fleet/
-RUN cd fleet && npm ci --prefer-offline --no-audit
+WORKDIR /app/fleet
+RUN npm ci --prefer-offline --no-audit && npm run build
 
-# Copy all service source code
-COPY DocumentIngestionPipeline/src ./ingest_src/
-COPY ai-agent/src ./agent_src/
-COPY entity-resolution/src ./entity_src/
-COPY FleetDataService/src ./fleet/src/
-COPY FleetDataService/tsconfig.json ./fleet/tsconfig.json
+# Copy Fleet Data Service source and build artifacts
+COPY FleetDataService/src ./src/
+COPY FleetDataService/tsconfig.json ./
 
-# Build FleetDataService TypeScript
-RUN cd fleet && npm run build
+# Back to app root and copy Python services
+WORKDIR /app
+COPY DocumentIngestionPipeline/src/ ./ingest_src/
+COPY ai-agent/src/ ./agent_src/
+COPY entity-resolution/src/ ./entity_src/
 
-# Copy shared data
-COPY DocumentIngestionPipeline/fleet.db ./fleet.db 2>/dev/null || echo ""
-COPY DocumentIngestionPipeline/chromadb ./chromadb 2>/dev/null || echo ""
-COPY FleetDataService/fleet.db ./fleet/fleet.db 2>/dev/null || echo ""
+# Copy data files (ignore if not present)
+COPY DocumentIngestionPipeline/fleet.db ./fleet.db 2>/dev/null || true
+COPY DocumentIngestionPipeline/chromadb ./chromadb 2>/dev/null || true
+COPY FleetDataService/fleet.db ./fleet/fleet.db 2>/dev/null || true
 
-# Copy startup script
-COPY start.py .
+# Copy startup orchestrator
+COPY start.py ./
+
+# Make start.py executable
+RUN chmod +x start.py
 
 # Expose all service ports
-EXPOSE 8001 8002 8003 8004 8000
+EXPOSE 8001 8002 8003 8004
 
-# Health check (check primary health endpoint)
+# Simple health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD python3.9 -c "import requests; requests.get('http://localhost:8001/health')" || exit 1
+  CMD curl -f http://localhost:8001/health || curl -f http://localhost:8002/health || exit 1
 
 CMD ["python", "start.py"]
