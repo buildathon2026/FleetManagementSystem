@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import type { FormEvent } from 'react';
-import { Send, ArrowLeft } from 'lucide-react';
+import { Send, ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import apiService from '../services/mockApi';
 import type { PipelineStage } from './PipelineVisualization';
@@ -18,6 +18,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState<{ [key: string]: 'up' | 'down' | null }>({});
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -125,6 +126,13 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
   const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     sendMessage(input);
+  };
+
+  const handleFeedback = (messageId: string, type: 'up' | 'down') => {
+    setFeedback((prev) => ({
+      ...prev,
+      [messageId]: prev[messageId] === type ? null : type,
+    }));
   };
 
   return (
@@ -246,8 +254,8 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
               )}
 
               {message.role === 'assistant' && (
-                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700">
-                  <p className="text-sm text-slate-200 mb-3">{message.content}</p>
+                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3">
+                  <p className="text-sm text-slate-200">{message.content}</p>
                   {message.sources && message.sources.length > 0 && (
                     <div className="space-y-2">
                       <p className="text-xs text-slate-500">Sources:</p>
@@ -263,6 +271,29 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
                       </div>
                     </div>
                   )}
+                  <div className="flex items-center gap-2 pt-2 border-t border-slate-700">
+                    <p className="text-xs text-slate-500">Helpful?</p>
+                    <button
+                      onClick={() => handleFeedback(message.id, 'up')}
+                      className={`p-1.5 rounded transition-colors ${
+                        feedback[message.id] === 'up'
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'text-slate-500 hover:text-slate-400'
+                      }`}
+                    >
+                      <ThumbsUp size={16} />
+                    </button>
+                    <button
+                      onClick={() => handleFeedback(message.id, 'down')}
+                      className={`p-1.5 rounded transition-colors ${
+                        feedback[message.id] === 'down'
+                          ? 'bg-red-500/20 text-red-400'
+                          : 'text-slate-500 hover:text-slate-400'
+                      }`}
+                    >
+                      <ThumbsDown size={16} />
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
