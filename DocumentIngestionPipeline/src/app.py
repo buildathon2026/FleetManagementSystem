@@ -301,21 +301,12 @@ async def delete_document(doc_id: str):
 
 
 @app.get("/health")
-async def health_check():
+def health_check():
     """Health check endpoint."""
-    try:
-        pipeline = get_pipeline()
-        stats = pipeline.get_stats()
-        return {
-            "status": "healthy",
-            "pipeline": "Document Ingestion Pipeline v1.0",
-            "database": "connected",
-            "vector_store": "connected",
-            "documents_processed": stats["total_processed"],
-        }
-    except Exception as e:
-        logger.error(f"Health check failed: {e}")
-        return {"status": "unhealthy", "error": str(e)}, 503
+    return {
+        "status": "ok",
+        "service": "document-ingestion"
+    }
 
 
 @app.get("/")
