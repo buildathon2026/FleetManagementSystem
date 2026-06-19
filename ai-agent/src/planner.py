@@ -33,8 +33,8 @@ class Planner:
 
         # Handle multiple entities for comparison queries
         if is_comparison and len(entity_mentions) > 1:
-            for mention in entity_mentions:
-                tools.append(ToolCall(tool="resolve_entity", params={"mention": mention}))
+            for i, mention in enumerate(entity_mentions):
+                tools.append(ToolCall(tool="resolve_entity", params={"mention": mention}, call_id=f"resolve_entity_{i}"))
         elif entity_mentions:
             # Single entity - use first mention
             tools.append(ToolCall(tool="resolve_entity", params={"mention": entity_mentions[0]}))

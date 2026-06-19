@@ -18,6 +18,7 @@ class ToolCall(BaseModel):
     tool: str
     params: dict[str, Any] = Field(default_factory=dict)
     depends_on: Optional[str] = None
+    call_id: Optional[str] = None  # Track multiple calls to same tool
 
 
 class Plan(BaseModel):

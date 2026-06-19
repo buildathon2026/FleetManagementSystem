@@ -29,22 +29,37 @@ class ToolExecutor:
     async def execute(self, plan: Plan) -> list[ToolResult]:
         results: list[ToolResult] = []
         resolved_context: dict[str, Any] = {}
+        call_mapping: dict[str, ToolCall] = {}  # Map call_id to ToolCall
+
+        # Build mapping of call IDs to tool calls
+        for i, call in enumerate(plan.tools):
+            call_id = call.call_id or f"{call.tool}_{i}"
+            call_mapping[call_id] = call
 
         independent = [call for call in plan.tools if not call.depends_on]
         dependent = [call for call in plan.tools if call.depends_on]
 
         if independent:
-            first_results = await asyncio.gather(*(self._call_tool(call, resolved_context) for call in independent))
+            first_results = await asyncio.gather(*(self._call_tool(call, resolved_context, call_mapping) for call in independent))
             results.extend(first_results)
-            self._update_context(resolved_context, first_results)
+            # Store results by call_id in context
+            for call, result in zip(independent, first_results):
+                call_id = call.call_id or f"{call.tool}_{plan.tools.index(call)}"
+                if result.ok and isinstance(result.data, dict):
+                    resolved_context[call_id] = result.data
 
         if dependent:
-            next_results = await asyncio.gather(*(self._call_tool(call, resolved_context) for call in dependent))
+            next_results = await asyncio.gather(*(self._call_tool(call, resolved_context, call_mapping) for call in dependent))
             results.extend(next_results)
+            # Store results by call_id in context
+            for call, result in zip(dependent, next_results):
+                call_id = call.call_id or f"{call.tool}_{plan.tools.index(call)}"
+                if result.ok and isinstance(result.data, dict):
+                    resolved_context[call_id] = result.data
 
         return results
 
-    async def _call_tool(self, call: ToolCall, context: dict[str, Any]) -> ToolResult:
+    async def _call_tool(self, call: ToolCall, context: dict[str, Any], call_mapping: dict[str, ToolCall] = None) -> ToolResult:
         if call.tool not in TOOL_ROUTES:
             return ToolResult(
                 tool=call.tool,
@@ -99,7 +114,17 @@ class ToolExecutor:
             current = current.get(part)
         return current
 
-    def _update_context(self, context: dict[str, Any], results: list[ToolResult]) -> None:
-        for result in results:
+    def _update_context(self, context: dict[str, Any], results: list[ToolResult], call_mapping: dict[str, ToolCall] = None) -> None:
+        for i, result in enumerate(results):
             if result.ok and isinstance(result.data, dict):
-                context[result.tool] = result.data
+                # Find the call_id for this result
+                call_id = None
+                if call_mapping:
+                    for cid, call in call_mapping.items():
+                        if call.tool == result.tool:
+                            call_id = cid
+                            break
+
+                # Store by call_id if available, otherwise by tool name
+                key = call_id or result.tool
+                context[key] = result.data
