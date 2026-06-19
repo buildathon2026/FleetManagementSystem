@@ -21,7 +21,8 @@ The API runs on port `8001`.
 ## Environment
 
 ```bash
-FLEET_DATA_URL=http://localhost:8002
+MCP_TOOLS_URL=http://192.168.1.160:8002/tools
+FLEET_DATA_URL=http://192.168.1.160:8002
 ENTITY_RESOLUTION_URL=http://localhost:8003
 INGESTION_URL=http://localhost:8004
 AGENT_DB_PATH=data/agent.db

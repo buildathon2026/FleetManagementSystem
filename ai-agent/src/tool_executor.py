@@ -6,18 +6,22 @@ from typing import Any
 
 import httpx
 
-from .config import ENTITY_RESOLUTION_URL, FLEET_DATA_URL, HTTP_TIMEOUT_SECONDS
+from .config import HTTP_TIMEOUT_SECONDS, MCP_TOOLS_URL
 from .models import Plan, ToolCall, ToolResult
 
 
+def tool_url(path: str) -> str:
+    return f"{MCP_TOOLS_URL}/{path.lstrip('/')}"
+
+
 TOOL_ROUTES = {
-    "resolve_entity": (ENTITY_RESOLUTION_URL, "/resolve"),
-    "get_expenses": (FLEET_DATA_URL, "/tools/expenses"),
-    "get_revenue": (FLEET_DATA_URL, "/tools/revenue"),
-    "get_truck_profit": (FLEET_DATA_URL, "/tools/profit"),
-    "find_document": (FLEET_DATA_URL, "/tools/documents"),
-    "get_upcoming_renewals": (FLEET_DATA_URL, "/tools/renewals"),
-    "get_fleet_overview": (FLEET_DATA_URL, "/tools/fleet-overview"),
+    "resolve_entity": tool_url("entity/resolve"),
+    "get_expenses": tool_url("expenses"),
+    "get_revenue": tool_url("revenue"),
+    "get_truck_profit": tool_url("profit"),
+    "find_document": tool_url("documents"),
+    "get_upcoming_renewals": tool_url("renewals"),
+    "get_fleet_overview": tool_url("fleet-overview"),
 }
 
 
@@ -55,11 +59,11 @@ class ToolExecutor:
         if missing_param is None and any(value is None for value in params.values()):
             return ToolResult(tool=call.tool, params=params, ok=False, error="Required context was unavailable", elapsed_ms=0)
 
-        base_url, path = TOOL_ROUTES[call.tool]
+        url = TOOL_ROUTES[call.tool]
         start = time.perf_counter()
         try:
             async with httpx.AsyncClient(timeout=HTTP_TIMEOUT_SECONDS) as client:
-                response = await client.get(f"{base_url}{path}", params=params)
+                response = await client.get(url, params=params)
             elapsed_ms = int((time.perf_counter() - start) * 1000)
             try:
                 data = response.json()
