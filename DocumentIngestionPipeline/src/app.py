@@ -7,12 +7,22 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
 
-from .ingestion import DocumentIngestionPipeline
-from .database import DocumentDB
-
-# Configure logging
+# Configure logging first
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Import dependencies with error handling
+try:
+    from .ingestion import DocumentIngestionPipeline
+except Exception as e:
+    logger.warning(f"Failed to import DocumentIngestionPipeline: {e}")
+    DocumentIngestionPipeline = None
+
+try:
+    from .database import DocumentDB
+except Exception as e:
+    logger.warning(f"Failed to import DocumentDB: {e}")
+    DocumentDB = None
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -28,6 +38,8 @@ def get_pipeline():
     """Lazy initialize pipeline on first use."""
     global _pipeline
     if _pipeline is None:
+        if DocumentIngestionPipeline is None:
+            raise RuntimeError("DocumentIngestionPipeline module failed to import")
         try:
             _pipeline = DocumentIngestionPipeline()
             logger.info("Document Ingestion Pipeline initialized successfully")
