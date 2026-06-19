@@ -21,13 +21,20 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Initialize pipeline
-try:
-    pipeline = DocumentIngestionPipeline()
-    logger.info("Document Ingestion Pipeline initialized successfully")
-except Exception as e:
-    logger.error(f"Failed to initialize pipeline: {e}", exc_info=True)
-    raise
+# Lazy initialization of pipeline
+_pipeline = None
+
+def get_pipeline():
+    """Lazy initialize pipeline on first use."""
+    global _pipeline
+    if _pipeline is None:
+        try:
+            _pipeline = DocumentIngestionPipeline()
+            logger.info("Document Ingestion Pipeline initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize pipeline: {e}", exc_info=True)
+            raise
+    return _pipeline
 
 
 # Request/Response Models
@@ -80,6 +87,7 @@ async def ingest_document(request: IngestRequest):
     logger.info(f"Ingesting document: {request.filename}")
 
     try:
+        pipeline = get_pipeline()
         result = await pipeline.ingest_document(request.filename, request.content)
         return IngestResponse(**result)
     except Exception as e:
@@ -97,6 +105,7 @@ async def ingest_batch(documents: List[IngestRequest]):
     logger.info(f"Ingesting batch of {len(documents)} documents")
 
     try:
+        pipeline = get_pipeline()
         doc_tuples = [(doc.filename, doc.content) for doc in documents]
         results = await pipeline.ingest_batch(doc_tuples)
         return {"total": len(results), "results": results}
@@ -132,6 +141,7 @@ async def ingest_files(files: List[UploadFile] = File(...)):
                 )
                 continue
 
+            pipeline = get_pipeline()
             result = await pipeline.ingest_document(file.filename, text_content)
             results.append(result)
 
@@ -149,6 +159,7 @@ async def get_document_status(doc_id: str):
 
     Returns classification results, entity resolution, and processing stages.
     """
+    pipeline = get_pipeline()
     status = pipeline.get_document_status(doc_id)
 
     if status.get("status") == "not_found":
@@ -164,6 +175,7 @@ async def get_stats():
 
     Includes total documents processed, breakdown by type, and vector store stats.
     """
+    pipeline = get_pipeline()
     db_stats = pipeline.db.get_stats()
     vector_stats = pipeline.vector_store.get_collection_stats()
 
@@ -198,6 +210,7 @@ async def search_documents(
     logger.info(f"Searching: {query}")
 
     try:
+        pipeline = get_pipeline()
         results = pipeline.vector_store.search(
             query=query,
             n_results=n_results,
@@ -228,6 +241,7 @@ async def get_entity_documents(
     logger.info(f"Getting documents for entity: {entity_id}")
 
     try:
+        pipeline = get_pipeline()
         # Get from vector store
         docs = pipeline.vector_store.get_documents_by_entity(
             entity_id=entity_id,
@@ -249,6 +263,7 @@ async def archive_document(doc_id: str):
     logger.info(f"Archiving document: {doc_id}")
 
     try:
+        pipeline = get_pipeline()
         success = pipeline.vector_store.archive_document(doc_id)
         if success:
             return {"doc_id": doc_id, "status": "archived"}
@@ -269,6 +284,7 @@ async def delete_document(doc_id: str):
     logger.info(f"Deleting document: {doc_id}")
 
     try:
+        pipeline = get_pipeline()
         # Mark as inactive in database
         doc = pipeline.db.get_document(doc_id)
         if not doc:
@@ -288,6 +304,7 @@ async def delete_document(doc_id: str):
 async def health_check():
     """Health check endpoint."""
     try:
+        pipeline = get_pipeline()
         stats = pipeline.get_stats()
         return {
             "status": "healthy",
