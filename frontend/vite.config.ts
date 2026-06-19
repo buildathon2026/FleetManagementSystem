@@ -7,17 +7,17 @@ export default defineConfig({
   server: {
     proxy: {
       '/ask': {
-        target: 'http://192.168.1.160:8001',
+        target: 'http://localhost:8001',
         changeOrigin: true,
         rewrite: (path) => path,
       },
       '/health': {
-        target: 'http://192.168.1.160:8001',
+        target: 'http://localhost:8001',
         changeOrigin: true,
         rewrite: (path) => path,
       },
       '/feedback': {
-        target: 'http://192.168.1.160:8001',
+        target: 'http://localhost:8001',
         changeOrigin: true,
         rewrite: (path) => path,
       },
