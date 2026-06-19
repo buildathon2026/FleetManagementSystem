@@ -12,19 +12,35 @@ from .resolver import EntityResolver, normalize_exact, normalize_unit
 from .seed import seed
 
 
-try:
-    graph = EntityGraph()
-    if graph.is_empty():
-        try:
-            seed(graph)
-        except Exception as e:
-            print(f"Warning: Failed to seed graph: {e}", flush=True)
-except Exception as e:
-    print(f"Error: Failed to initialize entity graph: {e}", flush=True)
-    raise
-
-resolver = EntityResolver(graph)
 app = FastAPI(title="Entity Resolution Engine", version="0.1.0")
+
+# Lazy initialization of graph and resolver
+_graph = None
+_resolver = None
+
+def get_graph() -> EntityGraph:
+    """Lazy initialize entity graph on first use."""
+    global _graph
+    if _graph is None:
+        try:
+            _graph = EntityGraph()
+            if _graph.is_empty():
+                try:
+                    seed(_graph)
+                except Exception as e:
+                    print(f"Warning: Failed to seed graph: {e}", flush=True)
+        except Exception as e:
+            print(f"Error: Failed to initialize entity graph: {e}", flush=True)
+            raise
+    return _graph
+
+def get_resolver() -> EntityResolver:
+    """Lazy initialize resolver on first use."""
+    global _resolver
+    if _resolver is None:
+        graph = get_graph()
+        _resolver = EntityResolver(graph)
+    return _resolver
 
 
 class AliasRegisterRequest(BaseModel):
@@ -61,11 +77,13 @@ def health() -> dict[str, str]:
 
 @app.get("/resolve")
 def resolve(mention: str) -> dict[str, Any]:
+    resolver = get_resolver()
     return asdict(resolver.resolve(mention))
 
 
 @app.get("/entity/{entity_id}")
 def get_entity(entity_id: str) -> dict[str, Any]:
+    graph = get_graph()
     entity = graph.get_entity(entity_id)
     if not entity:
         raise HTTPException(status_code=404, detail="Entity not found")
@@ -88,11 +106,13 @@ def get_entity(entity_id: str) -> dict[str, Any]:
 
 @app.get("/entities")
 def list_entities() -> list[dict[str, Any]]:
+    graph = get_graph()
     return [dict(row) for row in graph.list_entities()]
 
 
 @app.post("/entity/register-alias", status_code=201)
 def register_alias(request: AliasRegisterRequest) -> dict[str, Any]:
+    graph = get_graph()
     if not graph.get_entity(request.entity_id):
         raise HTTPException(status_code=404, detail="Entity not found")
 
