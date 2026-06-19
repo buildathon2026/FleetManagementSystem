@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Arkansas
+Document Number: AR-2024-3847291
+
+VEHICLE INFORMATION
+VIN: 5P5GF0834LV023945
+Year: 2023
+Make: Peterbilt
+Model: 389
+Truck Unit Number: 140
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 678901234
+Date of Issue: September 18, 2023
+Lien Holder: BancorpSouth Commercial Finance
+Lien Holder Address: 1 Mississippi Plaza, Memphis, TN 38103
+Lien Release: No
+
+ODOMETER READING: 89,234 miles
+Date of Odometer Reading: September 18, 2023
+
+Signature: _________________
+Date: September 18, 2023

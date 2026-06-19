@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000013
+Date: June 05, 2026
+Period: May 22, 2026 to June 05, 2026
+
+LOAD INFORMATION
+Load #: LOAD-41874
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 168 (T-168)
+Driver: Samuel Price
+Miles: 640
+
+REVENUE
+Freight Charges: $1071.62
+Fuel Surcharge: $137.26
+Accessorial Charges: $206.34
+Total Revenue: $1445.12
+
+DEDUCTIONS
+Fuel Cost: $320.09
+Maintenance: $368.65
+Insurance: $56.13
+Tolls: $86.59
+Commission: $189.35
+Miscellaneous: $14.14
+Total Deductions: $896.03
+
+NET SETTLEMENT: $695.17
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: SAMUEL_PRICE-0013

@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Georgia
+County: DeKalb
+Registration Number: GA-24-112
+Plate Number: ABCGA112
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: T-112
+Make: Isuzu
+Model: NPR-HD
+Year: 2024
+VIN: 1FUJITSU82D1SJSYT
+GVW: 36,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: May 3, 2024
+Expiration Date: May 3, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: David Chen
+Driver's License: 593847293
+License State: Georgia
+
+Issued by: Georgia Department of Motor Vehicles
+Date Issued: May 3, 2024
+Signature: _________________

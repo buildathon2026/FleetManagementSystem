@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Atlanta GA
+Receipt Number: FUEL-000031
+Date: 06/01/2026
+Time: 16:52
+
+VEHICLE INFORMATION
+Truck: 132
+Driver: John Smith
+Odometer: 358727
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 99.0
+Price per Gallon: $4.10
+Subtotal: $667.34
+Tax: $44.55
+Total Amount: $330.06
+
+Payment Method: Fleet Card
+Card Last 4: 5421
+Pump Number: 11
+
+Thank you for your business!

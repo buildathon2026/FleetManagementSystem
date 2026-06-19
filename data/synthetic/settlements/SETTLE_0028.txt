@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000028
+Date: June 05, 2026
+Period: May 22, 2026 to June 05, 2026
+
+LOAD INFORMATION
+Load #: LOAD-60018
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 151 (T-151)
+Driver: David Chen
+Miles: 890
+
+REVENUE
+Freight Charges: $1747.97
+Fuel Surcharge: $83.38
+Accessorial Charges: $167.16
+Total Revenue: $1545.16
+
+DEDUCTIONS
+Fuel Cost: $304.29
+Maintenance: $390.29
+Insurance: $162.37
+Tolls: $51.27
+Commission: $259.47
+Miscellaneous: $68.87
+Total Deductions: $1316.97
+
+NET SETTLEMENT: $506.37
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: DAVID_CHEN-0028

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Atlanta GA
+Receipt Number: FUEL-000041
+Date: 06/16/2026
+Time: 14:05
+
+VEHICLE INFORMATION
+Truck: Trk 140
+Driver: David Chen
+Odometer: 186765
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 89.7
+Price per Gallon: $3.79
+Subtotal: $476.08
+Tax: $40.2
+Total Amount: $658.8
+
+Payment Method: Fleet Card
+Card Last 4: 3461
+Pump Number: 15
+
+Thank you for your business!

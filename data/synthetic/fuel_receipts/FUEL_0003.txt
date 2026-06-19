@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Houston TX
+Receipt Number: FUEL-000003
+Date: 05/23/2026
+Time: 12:00
+
+VEHICLE INFORMATION
+Truck: Trk 105
+Driver: Antoine Beaumont
+Odometer: 161259
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 144.8
+Price per Gallon: $3.96
+Subtotal: $675.88
+Tax: $49.84
+Total Amount: $684.06
+
+Payment Method: Fleet Card
+Card Last 4: 8213
+Pump Number: 12
+
+Thank you for your business!

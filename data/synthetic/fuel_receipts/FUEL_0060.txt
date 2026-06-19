@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Los Angeles CA
+Receipt Number: FUEL-000060
+Date: 06/11/2026
+Time: 20:43
+
+VEHICLE INFORMATION
+Truck: Unit140
+Driver: Kevin Hayes
+Odometer: 310927
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 105.3
+Price per Gallon: $3.53
+Subtotal: $366.27
+Tax: $47.43
+Total Amount: $393.16
+
+Payment Method: Fleet Card
+Card Last 4: 7152
+Pump Number: 19
+
+Thank you for your business!

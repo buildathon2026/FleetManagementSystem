@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000002
+Date: May 27, 2026
+Period: May 13, 2026 to May 27, 2026
+
+LOAD INFORMATION
+Load #: LOAD-18173
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 168 (T-168)
+Driver: John Smith
+Miles: 1386
+
+REVENUE
+Freight Charges: $2385.55
+Fuel Surcharge: $116.43
+Accessorial Charges: $219.34
+Total Revenue: $1162.9
+
+DEDUCTIONS
+Fuel Cost: $512.65
+Maintenance: $187.52
+Insurance: $88.7
+Tolls: $117.53
+Commission: $360.19
+Miscellaneous: $2.8
+Total Deductions: $1175.36
+
+NET SETTLEMENT: $833.65
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: JOHN_SMITH-0002

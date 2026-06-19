@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Miami FL
+Receipt Number: FUEL-000055
+Date: 06/13/2026
+Time: 16:59
+
+VEHICLE INFORMATION
+Truck: Unit 125
+Driver: Kevin Hayes
+Odometer: 128000
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 116.5
+Price per Gallon: $3.59
+Subtotal: $666.16
+Tax: $24.36
+Total Amount: $339.37
+
+Payment Method: Fleet Card
+Card Last 4: 4054
+Pump Number: 13
+
+Thank you for your business!

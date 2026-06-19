@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0019
+Date: May 06, 2026
+Invoice ID: MNT-000019
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 105 (T-105)
+Make/Model: Mack Truck
+Odometer Reading: 360048 miles
+
+SERVICE PROVIDER
+Shop Name: ABC Auto Parts
+Address: Atlanta GA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Tire Replacement
+Hours: 7.2
+Rate: $107/hour
+Parts Cost: $914.96
+Labor Cost: $705.78
+Subtotal: $1189.32
+Tax (8.25%): $110.72
+
+TOTAL DUE: $1309.25
+
+Terms: Net 30
+Due Date: June 05, 2026
+
+Authorized By: Philip Morrison
+Shop Signature: _________________

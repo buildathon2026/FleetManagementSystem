@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Phoenix AZ
+Receipt Number: FUEL-000016
+Date: 06/09/2026
+Time: 11:27
+
+VEHICLE INFORMATION
+Truck: Trk 151
+Driver: Kevin Hayes
+Odometer: 349150
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 149.3
+Price per Gallon: $3.53
+Subtotal: $457.12
+Tax: $28.05
+Total Amount: $538.62
+
+Payment Method: Fleet Card
+Card Last 4: 3355
+Pump Number: 20
+
+Thank you for your business!

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Denver CO
+Receipt Number: FUEL-000050
+Date: 05/20/2026
+Time: 18:17
+
+VEHICLE INFORMATION
+Truck: 140
+Driver: Antoine Beaumont
+Odometer: 236516
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 118.8
+Price per Gallon: $4.12
+Subtotal: $511.26
+Tax: $29.02
+Total Amount: $626.89
+
+Payment Method: Fleet Card
+Card Last 4: 3367
+Pump Number: 17
+
+Thank you for your business!

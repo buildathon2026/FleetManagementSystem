@@ -1,0 +1,45 @@
+ANNUAL DOT INSPECTION REPORT
+
+Inspection Number: DOT-000004
+Inspection Date: February 02, 2026
+Valid Until: February 28, 2027
+Inspection Station: ABC Certified Inspection Service
+Inspector License: INSP-90532
+
+VEHICLE INFORMATION
+Unit Number: 112 (T-112)
+Make/Model: Kenworth Truck
+Year: 2023
+VIN: 1FUJITSU82D1SJSYT
+Gross Vehicle Weight: 80,000 lbs
+Odometer: 360181 miles
+
+INSPECTION RESULTS - PASS ✓
+
+EXTERIOR
+[ ✓ ] Lights and Reflectors: PASS
+[ ✓ ] Windshield/Wipers: PASS
+[ ✓ ] Mirrors: PASS
+[ ✓ ] Body/Doors: PASS
+[ ✓ ] Coupling Device: PASS
+
+MECHANICAL
+[ ✓ ] Brakes: PASS
+[ ✓ ] Tires: PASS
+[ ✓ ] Suspension: PASS
+[ ✓ ] Steering: PASS
+[ ✓ ] Engine: PASS
+[ ✓ ] Transmission: PASS
+
+SAFETY EQUIPMENT
+[ ✓ ] Fire Extinguisher: PASS
+[ ✓ ] Emergency Equipment: PASS
+[ ✓ ] Safety Belt: PASS
+[ ✓ ] Placards/Markings: PASS
+
+OVERALL RESULT: APPROVED FOR SERVICE
+
+Inspector Name: Michael Torres
+Signature: _________________
+Print Name: Michael Torres
+Inspector Certification: INSP-2847392

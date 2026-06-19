@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000023
+Date: 06/04/2026
+Time: 09:54
+
+TOLL AUTHORITY: Sam Rayburn Tollway
+TRANSPONDER ACCOUNT: 352746
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 118
+Transponder ID: TX-5226
+
+TOLL CHARGES
+Toll Plaza: South Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $6.2
+
+ACCOUNT INFORMATION
+Current Balance: $142.41
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 805-TOLL-TX
+Website: www.tolltexas.gov

@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0009
+Date: April 27, 2026
+Invoice ID: MNT-000009
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 168 (T-168)
+Make/Model: Isuzu Truck
+Odometer Reading: 368660 miles
+
+SERVICE PROVIDER
+Shop Name: Penske Truck Rental
+Address: Los Angeles CA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Oil Change
+Hours: 7.3
+Rate: $142/hour
+Parts Cost: $401.49
+Labor Cost: $241.35
+Subtotal: $555.1
+Tax (8.25%): $109.47
+
+TOTAL DUE: $1209.8
+
+Terms: Net 30
+Due Date: May 27, 2026
+
+Authorized By: Samuel Price
+Shop Signature: _________________

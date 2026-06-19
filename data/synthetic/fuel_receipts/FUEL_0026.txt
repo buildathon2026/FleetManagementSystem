@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Chicago IL
+Receipt Number: FUEL-000026
+Date: 05/22/2026
+Time: 18:55
+
+VEHICLE INFORMATION
+Truck: Trk 112
+Driver: Antoine Beaumont
+Odometer: 184326
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 141.0
+Price per Gallon: $3.54
+Subtotal: $577.31
+Tax: $47.24
+Total Amount: $680.5
+
+Payment Method: Fleet Card
+Card Last 4: 7553
+Pump Number: 3
+
+Thank you for your business!

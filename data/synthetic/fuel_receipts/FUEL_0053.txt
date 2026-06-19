@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Miami FL
+Receipt Number: FUEL-000053
+Date: 06/07/2026
+Time: 15:16
+
+VEHICLE INFORMATION
+Truck: 125
+Driver: John Smith
+Odometer: 153191
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 114.9
+Price per Gallon: $3.99
+Subtotal: $599.93
+Tax: $39.5
+Total Amount: $553.03
+
+Payment Method: Fleet Card
+Card Last 4: 1288
+Pump Number: 1
+
+Thank you for your business!

@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Texas
+County: Harris
+Registration Number: TX-23-118
+Plate Number: ABCTRK118
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: 118
+Make: Kenworth
+Model: T680
+Year: 2023
+VIN: 8LGETD65X62034915
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: August 20, 2023
+Expiration Date: August 20, 2025
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: James Wilson
+Driver's License: 384729384
+License State: Texas
+
+Issued by: Texas Department of Motor Vehicles
+Date Issued: August 20, 2023
+Signature: _________________

@@ -1,0 +1,241 @@
+{
+  "metadata": {
+    "name": "Fleet Management System - Synthetic Document Dataset",
+    "version": "1.0",
+    "generated_date": "2026-06-18",
+    "total_documents": 230,
+    "total_size_bytes": 148500,
+    "purpose": "Testing Document Ingestion Pipeline (Module 3)",
+    "trucks_covered": [84, 91, 105, 112, 118, 125, 132, 140, 151, 168],
+    "date_range": {
+      "start": "2026-04-19",
+      "end": "2026-06-18",
+      "scope_days": 60
+    }
+  },
+  "document_categories": {
+    "titles": {
+      "directory": "titles/",
+      "count": 10,
+      "format": "Vehicle title documents",
+      "avg_size_bytes": 600,
+      "key_fields": ["VIN", "Unit Number", "Owner", "Lien Holder", "Date"],
+      "entity_resolution_method": "VIN exact match (confidence 1.0)",
+      "expiration_tracking": "N/A (permanent)",
+      "ingestion_frequency": "One-time (per vehicle acquisition)"
+    },
+    "registrations": {
+      "directory": "registrations/",
+      "count": 10,
+      "format": "Vehicle registration certificates",
+      "avg_size_bytes": 550,
+      "key_fields": ["Unit Number", "VIN", "Plate Number", "Status", "Expiration Date"],
+      "entity_resolution_method": "Unit number normalization (confidence 0.9) + VIN exact match",
+      "entity_resolution_challenge": "Format variations: '84', 'Unit 84', 'T-084', 'Unit84'",
+      "expiration_tracking": "Renews annually",
+      "ingestion_frequency": "Renewal (~30 days before expiration)"
+    },
+    "insurance": {
+      "directory": "insurance/",
+      "count": 10,
+      "format": "Commercial vehicle insurance certificates",
+      "avg_size_bytes": 700,
+      "key_fields": ["Certificate Number", "Policy Number", "VIN", "Coverage Limits", "Expiration Date"],
+      "entity_resolution_method": "VIN exact match or unit number",
+      "coverage_highlights": {
+        "liability": "$1,000,000",
+        "property_damage": "$500,000",
+        "medical_payments": "$25,000"
+      },
+      "expiration_tracking": "Renews annually or per policy term",
+      "ingestion_frequency": "Renewal (~30 days before expiration)"
+    },
+    "tax_forms": {
+      "directory": "tax_forms/",
+      "count": 10,
+      "format": "IRS Form 2290 (Heavy Highway Vehicle Use Tax)",
+      "avg_size_bytes": 800,
+      "key_fields": ["VIN", "EIN", "Tax Year", "Total Tax Due", "Acceptance Number"],
+      "entity_resolution_method": "VIN exact match (no unit number in form)",
+      "entity_resolution_challenge": "VIN-only documents require embedding quality",
+      "tax_amount": 550,
+      "expiration_tracking": "Per tax year (calendar year)",
+      "ingestion_frequency": "Once per year (typically Jan-March)"
+    },
+    "fuel_receipts": {
+      "directory": "fuel_receipts/",
+      "count": 60,
+      "format": "Fuel station receipts",
+      "avg_size_bytes": 400,
+      "key_fields": ["Receipt Number", "Date", "Truck ID", "Gallons", "Price per Gallon", "Total", "Odometer", "Driver"],
+      "entity_resolution_method": "Unit number normalization (confidence 0.9) - MESSY DATA",
+      "entity_resolution_challenge": "Format variations: 'Trk 84', 'Unit 84', '84', 'Unit84'",
+      "typical_volume": "60 receipts per 30 days (~2 per truck per week)",
+      "amount_range": {
+        "min": 300,
+        "max": 750,
+        "avg": 500
+      },
+      "ingestion_frequency": "High-volume, continuous (multiple per truck per week)"
+    },
+    "maintenance": {
+      "directory": "maintenance/",
+      "count": 40,
+      "format": "Repair shop invoices and maintenance orders",
+      "avg_size_bytes": 650,
+      "key_fields": ["Invoice Number", "Date", "Truck ID", "Service Type", "Hours", "Labor Cost", "Parts Cost", "Total"],
+      "entity_resolution_method": "Unit number or truck ID in invoice",
+      "service_types": ["Oil Change", "Tire Replacement", "Brake Service", "Transmission Service", "Inspection"],
+      "amount_range": {
+        "min": 150,
+        "max": 1600,
+        "avg": 750
+      },
+      "ingestion_frequency": "Ongoing (multiple per truck per month)"
+    },
+    "inspections": {
+      "directory": "inspections/",
+      "count": 10,
+      "format": "DOT annual safety inspection reports",
+      "avg_size_bytes": 1000,
+      "key_fields": ["Inspection Number", "Unit Number", "VIN", "Inspection Date", "Valid Until", "Status"],
+      "entity_resolution_method": "Unit number + VIN (1:1 mapping)",
+      "compliance_status": "All PASS",
+      "validity_period": "12 months",
+      "expiration_tracking": "Required annually, alert 30 days before",
+      "ingestion_frequency": "Once per year"
+    },
+    "settlements": {
+      "directory": "settlements/",
+      "count": 30,
+      "format": "Freight broker settlement statements (per load)",
+      "avg_size_bytes": 700,
+      "key_fields": ["Settlement ID", "Load Number", "Truck/Unit", "Driver", "Miles", "Revenue", "Deductions", "Net Settlement"],
+      "entity_resolution_method": "Unit number or truck ID",
+      "deduction_categories": ["Fuel", "Maintenance", "Insurance", "Tolls", "Commission"],
+      "amount_range": {
+        "revenue_min": 900,
+        "revenue_max": 3000,
+        "net_settlement_min": 400,
+        "net_settlement_max": 1500
+      },
+      "ingestion_frequency": "Ongoing (3-4 per truck per month)"
+    },
+    "emails": {
+      "directory": "emails/",
+      "count": 20,
+      "format": "Internal email communications",
+      "avg_size_bytes": 300,
+      "key_fields": ["From", "To", "Date", "Subject", "Body"],
+      "entity_resolution_method": "Embedding cosine similarity (confidence 0.6-0.8) - UNSTRUCTURED",
+      "entity_resolution_challenge": "Informal language: 'white Cascadia', 'truck 84', 'the one with brake issue'",
+      "subject_patterns": ["Maintenance requests", "Safety alerts", "Vehicle issues", "Route updates"],
+      "ingestion_frequency": "Ad-hoc (operational communications)"
+    },
+    "toll_receipts": {
+      "directory": "toll_receipts/",
+      "count": 30,
+      "format": "Electronic toll collection receipts",
+      "avg_size_bytes": 450,
+      "key_fields": ["Receipt Number", "Transponder ID", "Date", "Toll Plaza", "Charge", "Account Balance"],
+      "entity_resolution_method": "Transponder ID → fleet unit mapping (requires lookup table)",
+      "entity_resolution_challenge": "No direct truck identifier in document",
+      "amount_range": {
+        "min": 2.5,
+        "max": 8.5,
+        "avg": 5.5
+      },
+      "toll_authorities": ["Harris County Toll Road Authority", "TX-DOT Toll Collection", "Dallas North Tollway"],
+      "ingestion_frequency": "High-volume, continuous (0-5 per truck per day)"
+    }
+  },
+  "entity_resolution_test_coverage": {
+    "vin_exact_match": {
+      "confidence": 1.0,
+      "documents": ["titles", "tax_forms", "registrations", "insurance", "inspections"],
+      "test_count": 50,
+      "notes": "Perfect match, highest confidence"
+    },
+    "unit_number_normalization": {
+      "confidence": 0.9,
+      "documents": ["registrations", "fuel_receipts", "maintenance", "settlements"],
+      "test_count": 140,
+      "notes": "Format variations: 84, Unit 84, T-084, Unit84, Trk 84"
+    },
+    "license_plate_match": {
+      "confidence": 1.0,
+      "documents": ["registrations"],
+      "test_count": 10,
+      "notes": "From plate number field"
+    },
+    "embedding_similarity": {
+      "confidence": 0.6,
+      "min": 0.6,
+      "max": 0.8,
+      "documents": ["emails", "settlements"],
+      "test_count": 30,
+      "notes": "Informal language: white Cascadia, truck 84, the one with brake issue"
+    }
+  },
+  "quality_metrics": {
+    "document_count": 230,
+    "total_size_bytes": 148500,
+    "avg_document_size": 646,
+    "trucks_covered": 10,
+    "unique_vins": 10,
+    "unique_drivers": 10,
+    "date_range_days": 60,
+    "entity_resolution_scenarios": 5,
+    "document_types": 10
+  },
+  "usage_examples": [
+    {
+      "scenario": "Test entity resolution",
+      "query": "Ingest all fuel receipts and verify 'Trk 84' resolves to T-084",
+      "expected": "Entity confidence 0.9, canonical_id T-084, multiple aliases captured"
+    },
+    {
+      "scenario": "Test document classification",
+      "query": "Classify 10 random documents by type",
+      "expected": ">95% accuracy across all 10 types"
+    },
+    {
+      "scenario": "Test field extraction",
+      "query": "Extract invoice number, amount, date from maintenance invoices",
+      "expected": "Structured JSON with all fields populated"
+    },
+    {
+      "scenario": "Test retrieval quality",
+      "query": "RAG: How much fuel did Unit 84 buy in May 2026?",
+      "expected": "Aggregate fuel receipts by date range, return top-k with citations"
+    },
+    {
+      "scenario": "Test compliance tracking",
+      "query": "Which trucks have expiring insurance within 30 days?",
+      "expected": "Query document table with expiration_date filter, alert list"
+    },
+    {
+      "scenario": "Test full ingestion pipeline",
+      "query": "Ingest all 230 documents, measure end-to-end latency",
+      "expected": "All documents processed, no failures, latency <500ms per doc"
+    }
+  ],
+  "regeneration": {
+    "script_location": "data/synthetic/generate_synthetic_data.py",
+    "regeneration_command": "cd data/synthetic && python3 generate_synthetic_data.py",
+    "regenerates": [
+      "insurance",
+      "tax_forms",
+      "fuel_receipts",
+      "maintenance",
+      "inspections",
+      "settlements",
+      "emails",
+      "toll_receipts"
+    ],
+    "static_documents": [
+      "titles",
+      "registrations"
+    ]
+  }
+}

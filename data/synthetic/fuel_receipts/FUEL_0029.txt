@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Atlanta GA
+Receipt Number: FUEL-000029
+Date: 06/11/2026
+Time: 10:38
+
+VEHICLE INFORMATION
+Truck: Trk 118
+Driver: Michael Torres
+Odometer: 237983
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 148.6
+Price per Gallon: $3.53
+Subtotal: $537.91
+Tax: $47.48
+Total Amount: $524.07
+
+Payment Method: Fleet Card
+Card Last 4: 4833
+Pump Number: 17
+
+Thank you for your business!

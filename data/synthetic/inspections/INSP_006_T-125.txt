@@ -1,0 +1,45 @@
+ANNUAL DOT INSPECTION REPORT
+
+Inspection Number: DOT-000006
+Inspection Date: December 26, 2025
+Valid Until: February 13, 2027
+Inspection Station: ABC Certified Inspection Service
+Inspector License: INSP-30699
+
+VEHICLE INFORMATION
+Unit Number: 125 (T-125)
+Make/Model: Mack Truck
+Year: 2021
+VIN: 3ALACM7S83E823957
+Gross Vehicle Weight: 80,000 lbs
+Odometer: 308816 miles
+
+INSPECTION RESULTS - PASS ✓
+
+EXTERIOR
+[ ✓ ] Lights and Reflectors: PASS
+[ ✓ ] Windshield/Wipers: PASS
+[ ✓ ] Mirrors: PASS
+[ ✓ ] Body/Doors: PASS
+[ ✓ ] Coupling Device: PASS
+
+MECHANICAL
+[ ✓ ] Brakes: PASS
+[ ✓ ] Tires: PASS
+[ ✓ ] Suspension: PASS
+[ ✓ ] Steering: PASS
+[ ✓ ] Engine: PASS
+[ ✓ ] Transmission: PASS
+
+SAFETY EQUIPMENT
+[ ✓ ] Fire Extinguisher: PASS
+[ ✓ ] Emergency Equipment: PASS
+[ ✓ ] Safety Belt: PASS
+[ ✓ ] Placards/Markings: PASS
+
+OVERALL RESULT: APPROVED FOR SERVICE
+
+Inspector Name: Michael Torres
+Signature: _________________
+Print Name: Michael Torres
+Inspector Certification: INSP-2847392

@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000019
+Date: June 08, 2026
+Period: May 25, 2026 to June 08, 2026
+
+LOAD INFORMATION
+Load #: LOAD-74701
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 151 (T-151)
+Driver: Philip Morrison
+Miles: 743
+
+REVENUE
+Freight Charges: $2192.2
+Fuel Surcharge: $99.66
+Accessorial Charges: $231.08
+Total Revenue: $1836.54
+
+DEDUCTIONS
+Fuel Cost: $739.03
+Maintenance: $234.71
+Insurance: $139.81
+Tolls: $58.22
+Commission: $189.11
+Miscellaneous: $14.51
+Total Deductions: $1064.84
+
+NET SETTLEMENT: $1488.32
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: PHILIP_MORRISON-0019

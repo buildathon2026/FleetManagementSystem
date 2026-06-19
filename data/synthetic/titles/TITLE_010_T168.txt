@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Texas
+Document Number: TX-2023-5928374
+
+VEHICLE INFORMATION
+VIN: 5TDJCRV33LS293847
+Year: 2021
+Make: Volvo
+Model: VNR
+Truck Unit Number: 168
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 234567890
+Date of Issue: July 14, 2021
+Lien Holder: PNC Equipment Finance
+Lien Holder Address: One PNC Plaza, Pittsburgh, PA 15265
+Lien Release: Yes (Paid off 03/22/2025)
+
+ODOMETER READING: 324,567 miles
+Date of Odometer Reading: July 14, 2021
+
+Signature: _________________
+Date: July 14, 2021

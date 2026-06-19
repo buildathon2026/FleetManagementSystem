@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Phoenix AZ
+Receipt Number: FUEL-000057
+Date: 06/02/2026
+Time: 16:14
+
+VEHICLE INFORMATION
+Truck: Unit 84
+Driver: John Smith
+Odometer: 247254
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 88.2
+Price per Gallon: $3.75
+Subtotal: $522.73
+Tax: $43.78
+Total Amount: $747.8
+
+Payment Method: Fleet Card
+Card Last 4: 3373
+Pump Number: 12
+
+Thank you for your business!

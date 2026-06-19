@@ -1,0 +1,45 @@
+ANNUAL DOT INSPECTION REPORT
+
+Inspection Number: DOT-000007
+Inspection Date: March 28, 2026
+Valid Until: June 14, 2027
+Inspection Station: ABC Certified Inspection Service
+Inspector License: INSP-16962
+
+VEHICLE INFORMATION
+Unit Number: 132 (T-132)
+Make/Model: Freightliner Truck
+Year: 2022
+VIN: 2FZJKAC86CCA34928
+Gross Vehicle Weight: 80,000 lbs
+Odometer: 304996 miles
+
+INSPECTION RESULTS - PASS ✓
+
+EXTERIOR
+[ ✓ ] Lights and Reflectors: PASS
+[ ✓ ] Windshield/Wipers: PASS
+[ ✓ ] Mirrors: PASS
+[ ✓ ] Body/Doors: PASS
+[ ✓ ] Coupling Device: PASS
+
+MECHANICAL
+[ ✓ ] Brakes: PASS
+[ ✓ ] Tires: PASS
+[ ✓ ] Suspension: PASS
+[ ✓ ] Steering: PASS
+[ ✓ ] Engine: PASS
+[ ✓ ] Transmission: PASS
+
+SAFETY EQUIPMENT
+[ ✓ ] Fire Extinguisher: PASS
+[ ✓ ] Emergency Equipment: PASS
+[ ✓ ] Safety Belt: PASS
+[ ✓ ] Placards/Markings: PASS
+
+OVERALL RESULT: APPROVED FOR SERVICE
+
+Inspector Name: Michael Torres
+Signature: _________________
+Print Name: Michael Torres
+Inspector Certification: INSP-2847392

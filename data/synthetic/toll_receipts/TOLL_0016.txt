@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000016
+Date: 05/14/2026
+Time: 22:51
+
+TOLL AUTHORITY: Harris County Toll Road Authority
+TRANSPONDER ACCOUNT: 792233
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 151
+Transponder ID: TX-9293
+
+TOLL CHARGES
+Toll Plaza: North Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $7.67
+
+ACCOUNT INFORMATION
+Current Balance: $81.32
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 910-TOLL-TX
+Website: www.tolltexas.gov

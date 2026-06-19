@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000001
+Date: June 11, 2026
+Period: May 28, 2026 to June 11, 2026
+
+LOAD INFORMATION
+Load #: LOAD-20585
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 132 (T-132)
+Driver: Kevin Hayes
+Miles: 536
+
+REVENUE
+Freight Charges: $1659.24
+Fuel Surcharge: $80.64
+Accessorial Charges: $214.08
+Total Revenue: $1413.99
+
+DEDUCTIONS
+Fuel Cost: $683.94
+Maintenance: $280.09
+Insurance: $188.89
+Tolls: $73.51
+Commission: $299.76
+Miscellaneous: $71.2
+Total Deductions: $968.75
+
+NET SETTLEMENT: $768.63
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: KEVIN_HAYES-0001

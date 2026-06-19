@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Chicago IL
+Receipt Number: FUEL-000023
+Date: 05/21/2026
+Time: 09:45
+
+VEHICLE INFORMATION
+Truck: Trk 132
+Driver: David Chen
+Odometer: 334834
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 105.3
+Price per Gallon: $4.05
+Subtotal: $460.65
+Tax: $36.44
+Total Amount: $629.35
+
+Payment Method: Fleet Card
+Card Last 4: 9277
+Pump Number: 12
+
+Thank you for your business!

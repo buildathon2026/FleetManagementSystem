@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000021
+Date: 06/07/2026
+Time: 19:56
+
+TOLL AUTHORITY: TX-DOT Toll Collection
+TRANSPONDER ACCOUNT: 673238
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 84
+Transponder ID: TX-7812
+
+TOLL CHARGES
+Toll Plaza: East Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $5.01
+
+ACCOUNT INFORMATION
+Current Balance: $259.25
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 862-TOLL-TX
+Website: www.tolltexas.gov

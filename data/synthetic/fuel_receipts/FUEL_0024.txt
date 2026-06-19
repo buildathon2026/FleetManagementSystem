@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Nashville TN
+Receipt Number: FUEL-000024
+Date: 05/26/2026
+Time: 11:05
+
+VEHICLE INFORMATION
+Truck: Unit 84
+Driver: Kevin Hayes
+Odometer: 364692
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 118.0
+Price per Gallon: $3.85
+Subtotal: $549.67
+Tax: $20.07
+Total Amount: $491.98
+
+Payment Method: Fleet Card
+Card Last 4: 4357
+Pump Number: 4
+
+Thank you for your business!

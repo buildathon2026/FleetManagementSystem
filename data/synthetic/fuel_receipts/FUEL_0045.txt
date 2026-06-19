@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Dallas TX
+Receipt Number: FUEL-000045
+Date: 05/24/2026
+Time: 13:32
+
+VEHICLE INFORMATION
+Truck: Trk 168
+Driver: Michael Torres
+Odometer: 112719
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 94.4
+Price per Gallon: $4.02
+Subtotal: $392.07
+Tax: $31.08
+Total Amount: $462.85
+
+Payment Method: Fleet Card
+Card Last 4: 9220
+Pump Number: 14
+
+Thank you for your business!

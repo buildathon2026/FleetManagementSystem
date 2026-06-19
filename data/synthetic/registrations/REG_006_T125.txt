@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Oklahoma
+County: Oklahoma
+Registration Number: OK-24-125
+Plate Number: ABCOK125
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: T-125
+Make: Freightliner
+Model: Cascadia 116
+Year: 2022
+VIN: 3ALACM7S83E823957
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: April 15, 2024
+Expiration Date: April 15, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Michael Torres
+Driver's License: 927384756
+License State: Oklahoma
+
+Issued by: Oklahoma Department of Motor Vehicles
+Date Issued: April 15, 2024
+Signature: _________________

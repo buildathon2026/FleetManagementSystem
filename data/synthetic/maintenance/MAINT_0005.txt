@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0005
+Date: April 23, 2026
+Invoice ID: MNT-000005
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 125 (T-125)
+Make/Model: Volvo Truck
+Odometer Reading: 122509 miles
+
+SERVICE PROVIDER
+Shop Name: Quality Truck Repair
+Address: Nashville TN
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Inspection
+Hours: 3.7
+Rate: $81/hour
+Parts Cost: $52.99
+Labor Cost: $416.37
+Subtotal: $1347.06
+Tax (8.25%): $93.14
+
+TOTAL DUE: $632.55
+
+Terms: Net 30
+Due Date: May 23, 2026
+
+Authorized By: David Chen
+Shop Signature: _________________

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Phoenix AZ
+Receipt Number: FUEL-000056
+Date: 05/31/2026
+Time: 16:55
+
+VEHICLE INFORMATION
+Truck: Unit125
+Driver: Kevin Hayes
+Odometer: 102389
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 97.7
+Price per Gallon: $4.01
+Subtotal: $549.88
+Tax: $28.35
+Total Amount: $683.4
+
+Payment Method: Fleet Card
+Card Last 4: 1848
+Pump Number: 9
+
+Thank you for your business!

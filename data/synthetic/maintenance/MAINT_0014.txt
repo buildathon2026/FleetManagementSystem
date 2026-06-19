@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0014
+Date: May 11, 2026
+Invoice ID: MNT-000014
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 112 (T-112)
+Make/Model: Freightliner Truck
+Odometer Reading: 170153 miles
+
+SERVICE PROVIDER
+Shop Name: Diesel King
+Address: Denver CO
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Oil Change
+Hours: 3.7
+Rate: $93/hour
+Parts Cost: $783.29
+Labor Cost: $401.88
+Subtotal: $1055.56
+Tax (8.25%): $26.11
+
+TOTAL DUE: $1148.13
+
+Terms: Net 30
+Due Date: June 10, 2026
+
+Authorized By: Samuel Price
+Shop Signature: _________________

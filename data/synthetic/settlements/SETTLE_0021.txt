@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000021
+Date: May 16, 2026
+Period: May 02, 2026 to May 16, 2026
+
+LOAD INFORMATION
+Load #: LOAD-82567
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 105 (T-105)
+Driver: Robert Johnson
+Miles: 704
+
+REVENUE
+Freight Charges: $1652.38
+Fuel Surcharge: $380.75
+Accessorial Charges: $42.7
+Total Revenue: $1987.78
+
+DEDUCTIONS
+Fuel Cost: $315.5
+Maintenance: $389.83
+Insurance: $97.81
+Tolls: $21.28
+Commission: $246.99
+Miscellaneous: $22.85
+Total Deductions: $1054.16
+
+NET SETTLEMENT: $1121.09
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: ROBERT_JOHNSON-0021

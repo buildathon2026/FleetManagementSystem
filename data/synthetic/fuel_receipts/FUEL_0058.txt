@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Denver CO
+Receipt Number: FUEL-000058
+Date: 06/02/2026
+Time: 11:07
+
+VEHICLE INFORMATION
+Truck: Unit 91
+Driver: John Smith
+Odometer: 198798
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 117.7
+Price per Gallon: $4.15
+Subtotal: $371.45
+Tax: $39.61
+Total Amount: $587.0
+
+Payment Method: Fleet Card
+Card Last 4: 1676
+Pump Number: 18
+
+Thank you for your business!

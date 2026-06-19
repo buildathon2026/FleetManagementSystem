@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Florida
+County: Miami-Dade
+Registration Number: FL-24-091
+Plate Number: ABCFLA91
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: T-091
+Make: Peterbilt
+Model: 579
+Year: 2022
+VIN: 5TDJVRV33LS467892
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: March 22, 2024
+Expiration Date: March 22, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Maria Garcia
+Driver's License: 584920473
+License State: Florida
+
+Issued by: Florida Department of Motor Vehicles
+Date Issued: March 22, 2024
+Signature: _________________

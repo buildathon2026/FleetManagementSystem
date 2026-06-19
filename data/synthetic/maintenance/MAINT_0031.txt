@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0031
+Date: June 01, 2026
+Invoice ID: MNT-000031
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 140 (T-140)
+Make/Model: Peterbilt Truck
+Odometer Reading: 283891 miles
+
+SERVICE PROVIDER
+Shop Name: Premier Fleet Services
+Address: Denver CO
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Transmission Service
+Hours: 3.0
+Rate: $75/hour
+Parts Cost: $917.78
+Labor Cost: $302.79
+Subtotal: $1104.68
+Tax (8.25%): $119.81
+
+TOTAL DUE: $555.59
+
+Terms: Net 30
+Due Date: July 01, 2026
+
+Authorized By: Samuel Price
+Shop Signature: _________________

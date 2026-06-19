@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0040
+Date: May 14, 2026
+Invoice ID: MNT-000040
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 151 (T-151)
+Make/Model: Volvo Truck
+Odometer Reading: 190428 miles
+
+SERVICE PROVIDER
+Shop Name: Quality Truck Repair
+Address: Chicago IL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Coolant Flush
+Hours: 2.2
+Rate: $88/hour
+Parts Cost: $853.46
+Labor Cost: $653.27
+Subtotal: $1237.92
+Tax (8.25%): $37.79
+
+TOTAL DUE: $675.51
+
+Terms: Net 30
+Due Date: June 13, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

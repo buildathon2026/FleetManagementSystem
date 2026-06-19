@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Seattle WA
+Receipt Number: FUEL-000018
+Date: 05/21/2026
+Time: 12:39
+
+VEHICLE INFORMATION
+Truck: Trk 112
+Driver: John Smith
+Odometer: 349699
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 94.9
+Price per Gallon: $4.18
+Subtotal: $403.7
+Tax: $49.83
+Total Amount: $558.1
+
+Payment Method: Fleet Card
+Card Last 4: 9444
+Pump Number: 13
+
+Thank you for your business!

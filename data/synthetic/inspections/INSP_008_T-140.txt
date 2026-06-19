@@ -1,0 +1,45 @@
+ANNUAL DOT INSPECTION REPORT
+
+Inspection Number: DOT-000008
+Inspection Date: May 08, 2026
+Valid Until: January 03, 2027
+Inspection Station: ABC Certified Inspection Service
+Inspector License: INSP-64654
+
+VEHICLE INFORMATION
+Unit Number: 140 (T-140)
+Make/Model: Volvo Truck
+Year: 2021
+VIN: 5P5GF0834LV023945
+Gross Vehicle Weight: 80,000 lbs
+Odometer: 257743 miles
+
+INSPECTION RESULTS - PASS ✓
+
+EXTERIOR
+[ ✓ ] Lights and Reflectors: PASS
+[ ✓ ] Windshield/Wipers: PASS
+[ ✓ ] Mirrors: PASS
+[ ✓ ] Body/Doors: PASS
+[ ✓ ] Coupling Device: PASS
+
+MECHANICAL
+[ ✓ ] Brakes: PASS
+[ ✓ ] Tires: PASS
+[ ✓ ] Suspension: PASS
+[ ✓ ] Steering: PASS
+[ ✓ ] Engine: PASS
+[ ✓ ] Transmission: PASS
+
+SAFETY EQUIPMENT
+[ ✓ ] Fire Extinguisher: PASS
+[ ✓ ] Emergency Equipment: PASS
+[ ✓ ] Safety Belt: PASS
+[ ✓ ] Placards/Markings: PASS
+
+OVERALL RESULT: APPROVED FOR SERVICE
+
+Inspector Name: Michael Torres
+Signature: _________________
+Print Name: Michael Torres
+Inspector Certification: INSP-2847392

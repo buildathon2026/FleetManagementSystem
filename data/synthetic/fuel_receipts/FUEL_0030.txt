@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Dallas TX
+Receipt Number: FUEL-000030
+Date: 06/14/2026
+Time: 09:58
+
+VEHICLE INFORMATION
+Truck: 140
+Driver: Maria Garcia
+Odometer: 384290
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 121.0
+Price per Gallon: $3.69
+Subtotal: $592.04
+Tax: $28.68
+Total Amount: $616.67
+
+Payment Method: Fleet Card
+Card Last 4: 1012
+Pump Number: 10
+
+Thank you for your business!

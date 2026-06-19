@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0026
+Date: April 19, 2026
+Invoice ID: MNT-000026
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 105 (T-105)
+Make/Model: Freightliner Truck
+Odometer Reading: 393462 miles
+
+SERVICE PROVIDER
+Shop Name: Quality Truck Repair
+Address: Seattle WA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Brake Service
+Hours: 2.0
+Rate: $147/hour
+Parts Cost: $821.46
+Labor Cost: $622.98
+Subtotal: $227.44
+Tax (8.25%): $23.29
+
+TOTAL DUE: $795.28
+
+Terms: Net 30
+Due Date: May 19, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

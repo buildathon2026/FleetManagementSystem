@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000020
+Date: May 15, 2026
+Period: May 01, 2026 to May 15, 2026
+
+LOAD INFORMATION
+Load #: LOAD-11435
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 112 (T-112)
+Driver: James Wilson
+Miles: 1539
+
+REVENUE
+Freight Charges: $1020.32
+Fuel Surcharge: $307.75
+Accessorial Charges: $97.4
+Total Revenue: $1078.25
+
+DEDUCTIONS
+Fuel Cost: $770.96
+Maintenance: $112.49
+Insurance: $145.02
+Tolls: $104.4
+Commission: $314.34
+Miscellaneous: $26.04
+Total Deductions: $1142.99
+
+NET SETTLEMENT: $1299.86
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: JAMES_WILSON-0020

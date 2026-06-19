@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Phoenix AZ
+Receipt Number: FUEL-000037
+Date: 06/12/2026
+Time: 10:54
+
+VEHICLE INFORMATION
+Truck: Unit84
+Driver: David Chen
+Odometer: 121711
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 112.1
+Price per Gallon: $3.67
+Subtotal: $315.19
+Tax: $32.84
+Total Amount: $615.38
+
+Payment Method: Fleet Card
+Card Last 4: 7426
+Pump Number: 4
+
+Thank you for your business!

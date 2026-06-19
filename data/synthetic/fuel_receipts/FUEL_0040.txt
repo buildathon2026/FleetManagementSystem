@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Seattle WA
+Receipt Number: FUEL-000040
+Date: 05/22/2026
+Time: 17:32
+
+VEHICLE INFORMATION
+Truck: Unit118
+Driver: James Wilson
+Odometer: 364704
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 118.3
+Price per Gallon: $3.92
+Subtotal: $430.9
+Tax: $46.01
+Total Amount: $646.39
+
+Payment Method: Fleet Card
+Card Last 4: 4804
+Pump Number: 14
+
+Thank you for your business!

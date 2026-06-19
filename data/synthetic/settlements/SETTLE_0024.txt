@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000024
+Date: June 17, 2026
+Period: June 03, 2026 to June 17, 2026
+
+LOAD INFORMATION
+Load #: LOAD-82097
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 84 (T-084)
+Driver: Michael Torres
+Miles: 1732
+
+REVENUE
+Freight Charges: $2366.34
+Fuel Surcharge: $172.71
+Accessorial Charges: $192.85
+Total Revenue: $2997.33
+
+DEDUCTIONS
+Fuel Cost: $550.06
+Maintenance: $76.65
+Insurance: $57.87
+Tolls: $140.36
+Commission: $144.72
+Miscellaneous: $37.99
+Total Deductions: $1061.43
+
+NET SETTLEMENT: $1091.18
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: MICHAEL_TORRES-0024

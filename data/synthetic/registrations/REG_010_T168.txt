@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Texas
+County: Dallas
+Registration Number: TX-23-168
+Plate Number: ABCTRK168
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: T-168
+Make: Volvo
+Model: VNR
+Year: 2021
+VIN: 5TDJCRV33LS293847
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: July 14, 2023
+Expiration Date: July 14, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Samuel Price
+Driver's License: 738294756
+License State: Texas
+
+Issued by: Texas Department of Motor Vehicles
+Date Issued: July 14, 2023
+Signature: _________________

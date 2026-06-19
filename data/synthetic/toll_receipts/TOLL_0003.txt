@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000003
+Date: 05/27/2026
+Time: 16:59
+
+TOLL AUTHORITY: Dallas North Tollway
+TRANSPONDER ACCOUNT: 251865
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 105
+Transponder ID: TX-3327
+
+TOLL CHARGES
+Toll Plaza: South Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $5.77
+
+ACCOUNT INFORMATION
+Current Balance: $408.53
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 916-TOLL-TX
+Website: www.tolltexas.gov

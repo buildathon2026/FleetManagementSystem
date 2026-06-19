@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Texas
+Document Number: TX-2024-1847362
+
+VEHICLE INFORMATION
+VIN: 3AKJHHDR7BS467821
+Year: 2023
+Make: Freightliner
+Model: Cascadia 126
+Truck Unit Number: 084
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 987654321
+Date of Issue: June 15, 2023
+Lien Holder: Capital One Commercial Finance
+Lien Holder Address: 500 Financial Plaza, Hartford, CT 06115
+Lien Release: No
+
+ODOMETER READING: 45,230 miles
+Date of Odometer Reading: June 15, 2023
+
+Signature: _________________
+Date: June 15, 2023

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Los Angeles CA
+Receipt Number: FUEL-000019
+Date: 06/12/2026
+Time: 09:57
+
+VEHICLE INFORMATION
+Truck: Trk 84
+Driver: David Chen
+Odometer: 179924
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 98.2
+Price per Gallon: $3.89
+Subtotal: $534.47
+Tax: $20.66
+Total Amount: $671.41
+
+Payment Method: Fleet Card
+Card Last 4: 9595
+Pump Number: 19
+
+Thank you for your business!

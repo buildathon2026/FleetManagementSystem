@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Seattle WA
+Receipt Number: FUEL-000017
+Date: 06/15/2026
+Time: 13:46
+
+VEHICLE INFORMATION
+Truck: Trk 118
+Driver: James Wilson
+Odometer: 216274
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 98.4
+Price per Gallon: $3.69
+Subtotal: $366.07
+Tax: $21.58
+Total Amount: $610.28
+
+Payment Method: Fleet Card
+Card Last 4: 4289
+Pump Number: 2
+
+Thank you for your business!

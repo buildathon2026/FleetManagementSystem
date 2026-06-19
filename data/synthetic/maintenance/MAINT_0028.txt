@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0028
+Date: May 09, 2026
+Invoice ID: MNT-000028
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 105 (T-105)
+Make/Model: Isuzu Truck
+Odometer Reading: 366299 miles
+
+SERVICE PROVIDER
+Shop Name: Quality Truck Repair
+Address: Atlanta GA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Coolant Flush
+Hours: 1.8
+Rate: $108/hour
+Parts Cost: $251.4
+Labor Cost: $796.42
+Subtotal: $1352.05
+Tax (8.25%): $17.94
+
+TOTAL DUE: $278.55
+
+Terms: Net 30
+Due Date: June 08, 2026
+
+Authorized By: Maria Garcia
+Shop Signature: _________________

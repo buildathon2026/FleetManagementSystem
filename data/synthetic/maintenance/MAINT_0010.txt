@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0010
+Date: May 31, 2026
+Invoice ID: MNT-000010
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 91 (T-091)
+Make/Model: Isuzu Truck
+Odometer Reading: 282868 miles
+
+SERVICE PROVIDER
+Shop Name: Penske Truck Rental
+Address: Chicago IL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Air Filter Replacement
+Hours: 2.7
+Rate: $128/hour
+Parts Cost: $547.54
+Labor Cost: $514.06
+Subtotal: $723.94
+Tax (8.25%): $61.94
+
+TOTAL DUE: $350.26
+
+Terms: Net 30
+Due Date: June 30, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Louisiana
+Document Number: LA-2023-7284910
+
+VEHICLE INFORMATION
+VIN: 2FZJKAC86CCA34928
+Year: 2023
+Make: Mack
+Model: Anthem 64T
+Truck Unit Number: 132
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 345678901
+Date of Issue: December 01, 2023
+Lien Holder: Citi Capital
+Lien Holder Address: 303 Congress Street, Boston, MA 02210
+Lien Release: No
+
+ODOMETER READING: 32,145 miles
+Date of Odometer Reading: December 01, 2023
+
+Signature: _________________
+Date: December 01, 2023

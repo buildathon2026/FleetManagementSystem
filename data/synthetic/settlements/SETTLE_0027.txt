@@ -1,0 +1,34 @@
+SETTLEMENT STATEMENT
+
+Settlement ID: STL-000027
+Date: June 09, 2026
+Period: May 26, 2026 to June 09, 2026
+
+LOAD INFORMATION
+Load #: LOAD-60937
+Shipper: Various Clients
+Consignee: Various Locations
+Truck/Unit: Unit 151 (T-151)
+Driver: Antoine Beaumont
+Miles: 736
+
+REVENUE
+Freight Charges: $2431.18
+Fuel Surcharge: $369.6
+Accessorial Charges: $136.27
+Total Revenue: $1919.31
+
+DEDUCTIONS
+Fuel Cost: $790.6
+Maintenance: $249.2
+Insurance: $56.06
+Tolls: $49.13
+Commission: $394.56
+Miscellaneous: $12.06
+Total Deductions: $918.03
+
+NET SETTLEMENT: $737.16
+
+Broker: ABC Freight Logistics
+Payment Method: ACH Transfer
+Reference: ANTOINE_BEAUMONT-0027

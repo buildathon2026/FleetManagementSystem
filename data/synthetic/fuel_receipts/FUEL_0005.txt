@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Los Angeles CA
+Receipt Number: FUEL-000005
+Date: 05/19/2026
+Time: 09:32
+
+VEHICLE INFORMATION
+Truck: Unit112
+Driver: Kevin Hayes
+Odometer: 231020
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 141.0
+Price per Gallon: $3.75
+Subtotal: $414.06
+Tax: $34.72
+Total Amount: $351.49
+
+Payment Method: Fleet Card
+Card Last 4: 3866
+Pump Number: 14
+
+Thank you for your business!

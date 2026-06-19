@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Seattle WA
+Receipt Number: FUEL-000008
+Date: 06/02/2026
+Time: 08:07
+
+VEHICLE INFORMATION
+Truck: Unit151
+Driver: John Smith
+Odometer: 359721
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 143.3
+Price per Gallon: $3.77
+Subtotal: $390.55
+Tax: $27.5
+Total Amount: $448.18
+
+Payment Method: Fleet Card
+Card Last 4: 8098
+Pump Number: 1
+
+Thank you for your business!

@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0032
+Date: May 15, 2026
+Invoice ID: MNT-000032
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 112 (T-112)
+Make/Model: Peterbilt Truck
+Odometer Reading: 378066 miles
+
+SERVICE PROVIDER
+Shop Name: Cross Truck Services
+Address: Seattle WA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Tire Replacement
+Hours: 4.2
+Rate: $114/hour
+Parts Cost: $830.38
+Labor Cost: $216.07
+Subtotal: $1132.68
+Tax (8.25%): $123.63
+
+TOTAL DUE: $452.29
+
+Terms: Net 30
+Due Date: June 14, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

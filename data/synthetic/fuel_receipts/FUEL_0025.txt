@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Atlanta GA
+Receipt Number: FUEL-000025
+Date: 05/20/2026
+Time: 20:13
+
+VEHICLE INFORMATION
+Truck: Unit168
+Driver: Michael Torres
+Odometer: 179494
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 141.5
+Price per Gallon: $4.08
+Subtotal: $549.52
+Tax: $28.67
+Total Amount: $536.42
+
+Payment Method: Fleet Card
+Card Last 4: 4046
+Pump Number: 8
+
+Thank you for your business!

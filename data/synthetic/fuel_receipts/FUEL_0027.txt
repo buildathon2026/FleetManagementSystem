@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Denver CO
+Receipt Number: FUEL-000027
+Date: 06/08/2026
+Time: 06:42
+
+VEHICLE INFORMATION
+Truck: Unit 151
+Driver: James Wilson
+Odometer: 348059
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 99.9
+Price per Gallon: $3.54
+Subtotal: $449.25
+Tax: $46.29
+Total Amount: $462.41
+
+Payment Method: Fleet Card
+Card Last 4: 8101
+Pump Number: 4
+
+Thank you for your business!

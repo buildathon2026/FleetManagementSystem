@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0036
+Date: April 30, 2026
+Invoice ID: MNT-000036
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 84 (T-084)
+Make/Model: Isuzu Truck
+Odometer Reading: 124697 miles
+
+SERVICE PROVIDER
+Shop Name: Diesel King
+Address: Miami FL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Inspection
+Hours: 0.5
+Rate: $142/hour
+Parts Cost: $935.22
+Labor Cost: $390.63
+Subtotal: $1248.97
+Tax (8.25%): $123.55
+
+TOTAL DUE: $174.28
+
+Terms: Net 30
+Due Date: May 30, 2026
+
+Authorized By: David Chen
+Shop Signature: _________________

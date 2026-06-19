@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000014
+Date: 06/03/2026
+Time: 10:18
+
+TOLL AUTHORITY: Intercontinental Toll Plaza
+TRANSPONDER ACCOUNT: 885818
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 168
+Transponder ID: TX-2633
+
+TOLL CHARGES
+Toll Plaza: South Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $4.38
+
+ACCOUNT INFORMATION
+Current Balance: $94.82
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 851-TOLL-TX
+Website: www.tolltexas.gov

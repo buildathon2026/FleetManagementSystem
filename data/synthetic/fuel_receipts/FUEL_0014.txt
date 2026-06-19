@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Seattle WA
+Receipt Number: FUEL-000014
+Date: 05/29/2026
+Time: 22:25
+
+VEHICLE INFORMATION
+Truck: Unit151
+Driver: Samuel Price
+Odometer: 160791
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 138.1
+Price per Gallon: $3.64
+Subtotal: $680.39
+Tax: $22.1
+Total Amount: $732.39
+
+Payment Method: Fleet Card
+Card Last 4: 4877
+Pump Number: 9
+
+Thank you for your business!

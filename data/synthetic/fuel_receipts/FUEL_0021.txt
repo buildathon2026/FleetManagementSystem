@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Seattle WA
+Receipt Number: FUEL-000021
+Date: 05/23/2026
+Time: 21:04
+
+VEHICLE INFORMATION
+Truck: Unit125
+Driver: Michael Torres
+Odometer: 337781
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 96.6
+Price per Gallon: $3.64
+Subtotal: $630.03
+Tax: $44.69
+Total Amount: $465.24
+
+Payment Method: Fleet Card
+Card Last 4: 4675
+Pump Number: 16
+
+Thank you for your business!

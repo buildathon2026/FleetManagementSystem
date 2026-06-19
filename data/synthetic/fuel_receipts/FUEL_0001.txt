@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Denver CO
+Receipt Number: FUEL-000001
+Date: 06/17/2026
+Time: 06:19
+
+VEHICLE INFORMATION
+Truck: Unit112
+Driver: Samuel Price
+Odometer: 238739
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 112.4
+Price per Gallon: $4.01
+Subtotal: $358.33
+Tax: $42.84
+Total Amount: $676.4
+
+Payment Method: Fleet Card
+Card Last 4: 7164
+Pump Number: 10
+
+Thank you for your business!

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Chicago IL
+Receipt Number: FUEL-000051
+Date: 05/29/2026
+Time: 13:54
+
+VEHICLE INFORMATION
+Truck: Unit168
+Driver: David Chen
+Odometer: 307819
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 105.7
+Price per Gallon: $4.12
+Subtotal: $506.93
+Tax: $44.48
+Total Amount: $602.73
+
+Payment Method: Fleet Card
+Card Last 4: 8980
+Pump Number: 1
+
+Thank you for your business!

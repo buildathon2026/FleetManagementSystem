@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Georgia
+Document Number: GA-2024-2847392
+
+VEHICLE INFORMATION
+VIN: 1FUJITSU82D1SJSYT
+Year: 2024
+Make: Isuzu
+Model: NPR-HD
+Truck Unit Number: 112
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 456789012
+Date of Issue: May 03, 2024
+Lien Holder: Royal Bank Commercial Finance
+Lien Holder Address: 2300 Main Street, Atlanta, GA 30303
+Lien Release: No
+
+ODOMETER READING: 8,234 miles
+Date of Odometer Reading: May 03, 2024
+
+Signature: _________________
+Date: May 03, 2024

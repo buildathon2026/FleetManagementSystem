@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Chicago IL
+Receipt Number: FUEL-000052
+Date: 06/04/2026
+Time: 09:29
+
+VEHICLE INFORMATION
+Truck: Trk 91
+Driver: Samuel Price
+Odometer: 345446
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 87.7
+Price per Gallon: $4.01
+Subtotal: $444.98
+Tax: $44.39
+Total Amount: $635.7
+
+Payment Method: Fleet Card
+Card Last 4: 3547
+Pump Number: 6
+
+Thank you for your business!

@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000025
+Date: 05/13/2026
+Time: 12:41
+
+TOLL AUTHORITY: TX-DOT Toll Collection
+TRANSPONDER ACCOUNT: 503380
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 91
+Transponder ID: TX-1362
+
+TOLL CHARGES
+Toll Plaza: West Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $8.36
+
+ACCOUNT INFORMATION
+Current Balance: $193.39
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 814-TOLL-TX
+Website: www.tolltexas.gov

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Dallas TX
+Receipt Number: FUEL-000007
+Date: 05/20/2026
+Time: 17:30
+
+VEHICLE INFORMATION
+Truck: Unit112
+Driver: Maria Garcia
+Odometer: 100811
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 130.5
+Price per Gallon: $3.59
+Subtotal: $489.74
+Tax: $49.28
+Total Amount: $569.64
+
+Payment Method: Fleet Card
+Card Last 4: 1581
+Pump Number: 18
+
+Thank you for your business!

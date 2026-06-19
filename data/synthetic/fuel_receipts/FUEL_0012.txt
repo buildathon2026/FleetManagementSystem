@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Houston TX
+Receipt Number: FUEL-000012
+Date: 05/23/2026
+Time: 18:45
+
+VEHICLE INFORMATION
+Truck: 91
+Driver: Maria Garcia
+Odometer: 123492
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 136.0
+Price per Gallon: $3.51
+Subtotal: $521.39
+Tax: $24.67
+Total Amount: $435.65
+
+Payment Method: Fleet Card
+Card Last 4: 6106
+Pump Number: 9
+
+Thank you for your business!

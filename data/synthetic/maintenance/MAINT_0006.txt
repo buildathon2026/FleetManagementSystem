@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0006
+Date: June 11, 2026
+Invoice ID: MNT-000006
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 132 (T-132)
+Make/Model: Peterbilt Truck
+Odometer Reading: 169578 miles
+
+SERVICE PROVIDER
+Shop Name: Diesel King
+Address: Miami FL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Oil Change
+Hours: 2.5
+Rate: $126/hour
+Parts Cost: $700.12
+Labor Cost: $134.28
+Subtotal: $996.36
+Tax (8.25%): $51.61
+
+TOTAL DUE: $724.55
+
+Terms: Net 30
+Due Date: July 11, 2026
+
+Authorized By: Antoine Beaumont
+Shop Signature: _________________

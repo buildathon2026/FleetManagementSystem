@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Texas
+County: Dallas
+Registration Number: TX-12-084
+Plate Number: ABCTRK84
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: 84
+Make: Freightliner
+Model: Cascadia 126
+Year: 2023
+VIN: 3AKJHHDR7BS467821
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: June 15, 2023
+Expiration Date: June 15, 2025
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: John Smith
+Driver's License: 429384756
+License State: Texas
+
+Issued by: Texas Department of Motor Vehicles
+Date Issued: June 15, 2024
+Signature: _________________

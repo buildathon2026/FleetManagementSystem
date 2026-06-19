@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Texas
+County: Tarrant
+Registration Number: TX-23-0105
+Plate Number: ABCUNIT105
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: Unit 105
+Make: Volvo
+Model: VNL
+Year: 2021
+VIN: 2FZJD5D92CHA27814
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: January 10, 2023
+Expiration Date: January 10, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Robert Johnson
+Driver's License: 287394756
+License State: Texas
+
+Issued by: Texas Department of Motor Vehicles
+Date Issued: January 10, 2023
+Signature: _________________

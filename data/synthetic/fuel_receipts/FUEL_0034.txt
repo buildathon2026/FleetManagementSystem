@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Miami FL
+Receipt Number: FUEL-000034
+Date: 05/19/2026
+Time: 06:25
+
+VEHICLE INFORMATION
+Truck: 125
+Driver: James Wilson
+Odometer: 394892
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 136.3
+Price per Gallon: $3.52
+Subtotal: $363.54
+Tax: $37.04
+Total Amount: $461.79
+
+Payment Method: Fleet Card
+Card Last 4: 4278
+Pump Number: 7
+
+Thank you for your business!

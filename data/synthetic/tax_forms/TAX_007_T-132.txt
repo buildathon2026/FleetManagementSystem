@@ -1,0 +1,38 @@
+IRS FORM 2290 - HEAVY HIGHWAY VEHICLE USE TAX RETURN
+
+Tax Year: 2026
+Form 2290 Filing ID: 2290-000007
+Date Prepared: 04/19/2026
+
+VEHICLE OWNER INFORMATION
+Name: ABC Trucking LLC
+EIN: 75-2847392
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Vehicle Identification Number (VIN): 2FZJKAC86CCA34928
+Make: Isuzu
+Gross Vehicle Weight: 80,000 lbs
+First Used: 06/18/2024
+
+TAX CALCULATION
+Base Tax: $550.00
+Monthly Tax Rate (if not full year): $46.00 per month
+Months of Use (2026): 12
+Total Tax Due: $550.00
+
+EXEMPTIONS
+Agricultural Vehicle: No
+Harvester Vehicle: No
+School Bus: No
+Government Vehicle: No
+
+Paid By: Check (Check Number: 7670)
+Amount Paid: $550.00
+Date Paid: 05/04/2026
+Acceptance Number: 877309
+
+Preparer Name: John Davis, CPA
+Preparer Phone: (214) 555-0142
+Signature: _________________

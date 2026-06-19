@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0035
+Date: June 03, 2026
+Invoice ID: MNT-000035
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 168 (T-168)
+Make/Model: Isuzu Truck
+Odometer Reading: 172432 miles
+
+SERVICE PROVIDER
+Shop Name: Truck Care Inc
+Address: Denver CO
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Air Filter Replacement
+Hours: 3.6
+Rate: $105/hour
+Parts Cost: $339.13
+Labor Cost: $119.24
+Subtotal: $1128.2
+Tax (8.25%): $18.61
+
+TOTAL DUE: $912.37
+
+Terms: Net 30
+Due Date: July 03, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

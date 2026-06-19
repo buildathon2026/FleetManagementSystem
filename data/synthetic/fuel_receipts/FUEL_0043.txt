@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Chicago IL
+Receipt Number: FUEL-000043
+Date: 05/31/2026
+Time: 20:43
+
+VEHICLE INFORMATION
+Truck: Unit118
+Driver: Samuel Price
+Odometer: 254842
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 119.2
+Price per Gallon: $4.15
+Subtotal: $493.8
+Tax: $21.7
+Total Amount: $432.6
+
+Payment Method: Fleet Card
+Card Last 4: 6599
+Pump Number: 12
+
+Thank you for your business!

@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0004
+Date: May 07, 2026
+Invoice ID: MNT-000004
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 125 (T-125)
+Make/Model: Volvo Truck
+Odometer Reading: 386323 miles
+
+SERVICE PROVIDER
+Shop Name: Elite Maintenance
+Address: Miami FL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Safety Check
+Hours: 2.7
+Rate: $110/hour
+Parts Cost: $721.06
+Labor Cost: $539.86
+Subtotal: $333.43
+Tax (8.25%): $51.68
+
+TOTAL DUE: $1350.09
+
+Terms: Net 30
+Due Date: June 06, 2026
+
+Authorized By: Philip Morrison
+Shop Signature: _________________

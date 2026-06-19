@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Dallas TX
+Receipt Number: FUEL-000044
+Date: 05/21/2026
+Time: 20:50
+
+VEHICLE INFORMATION
+Truck: Trk 112
+Driver: David Chen
+Odometer: 267776
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 92.0
+Price per Gallon: $3.56
+Subtotal: $646.38
+Tax: $30.96
+Total Amount: $346.88
+
+Payment Method: Fleet Card
+Card Last 4: 3898
+Pump Number: 1
+
+Thank you for your business!

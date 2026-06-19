@@ -1,0 +1,39 @@
+COMMERCIAL VEHICLE INSURANCE CERTIFICATE
+
+Certificate Number: FL-ABC-0004
+Insurance Company: Progressive Commercial
+Policy Number: POL-000004
+Issue Date: December 20, 2025
+Effective Date: December 20, 2025
+Expiration Date: December 20, 2026
+
+INSURED INFORMATION
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Fleet ID: FL-084
+
+VEHICLE INFORMATION
+Unit Number: 112
+Fleet Designation: Unit 112
+Make/Model: Volvo Truck
+VIN: 1FUJITSU82D1SJSYT
+Gross Vehicle Weight Rating: 80,000 lbs
+
+COVERAGE INFORMATION
+Liability Limit: $1,000,000 each occurrence
+Property Damage: $500,000 each occurrence
+Bodily Injury: $500,000 each occurrence
+Medical Payments: $25,000
+Uninsured Motorist: $1,000,000
+Cargo Coverage: $100,000
+
+Additional Insured: ABC Trucking Brokers LLC
+
+Certificate Holder: ABC Trucking LLC
+Authorized Representative: Sarah Mitchell
+Phone: (214) 555-0123
+
+This certificate is issued as a matter of information only and confers no rights upon the certificate holder.
+
+Signature: _________________
+Date: June 18, 2026

@@ -1,0 +1,19 @@
+From: dispatch@abctrucking.com
+To: ops@abctrucking.com
+Date: Thu, Jun 04, 2026 at 22:39 PM
+Subject: Fleet registration expiration
+
+Hi Operations Team,
+
+fleet registration expiration - Please review and take action.
+
+Unit 91 status update needed.
+
+Driver: John Smith
+
+Action required by: June 06, 2026
+
+Please confirm receipt.
+
+Thanks,
+Fleet Management System

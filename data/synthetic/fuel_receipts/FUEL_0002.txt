@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Seattle WA
+Receipt Number: FUEL-000002
+Date: 06/10/2026
+Time: 10:52
+
+VEHICLE INFORMATION
+Truck: Unit151
+Driver: Michael Torres
+Odometer: 181570
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 86.4
+Price per Gallon: $3.99
+Subtotal: $571.93
+Tax: $24.5
+Total Amount: $367.91
+
+Payment Method: Fleet Card
+Card Last 4: 5469
+Pump Number: 4
+
+Thank you for your business!

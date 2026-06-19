@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Chicago IL
+Receipt Number: FUEL-000009
+Date: 06/12/2026
+Time: 17:19
+
+VEHICLE INFORMATION
+Truck: Trk 151
+Driver: Kevin Hayes
+Odometer: 344801
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 131.3
+Price per Gallon: $3.80
+Subtotal: $330.97
+Tax: $39.57
+Total Amount: $512.83
+
+Payment Method: Fleet Card
+Card Last 4: 6918
+Pump Number: 12
+
+Thank you for your business!

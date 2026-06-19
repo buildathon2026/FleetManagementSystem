@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Atlanta GA
+Receipt Number: FUEL-000013
+Date: 06/14/2026
+Time: 16:41
+
+VEHICLE INFORMATION
+Truck: Unit 125
+Driver: John Smith
+Odometer: 204272
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 91.9
+Price per Gallon: $3.59
+Subtotal: $362.9
+Tax: $42.06
+Total Amount: $408.82
+
+Payment Method: Fleet Card
+Card Last 4: 6185
+Pump Number: 12
+
+Thank you for your business!

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Denver CO
+Receipt Number: FUEL-000033
+Date: 05/20/2026
+Time: 15:51
+
+VEHICLE INFORMATION
+Truck: Unit 132
+Driver: Maria Garcia
+Odometer: 182140
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 125.5
+Price per Gallon: $4.10
+Subtotal: $393.69
+Tax: $47.17
+Total Amount: $726.62
+
+Payment Method: Fleet Card
+Card Last 4: 4941
+Pump Number: 6
+
+Thank you for your business!

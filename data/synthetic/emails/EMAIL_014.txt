@@ -1,0 +1,19 @@
+From: admin@abctrucking.com
+To: ops@abctrucking.com
+Date: Wed, Apr 29, 2026 at 22:39 PM
+Subject: Vehicle inspection due
+
+Hi Operations Team,
+
+vehicle inspection due - Please review and take action.
+
+Unit 91 status update needed.
+
+Driver: Michael Torres
+
+Action required by: May 06, 2026
+
+Please confirm receipt.
+
+Thanks,
+Fleet Management System

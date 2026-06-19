@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Houston TX
+Receipt Number: FUEL-000032
+Date: 06/08/2026
+Time: 12:01
+
+VEHICLE INFORMATION
+Truck: 140
+Driver: John Smith
+Odometer: 383726
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 123.4
+Price per Gallon: $4.05
+Subtotal: $653.02
+Tax: $21.76
+Total Amount: $422.02
+
+Payment Method: Fleet Card
+Card Last 4: 7114
+Pump Number: 2
+
+Thank you for your business!

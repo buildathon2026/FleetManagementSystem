@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Pilot Travel Center #412, Dallas TX
+Receipt Number: FUEL-000022
+Date: 06/13/2026
+Time: 07:52
+
+VEHICLE INFORMATION
+Truck: Trk 84
+Driver: Samuel Price
+Odometer: 200706
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 116.3
+Price per Gallon: $3.93
+Subtotal: $645.49
+Tax: $30.55
+Total Amount: $514.43
+
+Payment Method: Fleet Card
+Card Last 4: 9564
+Pump Number: 16
+
+Thank you for your business!

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Denver CO
+Receipt Number: FUEL-000010
+Date: 05/31/2026
+Time: 08:25
+
+VEHICLE INFORMATION
+Truck: Unit 118
+Driver: Michael Torres
+Odometer: 381662
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 103.9
+Price per Gallon: $4.15
+Subtotal: $380.4
+Tax: $34.43
+Total Amount: $596.87
+
+Payment Method: Fleet Card
+Card Last 4: 3353
+Pump Number: 17
+
+Thank you for your business!

@@ -1,0 +1,27 @@
+TOLL RECEIPT
+
+Receipt Number: TOLL-000028
+Date: 06/10/2026
+Time: 13:22
+
+TOLL AUTHORITY: Dallas North Tollway
+TRANSPONDER ACCOUNT: 500338
+
+VEHICLE INFORMATION
+Fleet Unit ID: Unit 125
+Transponder ID: TX-5379
+
+TOLL CHARGES
+Toll Plaza: West Plaza
+Class: Commercial Truck (2 Axles)
+Charge: $3.24
+
+ACCOUNT INFORMATION
+Current Balance: $51.19
+Transaction Type: Toll Collection
+Status: Completed
+
+Note: Toll paid electronically via transponder account
+
+Questions? Contact: 927-TOLL-TX
+Website: www.tolltexas.gov

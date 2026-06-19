@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0030
+Date: April 23, 2026
+Invoice ID: MNT-000030
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 84 (T-084)
+Make/Model: Volvo Truck
+Odometer Reading: 146804 miles
+
+SERVICE PROVIDER
+Shop Name: Penske Truck Rental
+Address: Los Angeles CA
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Transmission Service
+Hours: 3.5
+Rate: $129/hour
+Parts Cost: $178.18
+Labor Cost: $336.05
+Subtotal: $491.68
+Tax (8.25%): $21.16
+
+TOTAL DUE: $1475.39
+
+Terms: Net 30
+Due Date: May 23, 2026
+
+Authorized By: James Wilson
+Shop Signature: _________________

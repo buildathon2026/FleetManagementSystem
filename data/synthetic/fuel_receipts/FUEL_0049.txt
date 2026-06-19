@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Los Angeles CA
+Receipt Number: FUEL-000049
+Date: 06/07/2026
+Time: 08:22
+
+VEHICLE INFORMATION
+Truck: Trk 118
+Driver: Maria Garcia
+Odometer: 185627
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 90.3
+Price per Gallon: $3.95
+Subtotal: $619.66
+Tax: $45.51
+Total Amount: $470.04
+
+Payment Method: Fleet Card
+Card Last 4: 4743
+Pump Number: 6
+
+Thank you for your business!

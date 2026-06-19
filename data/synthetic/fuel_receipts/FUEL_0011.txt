@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Dallas TX
+Receipt Number: FUEL-000011
+Date: 05/28/2026
+Time: 09:43
+
+VEHICLE INFORMATION
+Truck: Trk 151
+Driver: David Chen
+Odometer: 212748
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 82.6
+Price per Gallon: $4.05
+Subtotal: $344.32
+Tax: $36.63
+Total Amount: $650.08
+
+Payment Method: Fleet Card
+Card Last 4: 1889
+Pump Number: 1
+
+Thank you for your business!

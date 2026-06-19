@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Denver CO
+Receipt Number: FUEL-000047
+Date: 06/12/2026
+Time: 19:41
+
+VEHICLE INFORMATION
+Truck: Unit 112
+Driver: John Smith
+Odometer: 156195
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 143.4
+Price per Gallon: $4.04
+Subtotal: $671.74
+Tax: $45.77
+Total Amount: $720.99
+
+Payment Method: Fleet Card
+Card Last 4: 1145
+Pump Number: 9
+
+Thank you for your business!

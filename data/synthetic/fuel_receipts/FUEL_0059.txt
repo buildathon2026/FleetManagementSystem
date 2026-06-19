@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: TA/Petro #156, Nashville TN
+Receipt Number: FUEL-000059
+Date: 06/04/2026
+Time: 18:31
+
+VEHICLE INFORMATION
+Truck: Unit140
+Driver: Kevin Hayes
+Odometer: 158153
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 122.0
+Price per Gallon: $3.99
+Subtotal: $367.21
+Tax: $48.0
+Total Amount: $457.15
+
+Payment Method: Fleet Card
+Card Last 4: 6174
+Pump Number: 5
+
+Thank you for your business!

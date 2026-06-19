@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0001
+Date: June 08, 2026
+Invoice ID: MNT-000001
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 132 (T-132)
+Make/Model: Freightliner Truck
+Odometer Reading: 350931 miles
+
+SERVICE PROVIDER
+Shop Name: ABC Auto Parts
+Address: Chicago IL
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Tire Replacement
+Hours: 3.9
+Rate: $123/hour
+Parts Cost: $293.1
+Labor Cost: $588.48
+Subtotal: $641.9
+Tax (8.25%): $116.14
+
+TOTAL DUE: $1116.18
+
+Terms: Net 30
+Due Date: July 08, 2026
+
+Authorized By: Antoine Beaumont
+Shop Signature: _________________

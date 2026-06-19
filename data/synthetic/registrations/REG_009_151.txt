@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Mississippi
+County: Hinds
+Registration Number: MS-24-151
+Plate Number: ABCMS151
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: 151
+Make: Freightliner
+Model: Classic 120
+Year: 2022
+VIN: 3ALACM5S35E784296
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: February 28, 2024
+Expiration Date: February 28, 2026
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Kevin Hayes
+Driver's License: 384756293
+License State: Mississippi
+
+Issued by: Mississippi Department of Motor Vehicles
+Date Issued: February 28, 2024
+Signature: _________________

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Phoenix AZ
+Receipt Number: FUEL-000039
+Date: 06/11/2026
+Time: 14:38
+
+VEHICLE INFORMATION
+Truck: Unit118
+Driver: Michael Torres
+Odometer: 117767
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 95.6
+Price per Gallon: $4.13
+Subtotal: $412.32
+Tax: $36.41
+Total Amount: $564.44
+
+Payment Method: Fleet Card
+Card Last 4: 6129
+Pump Number: 3
+
+Thank you for your business!

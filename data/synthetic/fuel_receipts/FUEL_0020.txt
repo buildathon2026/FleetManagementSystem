@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Shell Travel Center, Denver CO
+Receipt Number: FUEL-000020
+Date: 06/03/2026
+Time: 19:43
+
+VEHICLE INFORMATION
+Truck: 112
+Driver: Philip Morrison
+Odometer: 295714
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 94.7
+Price per Gallon: $4.20
+Subtotal: $469.06
+Tax: $33.59
+Total Amount: $457.04
+
+Payment Method: Fleet Card
+Card Last 4: 3367
+Pump Number: 7
+
+Thank you for your business!

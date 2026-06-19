@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Phoenix AZ
+Receipt Number: FUEL-000038
+Date: 06/11/2026
+Time: 10:03
+
+VEHICLE INFORMATION
+Truck: Unit 91
+Driver: Samuel Price
+Odometer: 237186
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 115.1
+Price per Gallon: $3.67
+Subtotal: $676.93
+Tax: $38.65
+Total Amount: $333.64
+
+Payment Method: Fleet Card
+Card Last 4: 6632
+Pump Number: 2
+
+Thank you for your business!

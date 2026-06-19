@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Miami FL
+Receipt Number: FUEL-000046
+Date: 06/05/2026
+Time: 21:31
+
+VEHICLE INFORMATION
+Truck: 118
+Driver: James Wilson
+Odometer: 230986
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 89.5
+Price per Gallon: $3.82
+Subtotal: $568.89
+Tax: $25.68
+Total Amount: $420.09
+
+Payment Method: Fleet Card
+Card Last 4: 4891
+Pump Number: 19
+
+Thank you for your business!

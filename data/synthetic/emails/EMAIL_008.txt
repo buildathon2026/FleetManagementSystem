@@ -1,0 +1,19 @@
+From: dispatch@abctrucking.com
+To: ops@abctrucking.com
+Date: Tue, May 12, 2026 at 22:39 PM
+Subject: Accident report attached
+
+Hi Operations Team,
+
+accident report attached - Please review and take action.
+
+Unit 105 status update needed.
+
+Driver: James Wilson
+
+Action required by: May 17, 2026
+
+Please confirm receipt.
+
+Thanks,
+Fleet Management System

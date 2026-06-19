@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Nashville TN
+Receipt Number: FUEL-000006
+Date: 05/21/2026
+Time: 22:35
+
+VEHICLE INFORMATION
+Truck: Unit91
+Driver: Samuel Price
+Odometer: 152174
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 106.5
+Price per Gallon: $4.04
+Subtotal: $358.92
+Tax: $21.95
+Total Amount: $436.45
+
+Payment Method: Fleet Card
+Card Last 4: 2156
+Pump Number: 19
+
+Thank you for your business!

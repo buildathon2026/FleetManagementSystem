@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Speedway #501, Nashville TN
+Receipt Number: FUEL-000004
+Date: 05/28/2026
+Time: 16:21
+
+VEHICLE INFORMATION
+Truck: Unit 112
+Driver: Michael Torres
+Odometer: 106311
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 125.7
+Price per Gallon: $3.83
+Subtotal: $377.91
+Tax: $23.27
+Total Amount: $466.84
+
+Payment Method: Fleet Card
+Card Last 4: 4026
+Pump Number: 11
+
+Thank you for your business!

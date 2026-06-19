@@ -1,0 +1,32 @@
+VEHICLE REGISTRATION CERTIFICATE
+
+State: Louisiana
+County: Orleans
+Registration Number: LA-23-132
+Plate Number: ABCLA132
+
+REGISTERED OWNER
+Name: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+
+VEHICLE INFORMATION
+Unit Number: 132
+Make: Mack
+Model: Anthem 64T
+Year: 2023
+VIN: 2FZJKAC86CCA34928
+GVW: 80,000 lbs
+
+REGISTRATION VALIDITY
+Registration Date: December 1, 2023
+Expiration Date: December 1, 2025
+Status: Active
+
+DRIVER INFORMATION
+Primary Driver: Antoine Beaumont
+Driver's License: 472938475
+License State: Louisiana
+
+Issued by: Louisiana Department of Motor Vehicles
+Date Issued: December 1, 2023
+Signature: _________________

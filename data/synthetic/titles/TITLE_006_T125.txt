@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Oklahoma
+Document Number: OK-2024-1920384
+
+VEHICLE INFORMATION
+VIN: 3ALACM7S83E823957
+Year: 2022
+Make: Freightliner
+Model: Cascadia 116
+Truck Unit Number: 125
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 012345678
+Date of Issue: April 15, 2022
+Lien Holder: Toyota Financial Services
+Lien Holder Address: 19001 South Western Avenue, Torrance, CA 90509
+Lien Release: No
+
+ODOMETER READING: 156,234 miles
+Date of Odometer Reading: April 15, 2022
+
+Signature: _________________
+Date: April 15, 2022

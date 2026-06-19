@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Chicago IL
+Receipt Number: FUEL-000048
+Date: 05/22/2026
+Time: 12:04
+
+VEHICLE INFORMATION
+Truck: 112
+Driver: Philip Morrison
+Odometer: 193933
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 117.0
+Price per Gallon: $4.19
+Subtotal: $353.35
+Tax: $33.13
+Total Amount: $492.31
+
+Payment Method: Fleet Card
+Card Last 4: 9748
+Pump Number: 8
+
+Thank you for your business!

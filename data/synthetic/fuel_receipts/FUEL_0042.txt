@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Miami FL
+Receipt Number: FUEL-000042
+Date: 06/15/2026
+Time: 10:36
+
+VEHICLE INFORMATION
+Truck: Trk 140
+Driver: Philip Morrison
+Odometer: 233338
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 108.2
+Price per Gallon: $3.94
+Subtotal: $608.18
+Tax: $40.36
+Total Amount: $498.58
+
+Payment Method: Fleet Card
+Card Last 4: 3308
+Pump Number: 14
+
+Thank you for your business!

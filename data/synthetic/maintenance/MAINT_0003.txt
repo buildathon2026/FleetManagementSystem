@@ -1,0 +1,38 @@
+MAINTENANCE INVOICE
+
+Invoice Number: INV-0003
+Date: April 23, 2026
+Invoice ID: MNT-000003
+
+CUSTOMER INFORMATION
+Company: ABC Trucking LLC
+Address: 1547 Commerce Drive, Dallas, TX 75207
+Contact: Dispatch Team
+Phone: (214) 555-0123
+
+VEHICLE INFORMATION
+Unit/Fleet ID: Unit 151 (T-151)
+Make/Model: Freightliner Truck
+Odometer Reading: 341287 miles
+
+SERVICE PROVIDER
+Shop Name: Cross Truck Services
+Address: Houston TX
+Contact: (214) 555-9876
+
+SERVICES RENDERED
+Description: Coolant Flush
+Hours: 7.2
+Rate: $77/hour
+Parts Cost: $965.33
+Labor Cost: $790.91
+Subtotal: $1285.0
+Tax (8.25%): $112.89
+
+TOTAL DUE: $1459.2
+
+Terms: Net 30
+Due Date: May 23, 2026
+
+Authorized By: Samuel Price
+Shop Signature: _________________

@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: BP Truck Stop, Phoenix AZ
+Receipt Number: FUEL-000036
+Date: 05/27/2026
+Time: 12:10
+
+VEHICLE INFORMATION
+Truck: 132
+Driver: Antoine Beaumont
+Odometer: 225366
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 129.3
+Price per Gallon: $3.66
+Subtotal: $667.81
+Tax: $40.37
+Total Amount: $397.11
+
+Payment Method: Fleet Card
+Card Last 4: 4965
+Pump Number: 4
+
+Thank you for your business!

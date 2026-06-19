@@ -1,0 +1,28 @@
+VEHICLE TITLE
+State: Texas
+Document Number: TX-2023-8934521
+
+VEHICLE INFORMATION
+VIN: 8LGETD65X62034915
+Year: 2023
+Make: Kenworth
+Model: T680
+Truck Unit Number: 118
+
+OWNER INFORMATION
+Owner Name: ABC Trucking LLC
+Owner Address: 1547 Commerce Drive, Dallas, TX 75207
+Mailing Address: 1547 Commerce Drive, Dallas, TX 75207
+
+TITLE INFORMATION
+Title Number: 789012345
+Date of Issue: August 20, 2023
+Lien Holder: Ally Financial
+Lien Holder Address: 1 Ally Plaza, Detroit, MI 48232
+Lien Release: No
+
+ODOMETER READING: 67,890 miles
+Date of Odometer Reading: August 20, 2023
+
+Signature: _________________
+Date: August 20, 2023

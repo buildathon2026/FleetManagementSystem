@@ -1,0 +1,25 @@
+FUEL RECEIPT
+
+Station: Love's Travel Stop #287, Miami FL
+Receipt Number: FUEL-000035
+Date: 06/01/2026
+Time: 07:26
+
+VEHICLE INFORMATION
+Truck: Trk 105
+Driver: Maria Garcia
+Odometer: 298364
+
+FUEL DETAILS
+Fuel Grade: Diesel #2
+Gallons: 146.5
+Price per Gallon: $4.16
+Subtotal: $553.2
+Tax: $29.08
+Total Amount: $499.85
+
+Payment Method: Fleet Card
+Card Last 4: 6909
+Pump Number: 20
+
+Thank you for your business!
