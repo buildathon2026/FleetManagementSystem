@@ -32,15 +32,15 @@ Fleet operators drown in paperwork — fuel receipts, maintenance invoices, insu
                      ▼
 ┌─────────────────────────────────────────────────────────┐
 │  4. AI Agent (:8001)                                    │
-│     Planner (8B) → Tool Calls → Formatter (70B)        │
+│     Planner (8B) → Tool Calls → Formatter (70B)         │
 └────────────┬─────────────────────────────────┬──────────┘
              │ MCP Tools                       │
              ▼                                 ▼
 ┌───────────────────────────────────────────────────────────┐
 │  1. MCP Data Server (:8002)                               │
 │     Typed Tools: get_expenses, get_revenue, find_document │
-│     ↓                          ↓                           │
-│  SQLite (structured)      ChromaDB (embeddings)          │
+│     ↓                          ↓                          │
+│  SQLite (structured)      ChromaDB (embeddings)           │
 └───────────────────────────────────────────────────────────┘
              ▲                                 ▲
              │ Ingest                         │
