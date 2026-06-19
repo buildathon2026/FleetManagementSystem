@@ -45,10 +45,10 @@ COPY DocumentIngestionPipeline/src/ ./ingest_src/
 COPY ai-agent/src/ ./agent_src/
 COPY entity-resolution/src/ ./entity_src/
 
-# Copy data files (ignore if not present)
-COPY DocumentIngestionPipeline/fleet.db ./fleet.db 2>/dev/null || true
-COPY DocumentIngestionPipeline/chromadb ./chromadb 2>/dev/null || true
-COPY FleetDataService/fleet.db ./fleet/fleet.db 2>/dev/null || true
+# Copy data files
+COPY DocumentIngestionPipeline/fleet.db ./fleet.db
+COPY DocumentIngestionPipeline/chromadb ./chromadb
+COPY FleetDataService/fleet.db ./fleet/fleet.db
 
 # Copy startup orchestrator
 COPY start.py ./
