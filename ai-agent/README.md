@@ -22,6 +22,7 @@ The API runs on port `8001`.
 
 ```bash
 MCP_TOOLS_URL=http://192.168.1.160:8002/tools
+MCP_TOOLS_LIST_URL=http://192.168.1.160:8002/tools/list
 FLEET_DATA_URL=http://192.168.1.160:8002
 ENTITY_RESOLUTION_URL=http://localhost:8003
 INGESTION_URL=http://localhost:8004

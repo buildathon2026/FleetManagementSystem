@@ -31,11 +31,8 @@ app.get('/openapi.json', (_req, res) => res.json(swaggerSpec));
 
 // Routes
 app.use(healthRouter);
-<<<<<<< HEAD
 app.use(toolsListRouter);
-=======
 app.use(toolsRouter);
->>>>>>> 4f080c0 (Initial commit)
 app.use(expensesRouter);
 app.use(revenueRouter);
 app.use(profitRouter);
