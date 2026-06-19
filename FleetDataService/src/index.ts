@@ -15,6 +15,7 @@ import documentsRouter from './routes/documents';
 import entityRouter from './routes/entity';
 import renewalsRouter from './routes/renewals';
 import fleetOverviewRouter from './routes/fleetOverview';
+import toolsRouter from './routes/tools';
 
 const PORT = parseInt(process.env.PORT || '8002', 10);
 
@@ -30,7 +31,11 @@ app.get('/openapi.json', (_req, res) => res.json(swaggerSpec));
 
 // Routes
 app.use(healthRouter);
+<<<<<<< HEAD
 app.use(toolsListRouter);
+=======
+app.use(toolsRouter);
+>>>>>>> 4f080c0 (Initial commit)
 app.use(expensesRouter);
 app.use(revenueRouter);
 app.use(profitRouter);
