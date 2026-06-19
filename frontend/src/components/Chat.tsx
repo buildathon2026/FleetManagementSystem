@@ -111,15 +111,16 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
         tools: response.plan_executed.tools_called,
         executionTime: response.plan_executed.execution_time_ms,
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
+      const errorMessage = error?.response?.data?.message || error?.message || 'Error processing your question. Please try again.';
       // Keep pipeline visible and add error message below it
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 2).toString(),
           role: 'assistant',
-          content: 'Error processing your question. Please try again.',
+          content: `Error: ${errorMessage}`,
           timestamp: new Date(),
         },
       ]);
@@ -220,10 +221,10 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
             <p className="text-xs text-slate-600 uppercase tracking-wider mb-4">Example queries</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
-                { emoji: '💰', text: 'How much on parts last month?', desc: 'SQL expenses' },
-                { emoji: '📄', text: 'Find tax form for truck 84', desc: 'Semantic search' },
-                { emoji: '📊', text: 'Which trucks are profitable?', desc: 'Analysis' },
-                { emoji: '🔧', text: 'All maintenance for unit 84', desc: 'Filtering' },
+                { emoji: '💰', text: 'What is the revenue for truck T-084?', desc: 'Entity + analytics' },
+                { emoji: '📄', text: 'Show all loads for truck T-084', desc: 'Load retrieval' },
+                { emoji: '📊', text: 'What is the revenue for truck T-091?', desc: 'Multi-truck data' },
+                { emoji: '🚚', text: 'Compare revenue between T-084 and T-091', desc: 'Analysis' },
               ].map((example, i) => (
                 <button
                   key={i}

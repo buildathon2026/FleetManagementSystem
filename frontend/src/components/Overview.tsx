@@ -43,43 +43,43 @@ export default function Overview() {
           <p className="text-center text-xs text-slate-600 uppercase tracking-wider">Examples</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Link
-              to="/chat?q=How%20much%20on%20parts%20last%20month"
+              to="/chat?q=What%20is%20the%20revenue%20for%20truck%20T-084"
               className="p-4 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all group"
             >
               <p className="text-sm text-slate-300 group-hover:text-slate-100">
-                💰 How much on parts last month?
+                💰 What is the revenue for truck T-084?
               </p>
-              <p className="text-xs text-slate-600 mt-1">SQL query across expenses</p>
+              <p className="text-xs text-slate-600 mt-1">Entity resolution + revenue</p>
             </Link>
 
             <Link
-              to="/chat?q=Find%20tax%20form%20for%20truck%2084"
+              to="/chat?q=Show%20all%20loads%20for%20truck%20T-084"
               className="p-4 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all group"
             >
               <p className="text-sm text-slate-300 group-hover:text-slate-100">
-                📄 Find tax form for truck 84
+                📄 Show all loads for truck T-084
               </p>
-              <p className="text-xs text-slate-600 mt-1">Semantic document search</p>
+              <p className="text-xs text-slate-600 mt-1">Load retrieval & filtering</p>
             </Link>
 
             <Link
-              to="/chat?q=Which%20trucks%20are%20profitable"
+              to="/chat?q=What%20is%20the%20revenue%20for%20truck%20T-091"
               className="p-4 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all group"
             >
               <p className="text-sm text-slate-300 group-hover:text-slate-100">
-                📊 Which trucks are profitable?
+                📊 What is the revenue for truck T-091?
               </p>
-              <p className="text-xs text-slate-600 mt-1">Profitability analysis</p>
+              <p className="text-xs text-slate-600 mt-1">Multi-truck comparison</p>
             </Link>
 
             <Link
-              to="/chat?q=All%20maintenance%20for%20unit%2084"
+              to="/chat?q=Compare%20revenue%20between%20truck%20T-084%20and%20T-091"
               className="p-4 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all group"
             >
               <p className="text-sm text-slate-300 group-hover:text-slate-100">
-                🔧 All maintenance for unit 84
+                🚚 Compare trucks T-084 and T-091
               </p>
-              <p className="text-xs text-slate-600 mt-1">Filter by truck & type</p>
+              <p className="text-xs text-slate-600 mt-1">Multi-entity analysis</p>
             </Link>
           </div>
         </div>

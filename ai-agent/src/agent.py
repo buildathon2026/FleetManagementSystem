@@ -6,6 +6,7 @@ from dataclasses import asdict
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from .formatter import Formatter
 from .llm_formatter import LLMFormatter

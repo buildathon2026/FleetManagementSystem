@@ -24,7 +24,7 @@ else
     RMDIR := rm -rf
 endif
 
-.PHONY: help venv install run dev test clean lint ingestion-stats ingest-sample
+.PHONY: help venv install run dev test clean lint ingestion-stats ingest-sample generate-data ingest-all
 
 help:
 	@echo "Document Ingestion Pipeline - Commands"
@@ -38,12 +38,17 @@ help:
 	@echo "  make run        - Run production server"
 	@echo "  make dev        - Run development server with auto-reload"
 	@echo ""
+	@echo "Data Commands:"
+	@echo "  make generate-data  - Generate synthetic fleet documents (~230 docs)"
+	@echo "  make ingest-all     - Ingest all synthetic documents into pipeline"
+	@echo "  make seed-database  - Full pipeline: generate → clean → ingest"
+	@echo ""
 	@echo "Utility Commands:"
-	@echo "  make test       - Run tests"
-	@echo "  make clean      - Clean database and cache files"
-	@echo "  make lint       - Run linting checks"
-	@echo "  make ingestion-stats - Show pipeline statistics"
-	@echo "  make ingest-sample   - Test single document ingestion"
+	@echo "  make test           - Run tests"
+	@echo "  make clean          - Clean database and cache files"
+	@echo "  make lint           - Run linting checks"
+	@echo "  make ingestion-stats    - Show pipeline statistics"
+	@echo "  make ingest-sample      - Test single document ingestion"
 	@echo ""
 	@echo "Virtual Environment:"
 	@echo "  VENV_DIR: $(VENV_DIR)"
@@ -106,5 +111,19 @@ print('Ingestion result:'); \
 print(f'  Status: {result[\"status\"]}'); \
 print(f'  Doc ID: {result[\"doc_id\"]}'); \
 "
+
+generate-data:
+	@echo "🔄 Generating synthetic fleet documents..."
+	@$(PYTHON) ../data/synthetic/generate_synthetic_data.py
+	@echo "✓ Synthetic data generated in: ../data/synthetic/"
+	@find ../data/synthetic -type f | wc -l && echo "documents created"
+
+ingest-all:
+	@echo "📥 Ingesting all synthetic documents..."
+	@$(PYTHON_VENV) examples.py
+	@echo "✓ Ingestion complete"
+
+seed-database: clean generate-data ingest-all ingestion-stats
+	@echo "✓ Database seeding complete!"
 
 .DEFAULT_GOAL := help

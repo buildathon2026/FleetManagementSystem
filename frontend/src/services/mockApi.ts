@@ -1,8 +1,8 @@
-// Mock API service - easily swappable for real backend
+// Real API service - integrated with AI Agent backend via local proxy
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8001';
-const MCP_BASE_URL = 'http://localhost:8002';
+const API_BASE_URL = '';  // Empty = use local proxy (same origin)
+const MCP_BASE_URL = 'http://192.168.1.160:8002';
 
 interface ToolResponse {
   tool: string;
@@ -12,13 +12,16 @@ interface ToolResponse {
 }
 
 interface AskResponse {
+  conversation_id?: string;
   answer: string;
   sources: string[];
-  confidence: 'HIGH' | 'LOW' | 'MEDIUM';
-  query_type: 'STRUCTURED' | 'RETRIEVAL' | 'HYBRID';
+  confidence: 'HIGH' | 'LOW' | 'MEDIUM' | 'UNKNOWN';
+  query_type: 'STRUCTURED' | 'RETRIEVAL' | 'HYBRID' | 'UNKNOWN';
   plan_executed: {
     tools_called: ToolResponse[];
+    tool_results?: any[];
     execution_time_ms: number;
+    rationale?: string;
   };
 }
 
@@ -60,33 +63,42 @@ const mockAlerts = [
 
 // API functions
 export const apiService = {
-  // Ask question and get AI response
+  // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/ask`, {
-        question,
-        conversation_id: conversationId,
+      const response = await fetch('/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question,
+          conversation_id: conversationId,
+        }),
       });
-      return response.data;
-    } catch (error) {
-      // Fallback mock response
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
       return {
-        answer: `Analyzing: "${question}"... Based on fleet data, you have 10 active trucks with combined revenue of $113,600 MTD.`,
-        sources: ['FUEL_0001', 'INV_0023', 'TAX_001'],
-        confidence: 'HIGH',
-        query_type: 'STRUCTURED',
+        conversation_id: data.conversation_id,
+        answer: data.answer || data.response || 'No response received',
+        sources: data.sources || data.document_ids || [],
+        confidence: data.confidence || 'MEDIUM',
+        query_type: data.query_type || 'HYBRID',
         plan_executed: {
-          tools_called: [
-            {
-              tool: 'get_expenses',
-              params: { category: 'parts', date_from: '2026-05-01' },
-              result: { total: 2287.50, count: 4 },
-              execution_time_ms: 45,
-            },
-          ],
-          execution_time_ms: 150,
+          tools_called: data.plan_executed?.tools_called || data.tools_called || [],
+          tool_results: data.plan_executed?.tool_results || [],
+          execution_time_ms: data.plan_executed?.execution_time_ms || data.execution_time_ms || 0,
+          rationale: data.plan_executed?.rationale,
         },
       };
+    } catch (error: any) {
+      const errorMsg = error?.message || 'Network error';
+      throw new Error(errorMsg);
     }
   },
 

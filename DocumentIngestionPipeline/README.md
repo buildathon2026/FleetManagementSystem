@@ -61,6 +61,201 @@ pip install -r requirements.txt
 
 ---
 
+## Synthetic Data Generation & Ingestion
+
+### Quick Start (Recommended)
+
+The easiest way to populate the database with realistic fleet documents is the all-in-one seeding command:
+
+```bash
+make seed-database
+```
+
+This command:
+1. 🧹 Cleans existing database and vector store
+2. 📄 Generates ~230 synthetic fleet documents (10 types)
+3. 📥 Ingests all documents through the 5-stage pipeline
+4. 📊 Displays final statistics
+
+**Expected Output:**
+```
+✓ Cleanup complete
+🔄 Generating synthetic fleet documents...
+✓ Synthetic data generated in: ../data/synthetic/
+230 documents created
+📥 Ingesting all synthetic documents...
+✓ Ingestion complete
+{
+  "total_ingested": 230,
+  "doc_types": 10,
+  "by_type": [
+    {"doc_type": "fuel_receipt", "count": 60},
+    {"doc_type": "maintenance_invoice", "count": 40},
+    {"doc_type": "insurance_cert", "count": 10},
+    ...
+  ],
+  "vector_store_total": 230
+}
+```
+
+### Step-by-Step Commands
+
+If you prefer to run commands individually:
+
+#### 1. Generate Synthetic Documents
+
+```bash
+make generate-data
+```
+
+Creates realistic fleet documents in `../data/synthetic/`:
+- **60 fuel receipts** - Station, date, truck, gallons, price, total
+- **40 maintenance invoices** - Service type, hours, labor, parts costs
+- **10 insurance certificates** - Coverage limits, expiration dates
+- **10 tax forms** - IRS Form 2290 for heavy vehicle tax
+- **10 DOT inspections** - Truck inspection reports
+- **30 settlement statements** - Freight broker settlements
+- **20 emails** - Internal communications
+- **30 toll receipts** - Electronic toll charges
+- **Plus:** Registration documents, load documents, etc.
+
+**Document Structure:**
+```
+data/
+└── synthetic/
+    ├── fuel_receipts/       (60 FUEL_*.txt files)
+    ├── maintenance_invoices/ (40 MAINT_*.txt files)
+    ├── insurance_certs/      (10 INS_*.txt files)
+    ├── tax_forms/           (10 TAX_*.txt files)
+    ├── inspections/         (10 INSP_*.txt files)
+    ├── settlement_statements/ (30 SETTLE_*.txt files)
+    ├── emails/              (20 EMAIL_*.txt files)
+    ├── toll_receipts/       (30 TOLL_*.txt files)
+    └── ...
+```
+
+#### 2. Ingest All Documents into Pipeline
+
+```bash
+make ingest-all
+```
+
+Runs the 5-stage pipeline on all synthetic documents:
+
+```
+Document File → [Classification] → [Extraction] → [Entity Resolution]
+                                                          ↓
+                                              [Database Storage] → [Vector Embedding]
+                                                          ↓
+                                    SQLite (fleet.db) + ChromaDB (chromadb/)
+```
+
+**What Happens:**
+- Classifies document type with confidence scores
+- Extracts structured fields (date, amount, truck_id, etc.)
+- Resolves truck mentions to canonical IDs (T-084, T-091, etc.)
+- Stores in SQLite tables (fuel_receipts, maintenance_invoices, etc.)
+- Creates vector embeddings for semantic search in ChromaDB
+
+**Processing Stats:**
+- ~105ms per document (average)
+- ~230 documents in ~20-30 seconds
+- Full database ready for querying
+
+#### 3. Check Database Statistics
+
+```bash
+make ingestion-stats
+```
+
+Display the current ingestion statistics:
+```json
+{
+  "database": {
+    "total_ingested": 230,
+    "doc_types": 10,
+    "by_type": [
+      {"doc_type": "fuel_receipt", "count": 60},
+      {"doc_type": "maintenance_invoice", "count": 40},
+      ...
+    ],
+    "last_ingested_at": "2026-06-19T14:30:00.000000"
+  },
+  "vector_store": {
+    "total": 230,
+    "embedding_model": "default"
+  }
+}
+```
+
+### Manual Synthetic Data Generation
+
+If you want to generate synthetic data without using Makefile:
+
+```bash
+cd ../data/synthetic
+python generate_synthetic_data.py
+```
+
+This creates all document files in the `synthetic/` directory.
+
+### Manual Batch Ingestion
+
+To ingest documents without the pipeline examples script:
+
+```python
+import asyncio
+from pathlib import Path
+from src.ingestion import DocumentIngestionPipeline
+
+async def ingest_all():
+    pipeline = DocumentIngestionPipeline()
+    
+    # Collect all synthetic documents
+    synthetic_dir = Path("../data/synthetic")
+    documents = []
+    
+    for doc_file in synthetic_dir.rglob("*.txt"):
+        documents.append((doc_file.name, doc_file.read_text()))
+    
+    # Ingest in batches
+    print(f"Ingesting {len(documents)} documents...")
+    results = await pipeline.ingest_batch(documents)
+    
+    # Show results
+    completed = sum(1 for r in results if r["status"] == "completed")
+    print(f"✓ Completed: {completed}/{len(results)}")
+    
+    # Display stats
+    stats = pipeline.get_stats()
+    print(f"Total ingested: {stats['database']['total_ingested']}")
+
+# Run
+asyncio.run(ingest_all())
+```
+
+### Customizing Synthetic Data
+
+Edit `../data/synthetic/generate_synthetic_data.py` to customize:
+
+```python
+# Customize number of documents
+TRUCK_UNITS = [84, 91, 105, 112, 118, 125]  # Truck fleet
+DRIVERS = ["John Smith", "Maria Garcia", ...]  # Driver names
+FUEL_STATIONS = ["Pilot #412", "Love's #287"]  # Fuel locations
+
+# Functions to modify
+def generate_fuel_receipts(output_dir, count=100):  # Change count
+def generate_maintenance_invoices(output_dir, count=50):
+```
+
+Then regenerate:
+```bash
+make generate-data
+```
+
+---
+
 ## Running the Pipeline
 
 ### Development Server (with auto-reload)
