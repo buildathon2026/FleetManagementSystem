@@ -1,0 +1,32 @@
+# Dependencies
+**/node_modules/
+
+# Build output
+dist/
+
+# Database files
+*.db
+*.db-journal
+*.db-wal
+
+# Environment
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python (if any modules use it)
+.venv/
+__pycache__/
+*.py[cod]
+
+# Logs
+*.log
