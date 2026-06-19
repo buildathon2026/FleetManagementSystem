@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import type { FormEvent } from 'react';
-import { Send, ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Send, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import apiService from '../services/mockApi';
 import type { PipelineStage } from './PipelineVisualization';
@@ -24,8 +24,6 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
     isOpen: false,
     text: '',
   });
-  const [showFeedbackBubble, setShowFeedbackBubble] = useState<string | null>(null);
-  const [hoveredButton, setHoveredButton] = useState<{ messageId: string; type: 'up' | 'down' } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -135,13 +133,19 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
     sendMessage(input);
   };
 
-  const handleFeedback = (messageId: string, type: 'up' | 'down') => {
+  const handleBubbleYes = (messageId: string) => {
     setFeedback((prev) => ({
       ...prev,
-      [messageId]: prev[messageId] === type ? null : type,
+      [messageId]: 'up',
     }));
-    // Show feedback bubble after feedback
-    setShowFeedbackBubble(messageId);
+    openFeedbackModal(messageId);
+  };
+
+  const handleBubbleNo = (messageId: string) => {
+    setFeedback((prev) => ({
+      ...prev,
+      [messageId]: 'down',
+    }));
   };
 
   const openFeedbackModal = (messageId: string) => {
@@ -150,7 +154,6 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
 
   const closeFeedbackModal = () => {
     setFeedbackModal({ messageId: '', isOpen: false, text: '' });
-    setShowFeedbackBubble(null);
   };
 
   const sendFeedback = () => {
@@ -281,74 +284,44 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
               )}
 
               {message.role === 'assistant' && (
-                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3 relative">
-                  <p className="text-sm text-slate-200">{message.content}</p>
-                  {message.sources && message.sources.length > 0 && (
-                    <div className="space-y-2">
-                      <p className="text-xs text-slate-500">Sources:</p>
-                      <div className="flex flex-wrap gap-2">
-                        {message.sources.slice(0, 5).map((source) => (
-                          <span key={source} className="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">
-                            {source}
-                          </span>
-                        ))}
-                        {message.sources.length > 5 && (
-                          <span className="text-xs text-slate-500">+{message.sources.length - 5}</span>
-                        )}
+                <div className="space-y-3">
+                  <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3">
+                    <p className="text-sm text-slate-200">{message.content}</p>
+                    {message.sources && message.sources.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs text-slate-500">Sources:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {message.sources.slice(0, 5).map((source) => (
+                            <span key={source} className="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">
+                              {source}
+                            </span>
+                          ))}
+                          {message.sources.length > 5 && (
+                            <span className="text-xs text-slate-500">+{message.sources.length - 5}</span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 pt-2 border-t border-slate-700">
-                    <p className="text-xs text-slate-500">Helpful?</p>
-                    <div className="relative">
-                      <button
-                        onClick={() => handleFeedback(message.id, 'up')}
-                        onMouseEnter={() => setHoveredButton({ messageId: message.id, type: 'up' })}
-                        onMouseLeave={() => setHoveredButton(null)}
-                        className={`p-1.5 rounded transition-colors relative ${
-                          feedback[message.id] === 'up'
-                            ? 'bg-green-500/20 text-green-400'
-                            : 'text-slate-500 hover:text-slate-400'
-                        }`}
-                      >
-                        <ThumbsUp size={16} />
-                        {hoveredButton?.messageId === message.id && hoveredButton?.type === 'up' && (
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded whitespace-nowrap pointer-events-none">
-                            Yes, this was helpful
-                          </div>
-                        )}
-                      </button>
-                    </div>
-                    <div className="relative">
-                      <button
-                        onClick={() => handleFeedback(message.id, 'down')}
-                        onMouseEnter={() => setHoveredButton({ messageId: message.id, type: 'down' })}
-                        onMouseLeave={() => setHoveredButton(null)}
-                        className={`p-1.5 rounded transition-colors relative ${
-                          feedback[message.id] === 'down'
-                            ? 'bg-red-500/20 text-red-400'
-                            : 'text-slate-500 hover:text-slate-400'
-                        }`}
-                      >
-                        <ThumbsDown size={16} />
-                        {hoveredButton?.messageId === message.id && hoveredButton?.type === 'down' && (
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded whitespace-nowrap pointer-events-none">
-                            No, this wasn't helpful
-                          </div>
-                        )}
-                      </button>
-                    </div>
-
-                    {/* Bouncing Feedback Bubble */}
-                    {showFeedbackBubble === message.id && feedback[message.id] && (
-                      <button
-                        onClick={() => openFeedbackModal(message.id)}
-                        className="ml-auto animate-bounce-gentle flex items-center gap-2 bg-blue-600/20 text-blue-400 px-3 py-1.5 rounded-full text-xs font-medium border border-blue-500/50 hover:bg-blue-600/30 transition-colors"
-                      >
-                        💬 Provide feedback
-                      </button>
                     )}
                   </div>
+
+                  {/* Bouncing Feedback Bubble - Shows by default */}
+                  {!feedback[message.id] && (
+                    <div className="animate-bounce-gentle flex items-center gap-3 bg-blue-600/20 border border-blue-500/50 text-blue-300 px-4 py-3 rounded-full text-sm max-w-lg">
+                      <span>💬 Was this helpful?</span>
+                      <button
+                        onClick={() => handleBubbleYes(message.id)}
+                        className="ml-auto px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-full font-medium transition-colors"
+                      >
+                        Yes
+                      </button>
+                      <button
+                        onClick={() => handleBubbleNo(message.id)}
+                        className="px-3 py-1 bg-slate-600 hover:bg-slate-700 text-white text-xs rounded-full font-medium transition-colors"
+                      >
+                        No
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
