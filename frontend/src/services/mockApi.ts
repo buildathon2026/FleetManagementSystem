@@ -1,7 +1,6 @@
 // Real API service - integrated with AI Agent backend via local proxy
 import axios from 'axios';
 
-const API_BASE_URL = '';  // Empty = use local proxy (same origin)
 const MCP_BASE_URL = 'http://192.168.1.160:8002';
 
 interface ToolResponse {
