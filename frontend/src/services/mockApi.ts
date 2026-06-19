@@ -1,7 +1,8 @@
 // Mock API service - easily swappable for real backend
 import axios from 'axios';
 
-const API_BASE_URL = 'http://192.168.1.160:8002';
+const API_BASE_URL = 'http://localhost:8001';
+const MCP_BASE_URL = 'http://localhost:8002';
 
 interface ToolResponse {
   tool: string;
@@ -92,7 +93,7 @@ export const apiService = {
   // Get fleet overview
   async getFleetOverview() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/fleet-overview`);
+      const response = await axios.get(`${MCP_BASE_URL}/tools/fleet-overview`);
       return response.data;
     } catch (error) {
       return {
@@ -106,7 +107,7 @@ export const apiService = {
   // Get expenses
   async getExpenses(params: { truck_id?: string; category?: string; date_from?: string; date_to?: string }) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/expenses`, { params });
+      const response = await axios.get(`${MCP_BASE_URL}/tools/expenses`, { params });
       return response.data;
     } catch (error) {
       return {
@@ -120,7 +121,7 @@ export const apiService = {
   // Get revenue
   async getRevenue(params: { truck_id?: string; date_from?: string; date_to?: string }) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/revenue`, { params });
+      const response = await axios.get(`${MCP_BASE_URL}/tools/revenue`, { params });
       return response.data;
     } catch (error) {
       return {
@@ -137,7 +138,7 @@ export const apiService = {
   // Search documents
   async searchDocuments(query: string, entityId?: string) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/documents`, {
+      const response = await axios.get(`${MCP_BASE_URL}/tools/documents`, {
         params: { entity_id: entityId, search: query },
       });
       return response.data;
@@ -152,7 +153,7 @@ export const apiService = {
   // Resolve entity
   async resolveEntity(mention: string) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/entity/resolve`, {
+      const response = await axios.get(`${MCP_BASE_URL}/tools/entity/resolve`, {
         params: { mention },
       });
       return response.data;
@@ -175,7 +176,7 @@ export const apiService = {
   // Get truck profit
   async getTruckProfit(truckId: string, period: string) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/profit`, {
+      const response = await axios.get(`${MCP_BASE_URL}/tools/profit`, {
         params: { truck_id: truckId, period },
       });
       return response.data;
@@ -193,7 +194,7 @@ export const apiService = {
   // Get upcoming renewals
   async getUpcomingRenewals(daysAhead?: number) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/renewals`, {
+      const response = await axios.get(`${MCP_BASE_URL}/tools/renewals`, {
         params: { days_ahead: daysAhead || 30 },
       });
       return response.data;
@@ -211,7 +212,7 @@ export const apiService = {
   // Get tools list
   async getToolsList() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/tools/list`);
+      const response = await axios.get(`${MCP_BASE_URL}/tools/list`);
       return response.data;
     } catch (error) {
       return {
