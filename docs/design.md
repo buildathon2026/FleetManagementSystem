@@ -360,3 +360,296 @@ That's not a prompt trick. That's not fine-tuning. That's system design with MCP
 | `resolve_entity` | `mention: str` | `{canonical_id: str, type: str, aliases: [], confidence: float}` | Embedding lookup. Deterministic. |
 | `get_upcoming_renewals` | `days_ahead?: int` | `{items: [{truck_id, doc_type, expiry_date, days_remaining, status}]}` | Date-filtered query. |
 | `get_fleet_overview` | — | `{trucks: [{id, driver, status, doc_count, revenue_mtd}], alerts: []}` | Dashboard summary. No PII exposed. |
+
+---
+
+## System Modules (Independent Services)
+
+### Module Overview
+
+| # | Module | Port | Responsibility | Build Time |
+|---|--------|------|----------------|------------|
+| 1 | **MCP Data Server** | 8002 | Security boundary. Exposes fleet data as typed MCP tools. Validates params, runs queries, logs audit. | 3h |
+| 2 | **Entity Resolution Engine** | 8003 | Resolves messy mentions to canonical fleet entities. Embedding similarity + rule-based exact match. | 2h |
+| 3 | **Document Ingestion Pipeline** | 8004 | Ingests fabricated text documents, classifies, extracts fields, links to entities, populates DB + vector store. No image/OCR. | 2h |
+| 4 | **AI Agent (Planner + Formatter)** | 8001 | Takes user question → tool-call plan (small model) → executes via MCP → formats response (large model). | 3h |
+| 5 | **Frontend UI** | 3000 | Chat, entity graph, fleet dashboard, document viewer, transparency panel, feedback buttons. | 3h |
+
+---
+
+### Data Flow
+
+```
+User (browser :3000)
+    │
+    ▼
+┌─────────────────┐         ┌───────────────────────┐
+│  5. Frontend UI │────────▶│  4. AI Agent (:8001)   │
+│     (React)     │◀────────│  Planner + Formatter   │
+└─────────────────┘         └───────────┬────────────┘
+                                        │ MCP tool calls
+                                        ▼
+                            ┌───────────────────────┐
+                            │  1. MCP Data Server    │
+                            │     (:8002)            │
+                            └──┬────────────────┬───┘
+                               │                │
+                      ┌────────▼────┐     ┌─────▼──────┐
+                      │  SQLite DB  │     │  ChromaDB   │
+                      │ (structured) │     │  (vectors)  │
+                      └─────────────┘     └────────────┘
+                               ▲                ▲
+                               │                │
+                            ┌──┴────────────────┴──┐
+                            │ 3. Ingestion (:8004)  │
+                            └──────────┬───────────┘
+                                       │ resolves entities
+                                       ▼
+                            ┌───────────────────────┐
+                            │ 2. Entity Resolution   │
+                            │    (:8003)             │
+                            └───────────────────────┘
+```
+
+---
+
+### Module 1: MCP Data Server
+
+| Aspect | Detail |
+|--------|--------|
+| **Language** | Python (FastAPI) |
+| **Storage** | SQLite (expenses, revenue, documents metadata) + ChromaDB (document embeddings) |
+| **Tools exposed** | `get_expenses`, `get_revenue`, `get_truck_profit`, `find_document`, `resolve_entity`, `get_upcoming_renewals`, `get_fleet_overview` |
+| **Security** | Typed Pydantic params on each endpoint. Read-only. Tenant-isolated. Audit logged. |
+| **Key files** | `src/mcp_server.py`, `src/db.py`, `src/vector_store.py` |
+
+**Endpoints (internal):**
+```
+GET  /tools/expenses?truck_id=T-084&category=parts&date_from=2026-05-01
+GET  /tools/revenue?truck_id=T-084&date_from=2026-05-01
+GET  /tools/profit?truck_id=T-084&period=Q1-2026
+GET  /tools/documents?entity_id=T-084&doc_type=tax_form
+GET  /tools/entity/resolve?mention=truck+84
+GET  /tools/renewals?days_ahead=30
+GET  /tools/fleet-overview
+GET  /health
+```
+
+---
+
+### Module 2: Entity Resolution Engine
+
+| Aspect | Detail |
+|--------|--------|
+| **Language** | Python (FastAPI) |
+| **Storage** | SQLite entity graph: `entities(id, type, canonical_name, lat, lng)` + `aliases(entity_id, alias_text, source_doc, confidence, method)` |
+| **Resolution logic** | 1. VIN exact match → confidence 1.0, 2. Unit number normalization ("84"/"#84"/"084") → 0.9, 3. CDL exact match → 1.0, 4. License plate match → 1.0, 5. Embedding cosine similarity on description → 0.6-0.8 |
+| **Key files** | `src/resolver.py`, `src/entity_graph.py`, `src/embeddings.py` |
+
+**Endpoints:**
+```
+GET  /resolve?mention=truck+84          → {canonical_id: "T-084", confidence: 0.9, ...}
+GET  /resolve?mention=VIN+3AKJHHDR7...  → {canonical_id: "T-084", confidence: 1.0, ...}
+GET  /resolve?mention=the+white+Cascadia → {canonical_id: "T-084", confidence: 0.7, ...}
+GET  /entity/T-084                      → {aliases: [...], linked_docs: [...], driver: "D-012"}
+GET  /entities                          → [{id, type, canonical_name, alias_count, doc_count}]
+POST /entity/register-alias             → Add new alias mapping (used by ingestion)
+GET  /health
+```
+
+---
+
+### Module 3: Document Ingestion Pipeline
+
+| Aspect | Detail |
+|--------|--------|
+| **Language** | Python (FastAPI + async queue worker) |
+| **Input format** | Plain text documents (fabricated). No image scanning, no OCR. Text-based PDFs, emails, receipts as `.txt` or `.json` |
+| **Pipeline steps** | 1. Classify doc type (LLM or regex), 2. Extract fields (regex per type), 3. Resolve entities (call Module 2), 4. Insert structured data into SQLite, 5. Embed full doc text into ChromaDB |
+| **Key files** | `src/ingestion.py`, `src/classifier.py`, `src/extractor.py`, `data/synthetic/` |
+
+**Endpoints:**
+```
+POST /ingest              → Upload raw text document, triggers pipeline
+GET  /ingest/status/:id   → Check ingestion status for a document
+GET  /ingest/stats        → {total_ingested, by_type: {...}, last_ingested_at}
+GET  /health
+```
+
+**Synthetic Data (fabricated text, pre-generated):**
+
+```
+data/synthetic/
+├── titles/              # 10 vehicle title documents (clean, formal)
+├── registrations/       # 10 registration docs ("Unit 84", "T-084" formats)
+├── insurance/           # 10 insurance certs ("FL-084" fleet format)
+├── tax_forms/           # 10 Form 2290 (VIN-based, no unit number)
+├── fuel_receipts/       # 60 fuel receipts (messy: "Trk 84", "84", "Unit84")
+├── maintenance/         # 40 maintenance invoices (vendor formats vary)
+├── inspections/         # 10 DOT annual inspections
+├── settlements/         # 30 settlement statements ("Smith, John — Unit 84")
+├── emails/              # 20 emails ("the white Cascadia needs brakes")
+└── toll_receipts/       # 30 toll receipts (transponder ID only)
+```
+
+**Total: ~220 fabricated text documents.** Generated once during hackathon prep. Pre-ingested at startup.
+
+**Sample fabricated document (fuel receipt):**
+```
+FUEL RECEIPT
+Station: Pilot Travel Center #412, Dallas TX
+Date: 05/18/2026
+Truck: Trk 84
+Driver: J. Smith
+Gallons: 142.3
+Price/Gal: $3.79
+Total: $539.32
+Odometer: 487,291
+```
+
+**Sample fabricated document (email):**
+```
+From: mike@abctrucking.com
+To: dispatch@abctrucking.com
+Date: May 20, 2026
+Subject: White Cascadia brake issue
+
+Hey, the white Cascadia is pulling to the left under braking.
+John says it started yesterday on the I-20 run.
+Can we get it into the shop this week? Maybe Penske on Harry Hines.
+```
+
+---
+
+### Module 4: AI Agent (Planner + Formatter)
+
+| Aspect | Detail |
+|--------|--------|
+| **Language** | Python (FastAPI) |
+| **Planner model** | Small (8B via Featherless): generates JSON tool-call plans. Temp=0.0. |
+| **Formatter model** | Large (70B via API): formats execution results into NL with citations. Temp=0.3. |
+| **Execution** | Parallel tool calls via `asyncio.gather()` against MCP Data Server |
+| **Key files** | `src/agent.py`, `src/planner.py`, `src/formatter.py`, `src/tool_executor.py` |
+
+**Endpoints:**
+```
+POST /ask                 → {question: "..."} → {answer, sources, confidence, plan}
+GET  /conversation/:id    → Conversation history with tool call logs
+POST /feedback            → {conversation_id, rating: "up"|"down"}
+GET  /health
+```
+
+**Request/Response example:**
+```json
+// POST /ask
+{
+  "question": "How much did I spend on parts last month?",
+  "conversation_id": "conv-001"
+}
+
+// Response
+{
+  "answer": "You spent $4,287.50 on parts in May 2026 across 12 invoices.",
+  "sources": ["INV-041", "INV-043", "INV-047", "INV-051", "..."],
+  "confidence": "HIGH",
+  "query_type": "STRUCTURED",
+  "plan_executed": {
+    "tools_called": [
+      {"tool": "get_expenses", "params": {"category": "parts", "date_from": "2026-05-01", "date_to": "2026-05-31"}}
+    ],
+    "execution_time_ms": 85
+  }
+}
+```
+
+---
+
+### Module 5: Frontend UI
+
+| Aspect | Detail |
+|--------|--------|
+| **Language** | React + TypeScript (Vite or Lovable-generated) |
+| **Styling** | Tailwind CSS, dark theme |
+| **Key views** | Chat, Entity Graph, Fleet Dashboard, Document Viewer, Transparency Panel |
+| **Key files** | `src/App.tsx`, `src/components/Chat.tsx`, `src/components/EntityGraph.tsx`, `src/components/Dashboard.tsx` |
+
+**Views:**
+
+| View | What It Shows |
+|------|---------------|
+| **Chat** | Natural language Q&A. Query type badge `[STRUCTURED]` `[RETRIEVAL]` `[HYBRID]`. Citations as clickable links. 👍/👎 buttons. |
+| **Entity Graph** | Interactive graph (vis.js or d3-force): trucks → drivers → trailers → documents. Click node → see aliases. |
+| **Fleet Dashboard** | Cards per truck: revenue, expenses, net P&L, upcoming renewals. Red alerts for expired docs. |
+| **Document Viewer** | Side panel: click any citation → original document text with highlighted relevant passage. |
+| **Transparency Panel** | Shows: tool-call plan generated, tools executed, params used, execution time. Anti-hallucination proof. |
+
+---
+
+### Build Order
+
+| Order | Module | Who | Why This Order |
+|-------|--------|-----|----------------|
+| 1st | MCP Data Server + SQLite schema + ChromaDB | Backend dev | Everything depends on data access |
+| 2nd | Entity Resolution Engine + seed entity graph | Backend dev | Ingestion and agent both need this |
+| 3rd | Document Ingestion + synthetic data generation | Backend dev | Populates the DB for all demos |
+| 4th | AI Agent (Planner + Formatter) | AI/ML dev | Brain that ties it together. Test via curl. |
+| 5th | Frontend UI | Frontend dev | Makes it demoable for judges |
+
+**Parallel work possible:**
+- Backend dev: Modules 1 + 2 + 3 (sequential, ~7h)
+- AI/ML dev: Module 4 (can mock MCP responses while Module 1 is being built, ~3h)
+- Frontend dev: Module 5 (can use mock API responses while backend builds, ~3h)
+
+**Wall-clock time with 3 people: ~7 hours.**
+
+---
+
+### Project Structure
+
+```
+FleetManagementSystem/
+├── docs/
+│   └── design.md                    # This file
+├── mcp-data-server/                 # Module 1
+│   ├── src/
+│   │   ├── mcp_server.py
+│   │   ├── db.py
+│   │   └── vector_store.py
+│   ├── requirements.txt
+│   └── Makefile
+├── entity-resolution/               # Module 2
+│   ├── src/
+│   │   ├── resolver.py
+│   │   ├── entity_graph.py
+│   │   └── embeddings.py
+│   ├── requirements.txt
+│   └── Makefile
+├── ingestion/                       # Module 3
+│   ├── src/
+│   │   ├── ingestion.py
+│   │   ├── classifier.py
+│   │   └── extractor.py
+│   ├── data/synthetic/              # Fabricated text documents
+│   │   ├── titles/
+│   │   ├── fuel_receipts/
+│   │   ├── maintenance/
+│   │   ├── emails/
+│   │   └── ...
+│   ├── requirements.txt
+│   └── Makefile
+├── ai-agent/                        # Module 4
+│   ├── src/
+│   │   ├── agent.py
+│   │   ├── planner.py
+│   │   ├── formatter.py
+│   │   └── tool_executor.py
+│   ├── requirements.txt
+│   └── Makefile
+├── frontend/                        # Module 5
+│   ├── src/
+│   │   ├── App.tsx
+│   │   └── components/
+│   ├── package.json
+│   └── Makefile
+└── docker-compose.yml               # Optional: run all services together
+```
