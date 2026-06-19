@@ -4,8 +4,9 @@ import re
 from typing import Optional, Tuple
 import httpx
 
-# Entity resolver service URL (Module 2)
-ENTITY_RESOLVER_URL = "http://localhost:8003"
+# Entity resolver service URL — uses Module 1 (FleetDataService) resolve endpoint
+import os
+ENTITY_RESOLVER_URL = os.getenv("ENTITY_RESOLVER_URL", "http://localhost:8002/tools")
 
 
 class EntityResolver:
@@ -42,12 +43,12 @@ class EntityResolver:
             return EntityResolver._cache[cache_key]
 
         try:
-            # Try to resolve via entity resolver service
+            # Try to resolve via entity resolver service (Module 1: FleetDataService)
             async with httpx.AsyncClient() as client:
                 # Try VIN first (highest confidence)
                 if vin:
                     response = await client.get(
-                        f"{ENTITY_RESOLVER_URL}/resolve",
+                        f"{ENTITY_RESOLVER_URL}/entity/resolve",
                         params={"mention": vin},
                         timeout=5.0,
                     )
@@ -63,7 +64,7 @@ class EntityResolver:
                 # Try plate number
                 if plate:
                     response = await client.get(
-                        f"{ENTITY_RESOLVER_URL}/resolve",
+                        f"{ENTITY_RESOLVER_URL}/entity/resolve",
                         params={"mention": plate},
                         timeout=5.0,
                     )
@@ -78,7 +79,7 @@ class EntityResolver:
 
                 # Try truck mention
                 response = await client.get(
-                    f"{ENTITY_RESOLVER_URL}/resolve",
+                    f"{ENTITY_RESOLVER_URL}/entity/resolve",
                     params={"mention": truck_mention},
                     timeout=5.0,
                 )

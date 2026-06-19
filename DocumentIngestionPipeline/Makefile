@@ -119,8 +119,8 @@ generate-data:
 	@find ../data/synthetic -type f | wc -l && echo "documents created"
 
 ingest-all:
-	@echo "📥 Ingesting all synthetic documents..."
-	@$(PYTHON_VENV) examples.py
+	@echo "📥 Ingesting all synthetic documents from ../data/synthetic/ ..."
+	@$(PYTHON_VENV) ingest_all.py
 	@echo "✓ Ingestion complete"
 
 seed-database: clean generate-data ingest-all ingestion-stats
