@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { MessageCircle, Network, LayoutDashboard, FileText } from 'lucide-react';
+import { MessageCircle, Network, LayoutDashboard, FileText, Info } from 'lucide-react';
 import Chat from './components/Chat';
 import EntityGraph from './components/EntityGraph';
 import Dashboard from './components/Dashboard';
 import DocumentViewer from './components/DocumentViewer';
 import TransparencyPanel from './components/TransparencyPanel';
+import Overview from './components/Overview';
 
 export default function App() {
   const [selectedTruckId, setSelectedTruckId] = useState<string | null>(null);
@@ -23,6 +24,7 @@ export default function App() {
                   Fleet Intelligence
                 </Link>
                 <div className="hidden md:flex gap-4">
+                  <NavLink to="/overview" icon={Info} label="Overview" />
                   <NavLink to="/chat" icon={MessageCircle} label="Chat" />
                   <NavLink to="/dashboard" icon={LayoutDashboard} label="Dashboard" />
                   <NavLink to="/graph" icon={Network} label="Entity Graph" />
@@ -39,7 +41,8 @@ export default function App() {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Routes>
-            <Route path="/" element={<Chat onToolExecuted={setTransparencyData} />} />
+            <Route path="/" element={<Overview />} />
+            <Route path="/overview" element={<Overview />} />
             <Route path="/chat" element={<Chat onToolExecuted={setTransparencyData} />} />
             <Route path="/dashboard" element={<Dashboard onSelectTruck={setSelectedTruckId} />} />
             <Route path="/graph" element={<EntityGraph onSelectEntity={setSelectedTruckId} />} />
