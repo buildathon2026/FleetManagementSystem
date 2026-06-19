@@ -44,18 +44,26 @@ class ToolExecutor:
             results.extend(first_results)
             # Store results by call_id in context
             for call, result in zip(independent, first_results):
-                call_id = call.call_id or f"{call.tool}_{plan.tools.index(call)}"
                 if result.ok and isinstance(result.data, dict):
-                    resolved_context[call_id] = result.data
+                    # Store by explicit call_id if set
+                    if call.call_id:
+                        resolved_context[call.call_id] = result.data
+                    else:
+                        # For single-entity queries, store by tool name for backwards compatibility
+                        resolved_context[call.tool] = result.data
 
         if dependent:
             next_results = await asyncio.gather(*(self._call_tool(call, resolved_context, call_mapping) for call in dependent))
             results.extend(next_results)
             # Store results by call_id in context
             for call, result in zip(dependent, next_results):
-                call_id = call.call_id or f"{call.tool}_{plan.tools.index(call)}"
                 if result.ok and isinstance(result.data, dict):
-                    resolved_context[call_id] = result.data
+                    # Store by explicit call_id if set
+                    if call.call_id:
+                        resolved_context[call.call_id] = result.data
+                    else:
+                        # For single-entity queries, store by tool name for backwards compatibility
+                        resolved_context[call.tool] = result.data
 
         return results
 
