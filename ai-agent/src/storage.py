@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from .config import AGENT_DB_PATH
+
+# Python 3.9 compatibility
+UTC = timezone.utc
 
 
 class ConversationStore:

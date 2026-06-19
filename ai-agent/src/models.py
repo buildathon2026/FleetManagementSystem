@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -11,13 +11,13 @@ QueryType = Literal["STRUCTURED", "DOCUMENT", "MIXED", "OVERVIEW", "UNKNOWN"]
 
 class AskRequest(BaseModel):
     question: str = Field(..., min_length=1)
-    conversation_id: str | None = None
+    conversation_id: Optional[str] = None
 
 
 class ToolCall(BaseModel):
     tool: str
     params: dict[str, Any] = Field(default_factory=dict)
-    depends_on: str | None = None
+    depends_on: Optional[str] = None
 
 
 class Plan(BaseModel):
@@ -31,8 +31,8 @@ class ToolResult(BaseModel):
     params: dict[str, Any]
     ok: bool
     data: Any = None
-    error: str | None = None
-    status_code: int | None = None
+    error: Optional[str] = None
+    status_code: Optional[int] = None
     elapsed_ms: int
 
 
@@ -48,4 +48,4 @@ class AskResponse(BaseModel):
 class FeedbackRequest(BaseModel):
     conversation_id: str
     rating: Literal["up", "down"]
-    comment: str | None = None
+    comment: Optional[str] = None
