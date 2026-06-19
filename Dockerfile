@@ -32,12 +32,10 @@ RUN pip install --no-cache-dir -r ingest_requirements.txt && \
 
 # Copy and build Node.js service
 COPY FleetDataService/package*.json ./fleet/
+COPY FleetDataService/src ./fleet/src/
+COPY FleetDataService/tsconfig.json ./fleet/
 WORKDIR /app/fleet
 RUN npm ci --prefer-offline --no-audit && npm run build
-
-# Copy Fleet Data Service source and build artifacts
-COPY FleetDataService/src ./src/
-COPY FleetDataService/tsconfig.json ./
 
 # Back to app root and copy Python services
 WORKDIR /app
