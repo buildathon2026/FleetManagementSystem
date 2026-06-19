@@ -19,23 +19,34 @@ class VectorStore:
 
         self.persist_directory = persist_directory
         try:
-            # Try new API
+            # Try new API (chromadb >= 0.4.0)
             self.client = chromadb.PersistentClient(path=persist_directory)
         except (TypeError, AttributeError):
             # Fallback to old API for older versions
-            self.client = chromadb.Client(
-                Settings(
-                    chroma_db_impl="duckdb+parquet",
-                    persist_directory=persist_directory,
-                    anonymized_telemetry=False,
+            try:
+                from chromadb.config import Settings
+                self.client = chromadb.Client(
+                    Settings(
+                        chroma_db_impl="duckdb+parquet",
+                        persist_directory=persist_directory,
+                        anonymized_telemetry=False,
+                    )
                 )
-            )
+            except (ImportError, TypeError):
+                # If Settings import fails, try simple Client initialization
+                self.client = chromadb.Client()
 
         # Get or create collection for fleet documents
-        self.collection = self.client.get_or_create_collection(
-            name="fleet_documents",
-            metadata={"hnsw:space": "cosine"},
-        )
+        try:
+            self.collection = self.client.get_or_create_collection(
+                name="fleet_documents",
+                metadata={"hnsw:space": "cosine"},
+            )
+        except Exception as e:
+            # Fallback: create collection without metadata if that fails
+            self.collection = self.client.get_or_create_collection(
+                name="fleet_documents"
+            )
 
     def add_document(
         self,

@@ -22,7 +22,12 @@ app = FastAPI(
 )
 
 # Initialize pipeline
-pipeline = DocumentIngestionPipeline()
+try:
+    pipeline = DocumentIngestionPipeline()
+    logger.info("Document Ingestion Pipeline initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize pipeline: {e}", exc_info=True)
+    raise
 
 
 # Request/Response Models
