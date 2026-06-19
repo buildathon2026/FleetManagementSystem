@@ -30,3 +30,17 @@ body {
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-700 rounded hover:bg-slate-600;
 }
+
+/* Bouncing animation */
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite;
+}

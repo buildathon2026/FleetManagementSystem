@@ -19,6 +19,13 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<{ [key: string]: 'up' | 'down' | null }>({});
+  const [feedbackModal, setFeedbackModal] = useState<{ messageId: string; isOpen: boolean; text: string }>({
+    messageId: '',
+    isOpen: false,
+    text: '',
+  });
+  const [showFeedbackBubble, setShowFeedbackBubble] = useState<string | null>(null);
+  const [hoveredButton, setHoveredButton] = useState<{ messageId: string; type: 'up' | 'down' } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -133,6 +140,26 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
       ...prev,
       [messageId]: prev[messageId] === type ? null : type,
     }));
+    // Show feedback bubble after feedback
+    setShowFeedbackBubble(messageId);
+  };
+
+  const openFeedbackModal = (messageId: string) => {
+    setFeedbackModal({ messageId, isOpen: true, text: '' });
+  };
+
+  const closeFeedbackModal = () => {
+    setFeedbackModal({ messageId: '', isOpen: false, text: '' });
+    setShowFeedbackBubble(null);
+  };
+
+  const sendFeedback = () => {
+    // TODO: Send feedback to backend when ready
+    console.log('Feedback:', {
+      messageId: feedbackModal.messageId,
+      text: feedbackModal.text,
+    });
+    closeFeedbackModal();
   };
 
   return (
@@ -254,7 +281,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
               )}
 
               {message.role === 'assistant' && (
-                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3">
+                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3 relative">
                   <p className="text-sm text-slate-200">{message.content}</p>
                   {message.sources && message.sources.length > 0 && (
                     <div className="space-y-2">
@@ -273,26 +300,88 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
                   )}
                   <div className="flex items-center gap-2 pt-2 border-t border-slate-700">
                     <p className="text-xs text-slate-500">Helpful?</p>
-                    <button
-                      onClick={() => handleFeedback(message.id, 'up')}
-                      className={`p-1.5 rounded transition-colors ${
-                        feedback[message.id] === 'up'
-                          ? 'bg-green-500/20 text-green-400'
-                          : 'text-slate-500 hover:text-slate-400'
-                      }`}
-                    >
-                      <ThumbsUp size={16} />
-                    </button>
-                    <button
-                      onClick={() => handleFeedback(message.id, 'down')}
-                      className={`p-1.5 rounded transition-colors ${
-                        feedback[message.id] === 'down'
-                          ? 'bg-red-500/20 text-red-400'
-                          : 'text-slate-500 hover:text-slate-400'
-                      }`}
-                    >
-                      <ThumbsDown size={16} />
-                    </button>
+                    <div className="relative">
+                      <button
+                        onClick={() => handleFeedback(message.id, 'up')}
+                        onMouseEnter={() => setHoveredButton({ messageId: message.id, type: 'up' })}
+                        onMouseLeave={() => setHoveredButton(null)}
+                        className={`p-1.5 rounded transition-colors relative ${
+                          feedback[message.id] === 'up'
+                            ? 'bg-green-500/20 text-green-400'
+                            : 'text-slate-500 hover:text-slate-400'
+                        }`}
+                      >
+                        <ThumbsUp size={16} />
+                        {hoveredButton?.messageId === message.id && hoveredButton?.type === 'up' && (
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded whitespace-nowrap pointer-events-none">
+                            Yes, this was helpful
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                    <div className="relative">
+                      <button
+                        onClick={() => handleFeedback(message.id, 'down')}
+                        onMouseEnter={() => setHoveredButton({ messageId: message.id, type: 'down' })}
+                        onMouseLeave={() => setHoveredButton(null)}
+                        className={`p-1.5 rounded transition-colors relative ${
+                          feedback[message.id] === 'down'
+                            ? 'bg-red-500/20 text-red-400'
+                            : 'text-slate-500 hover:text-slate-400'
+                        }`}
+                      >
+                        <ThumbsDown size={16} />
+                        {hoveredButton?.messageId === message.id && hoveredButton?.type === 'down' && (
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded whitespace-nowrap pointer-events-none">
+                            No, this wasn't helpful
+                          </div>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Bouncing Feedback Bubble */}
+                    {showFeedbackBubble === message.id && feedback[message.id] && (
+                      <button
+                        onClick={() => openFeedbackModal(message.id)}
+                        className="ml-auto animate-bounce-gentle flex items-center gap-2 bg-blue-600/20 text-blue-400 px-3 py-1.5 rounded-full text-xs font-medium border border-blue-500/50 hover:bg-blue-600/30 transition-colors"
+                      >
+                        💬 Provide feedback
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Feedback Modal */}
+              {feedbackModal.isOpen && feedbackModal.messageId === message.id && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                  <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 max-w-md w-full mx-4 space-y-4">
+                    <h3 className="text-lg font-semibold text-slate-100">Provide Feedback</h3>
+                    <p className="text-sm text-slate-400">
+                      Help us improve by sharing your thoughts about this response.
+                    </p>
+                    <textarea
+                      value={feedbackModal.text}
+                      onChange={(e) =>
+                        setFeedbackModal((prev) => ({ ...prev, text: e.target.value }))
+                      }
+                      placeholder="What could we improve?..."
+                      className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-24"
+                    />
+                    <div className="flex gap-3 justify-end">
+                      <button
+                        onClick={closeFeedbackModal}
+                        className="px-4 py-2 text-sm text-slate-300 hover:text-slate-100 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={sendFeedback}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
+                      >
+                        Send
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
