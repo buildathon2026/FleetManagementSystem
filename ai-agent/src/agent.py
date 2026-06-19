@@ -35,12 +35,31 @@ app = FastAPI(
         {"name": "System", "description": "Health and status"},
     ],
 )
-planner = Planner()
-llm_planner = LLMPlanner()
-executor = ToolExecutor()
-formatter = Formatter()
-llm_formatter = LLMFormatter()
-store = ConversationStore()
+
+# Lazy initialization of components
+_planner = None
+_llm_planner = None
+_executor = None
+_formatter = None
+_llm_formatter = None
+_store = None
+
+def get_components():
+    """Lazy initialize all agent components on first use."""
+    global _planner, _llm_planner, _executor, _formatter, _llm_formatter, _store
+    if _planner is None:
+        _planner = Planner()
+    if _llm_planner is None:
+        _llm_planner = LLMPlanner()
+    if _executor is None:
+        _executor = ToolExecutor()
+    if _formatter is None:
+        _formatter = Formatter()
+    if _llm_formatter is None:
+        _llm_formatter = LLMFormatter()
+    if _store is None:
+        _store = ConversationStore()
+    return _planner, _llm_planner, _executor, _formatter, _llm_formatter, _store
 
 
 @app.get("/health", tags=["System"], summary="Health check")
@@ -65,6 +84,8 @@ async def ask(request: AskRequest) -> AskResponse:
     - "Show me documents for the white Cascadia"
     - "Any upcoming renewals?"
     """
+    planner, _, executor, formatter, _, store = get_components()
+
     conversation_id = request.conversation_id or f"conv-{uuid.uuid4().hex[:12]}"
     started = time.perf_counter()
 
@@ -110,6 +131,8 @@ async def ask_llm(request: AskRequest) -> AskResponse:
 
     Falls back to rule-based planner/formatter if the LLM API is unavailable.
     """
+    _, llm_planner, executor, _, llm_formatter, store = get_components()
+
     conversation_id = request.conversation_id or f"conv-llm-{uuid.uuid4().hex[:12]}"
     started = time.perf_counter()
 
@@ -150,6 +173,7 @@ async def ask_llm(request: AskRequest) -> AskResponse:
 @app.get("/conversation/{conversation_id}", tags=["Conversations"], summary="Get conversation history")
 def conversation(conversation_id: str) -> dict[str, Any]:
     """Retrieve full conversation history including tool call logs for a given conversation."""
+    _, _, _, _, _, store = get_components()
     history = store.get_conversation(conversation_id)
     if not history:
         raise HTTPException(status_code=404, detail="Conversation not found")
@@ -159,6 +183,7 @@ def conversation(conversation_id: str) -> dict[str, Any]:
 @app.post("/feedback", tags=["Conversations"], summary="Submit feedback")
 def feedback(request: FeedbackRequest) -> dict[str, str]:
     """Record thumbs up/down feedback for a conversation turn."""
+    _, _, _, _, _, store = get_components()
     if not store.get_conversation(request.conversation_id):
         raise HTTPException(status_code=404, detail="Conversation not found")
     store.save_feedback(request.conversation_id, request.rating, request.comment)
