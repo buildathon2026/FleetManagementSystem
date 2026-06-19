@@ -1,0 +1,41 @@
+services:
+  # Frontend React application
+  - type: web
+    name: fleet-frontend
+    runtime: node
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npm run preview"
+    envVars:
+      - key: VITE_API_URL
+        value: "https://fleet-api.onrender.com"
+      - key: NODE_ENV
+        value: "production"
+    routes:
+      - path: "/"
+        destination: "/"
+
+  # Backend API cluster (all Python services combined)
+  - type: web
+    name: fleet-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: "python start.py"
+    envVars:
+      - key: PORT
+        value: "8001"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"
+      - key: OPENAI_API_KEY
+        fromSecretFile: openai_api_key
+      - key: ANTHROPIC_API_KEY
+        fromSecretFile: anthropic_api_key
+    healthCheckPath: "/health"
+    autoDeploy: true
+
+# Environment secrets (create these in Render dashboard)
+# You'll need to set:
+# - openai_api_key
+# - anthropic_api_key
