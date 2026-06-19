@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional, Union
 
 from .embeddings import HashingEmbedder, cosine_similarity
 from .entity_graph import EntityGraph
@@ -17,13 +17,13 @@ UNIT_RE = re.compile(r"(?:\btruck\b|\bunit\b|#)?\s*0*([0-9]{1,4})\b", re.IGNOREC
 
 @dataclass(frozen=True)
 class ResolutionResult:
-    canonical_id: str | None
-    type: str | None
-    canonical_name: str | None
+    canonical_id: Optional[str]
+    type: Optional[str]
+    canonical_name: Optional[str]
     aliases: list[str]
     confidence: float
     method: str
-    matched_text: str | None = None
+    matched_text: Optional[str] = None
 
 
 def normalize_exact(text: str) -> str:
@@ -38,8 +38,8 @@ def normalize_unit(unit: str) -> str:
 class EntityResolver:
     def __init__(
         self,
-        graph: EntityGraph | None = None,
-        embedder: HashingEmbedder | None = None,
+        graph: Optional[EntityGraph] = None,
+        embedder: Optional[HashingEmbedder] = None,
     ) -> None:
         self.graph = graph or EntityGraph()
         self.embedder = embedder or HashingEmbedder()
@@ -87,9 +87,9 @@ class EntityResolver:
 
         return candidates
 
-    def _resolve_by_embedding(self, mention: str) -> ResolutionResult | None:
+    def _resolve_by_embedding(self, mention: str) -> Optional[ResolutionResult]:
         query_vector = self.embedder.embed(mention)
-        best: tuple[float, Any] | None = None
+        best: Optional[tuple[float, Any]] = None
 
         for entity in self.graph.entities_with_descriptions():
             text = " ".join(

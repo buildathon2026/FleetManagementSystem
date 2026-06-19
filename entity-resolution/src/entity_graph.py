@@ -4,7 +4,7 @@ import json
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional, Union
 
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -16,23 +16,23 @@ class Entity:
     id: str
     type: str
     canonical_name: str
-    lat: float | None = None
-    lng: float | None = None
-    description: str | None = None
-    metadata: dict[str, Any] | None = None
+    lat: Optional[float] = None
+    lng: Optional[float] = None
+    description: Optional[str] = None
+    metadata: Optional[dict[str, Any]] = None
 
 
 @dataclass(frozen=True)
 class Alias:
     entity_id: str
     alias_text: str
-    source_doc: str | None
+    source_doc: Optional[str]
     confidence: float
     method: str
 
 
 class EntityGraph:
-    def __init__(self, db_path: Path | str = DEFAULT_DB_PATH) -> None:
+    def __init__(self, db_path: Union[Path, str] = DEFAULT_DB_PATH) -> None:
         self.db_path = Path(db_path)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.init_schema()
@@ -105,7 +105,7 @@ class EntityGraph:
         alias_key: str,
         confidence: float,
         method: str,
-        source_doc: str | None = None,
+        source_doc: Optional[str] = None,
     ) -> Alias:
         with self.connect() as conn:
             conn.execute(
@@ -121,7 +121,7 @@ class EntityGraph:
             )
         return Alias(entity_id, alias_text, source_doc, confidence, method)
 
-    def find_alias(self, alias_key: str, methods: list[str] | None = None) -> sqlite3.Row | None:
+    def find_alias(self, alias_key: str, methods: Optional[list[str]] = None) -> Optional[sqlite3.Row]:
         params: list[Any] = [alias_key]
         method_filter = ""
         if methods:
@@ -153,7 +153,7 @@ class EntityGraph:
                 params,
             ).fetchone()
 
-    def get_entity(self, entity_id: str) -> sqlite3.Row | None:
+    def get_entity(self, entity_id: str) -> Optional[sqlite3.Row]:
         with self.connect() as conn:
             return conn.execute(
                 "SELECT * FROM entities WHERE id = ?",

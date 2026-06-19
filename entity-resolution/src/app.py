@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -46,7 +46,7 @@ def get_resolver() -> EntityResolver:
 class AliasRegisterRequest(BaseModel):
     entity_id: str = Field(..., examples=["T-084"])
     alias_text: str = Field(..., examples=["truck eighty four"])
-    source_doc: str | None = Field(None, examples=["fuel_receipt_001.txt"])
+    source_doc: Optional[str] = Field(None, examples=["fuel_receipt_001.txt"])
     confidence: float = Field(0.85, ge=0, le=1)
     method: str = Field("manual_alias", examples=["manual_alias"])
 

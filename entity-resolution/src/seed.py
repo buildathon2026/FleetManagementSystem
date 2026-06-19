@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from typing import Optional
+
 from .entity_graph import Entity, EntityGraph
 from .resolver import normalize_exact, normalize_unit
 
 
-def seed(graph: EntityGraph | None = None) -> EntityGraph:
+def seed(graph: Optional[EntityGraph] = None) -> EntityGraph:
     graph = graph or EntityGraph()
 
     entities = [
