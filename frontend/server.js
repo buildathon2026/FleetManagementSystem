@@ -15,6 +15,11 @@ app.use(express.json());
 console.log(`[Server] Starting on port ${PORT}`);
 console.log(`[Server] API URL: ${API_URL}`);
 
+// Health check - simplest possible route
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', server: 'express' });
+});
+
 // Debug route
 app.get('/debug', (req, res) => {
   res.json({
@@ -26,7 +31,7 @@ app.get('/debug', (req, res) => {
 });
 
 // API proxy routes (must be before static files!)
-const apiRoutes = ['/ask', '/health', '/feedback', '/conversation'];
+const apiRoutes = ['/ask', '/feedback', '/conversation', '/resolve'];
 
 apiRoutes.forEach(route => {
   app.all(route, async (req, res) => {
@@ -69,6 +74,17 @@ app.get('*', (req, res) => {
   res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`[Server] Ready to serve on http://0.0.0.0:${PORT}`);
+  console.log(`[Server] Routes registered:`, apiRoutes);
+  console.log(`[Server] Serving static from:`, join(__dirname, 'dist'));
+});
+
+server.on('error', (err) => {
+  console.error('[Server Error]', err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[Unhandled Rejection]', reason);
 });
