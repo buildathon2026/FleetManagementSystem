@@ -47,6 +47,7 @@ def start_service(name: str, runtime: str, cmd: list, port: int, description: st
     """Start a service and track it."""
     env = os.environ.copy()
     env["PORT"] = str(port)
+    env["PYTHONUNBUFFERED"] = "1"
 
     log(f"Starting {name} on port {port} ({runtime})...", "INFO")
 
@@ -55,12 +56,25 @@ def start_service(name: str, runtime: str, cmd: list, port: int, description: st
             cmd,
             env=env,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.PIPE,
             text=True,
             universal_newlines=True,
+            bufsize=1,
         )
         services_started.append((name, runtime, port))
         log(f"  ✓ {name} launched (PID {process.pid})", "OK")
+
+        # Read startup output for debugging (non-blocking)
+        import select
+        if hasattr(select, 'select'):
+            start = time.time()
+            while time.time() - start < 2:  # Read for 2 seconds
+                ready, _, _ = select.select([process.stdout, process.stderr], [], [], 0.1)
+                for stream in ready:
+                    line = stream.readline()
+                    if line:
+                        log(f"  [{name}] {line.rstrip()}", "DEBUG")
+
         return process
     except Exception as e:
         log(f"  ✗ Failed to start {name}: {e}", "ERROR")
