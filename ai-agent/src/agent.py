@@ -46,18 +46,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Explicit OPTIONS handler for all paths (preflight requests)
-@app.options("/{full_path:path}")
-async def options(full_path: str):
-    return Response(
-        status_code=200,
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*",
-            "Access-Control-Allow-Headers": "*",
-        },
-    )
-
 # Lazy initialization of components
 _planner = None
 _llm_planner = None
