@@ -21,14 +21,14 @@ try:
     DocumentIngestionPipeline = _DIP
     logger.info("✓ DocumentIngestionPipeline imported successfully")
 except Exception as e:
-    logger.warning(f"⚠ DocumentIngestionPipeline import failed: {type(e).__name__}: {e}")
+    logger.error(f"✗ DocumentIngestionPipeline import failed: {type(e).__name__}: {e}", exc_info=True)
 
 try:
     from .database import DocumentDB as _DB
     DocumentDB = _DB
     logger.info("✓ DocumentDB imported successfully")
 except Exception as e:
-    logger.warning(f"⚠ DocumentDB import failed: {type(e).__name__}: {e}")
+    logger.error(f"✗ DocumentDB import failed: {type(e).__name__}: {e}", exc_info=True)
 
 # Check if we're running in degraded mode
 if DocumentIngestionPipeline is None or DocumentDB is None:
@@ -362,12 +362,27 @@ async def delete_document(doc_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.on_event("startup")
+async def startup_event():
+    """Log startup status."""
+    logger.info("=" * 60)
+    logger.info("Document Ingestion Pipeline Starting...")
+    logger.info(f"  DocumentIngestionPipeline available: {DocumentIngestionPipeline is not None}")
+    logger.info(f"  DocumentDB available: {DocumentDB is not None}")
+    logger.info(f"  Degraded mode: {DocumentIngestionPipeline is None or DocumentDB is None}")
+    logger.info("=" * 60)
+
 @app.get("/health")
 def health_check():
     """Health check endpoint."""
+    mode = "degraded" if (DocumentIngestionPipeline is None or DocumentDB is None) else "ok"
     return {
-        "status": "ok",
-        "service": "document-ingestion"
+        "status": mode,
+        "service": "document-ingestion",
+        "dependencies": {
+            "ingestion_pipeline": DocumentIngestionPipeline is not None,
+            "database": DocumentDB is not None
+        }
     }
 
 
