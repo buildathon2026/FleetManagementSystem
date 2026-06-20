@@ -1,5 +1,5 @@
 import express from 'express';
-import { createProxyMiddleware } from 'express-http-proxy';
+import httpProxy from 'http-proxy';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -10,36 +10,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const API_URL = process.env.VITE_API_URL || 'http://localhost:8001';
 
+// Create proxy
+const proxy = httpProxy.createProxyServer({
+  target: API_URL,
+  changeOrigin: true,
+});
+
 // Serve static files from dist directory
 app.use(express.static(join(__dirname, 'dist')));
 
-// Proxy API requests to backend
-app.use('/ask', createProxyMiddleware({
-  target: API_URL,
-  changeOrigin: true,
-  pathRewrite: { '^/ask': '/ask' },
-  onProxyRes: (proxyRes) => {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  },
-}));
+// API routes
+const apiRoutes = ['/ask', '/health', '/feedback', '/conversation'];
 
-app.use('/health', createProxyMiddleware({
-  target: API_URL,
-  changeOrigin: true,
-  pathRewrite: { '^/health': '/health' },
-}));
-
-app.use('/feedback', createProxyMiddleware({
-  target: API_URL,
-  changeOrigin: true,
-  pathRewrite: { '^/feedback': '/feedback' },
-}));
-
-app.use('/conversation', createProxyMiddleware({
-  target: API_URL,
-  changeOrigin: true,
-  pathRewrite: { '^/conversation': '/conversation' },
-}));
+apiRoutes.forEach(route => {
+  app.all(route, (req, res) => {
+    proxy.web(req, res);
+  });
+});
 
 // Catch-all: serve index.html for SPA routing
 app.get('*', (req, res) => {
