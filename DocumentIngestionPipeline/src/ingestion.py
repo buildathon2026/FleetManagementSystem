@@ -62,7 +62,7 @@ class DocumentIngestionPipeline:
         # Check if pipeline is initialized
         if not all([self.db, self.vector_store, self.classifier, self.extractor]):
             raise RuntimeError(f"Pipeline not fully initialized: {getattr(self, '_init_error', 'Unknown error')}")
-        """
+
         # Generate unique document ID
         doc_id = self._generate_doc_id(filename, content)
 
