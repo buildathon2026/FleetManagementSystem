@@ -35,6 +35,23 @@ export default defineConfig({
       'fleet-frontend.onrender.com',
       'fleet-frontend-ct3o.onrender.com',
     ],
+    proxy: {
+      '/ask': {
+        target: process.env.VITE_API_URL || 'http://localhost:8001',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+      '/health': {
+        target: process.env.VITE_API_URL || 'http://localhost:8001',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+      '/feedback': {
+        target: process.env.VITE_API_URL || 'http://localhost:8001',
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+    },
   },
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:8001'),

@@ -1,8 +1,6 @@
 // Real API service - integrated with AI Agent backend via local proxy
 import axios from 'axios';
 
-// Get API URL from environment or use default
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
 const MCP_BASE_URL = 'http://192.168.1.160:8002';
 
 interface ToolResponse {
@@ -67,10 +65,9 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const url = `${API_URL}/ask`;
-      console.log(`Calling API at: ${url}`);
+      console.log(`Calling API at: /ask`);
 
-      const response = await fetch(url, {
+      const response = await fetch('/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
