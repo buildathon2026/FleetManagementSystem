@@ -2,9 +2,9 @@
 
 import logging
 import sys
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -56,9 +56,6 @@ app.add_middleware(
 )
 
 # Add a catch-all OPTIONS handler for preflight requests
-from fastapi import Request
-from fastapi.responses import Response
-
 @app.options("/{full_path:path}")
 async def preflight_handler(full_path: str):
     return Response(

@@ -5,8 +5,9 @@ import uuid
 from dataclasses import asdict
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
 
 from .formatter import Formatter
 from .llm_formatter import LLMFormatter
@@ -47,9 +48,6 @@ app.add_middleware(
 )
 
 # Add a catch-all OPTIONS handler for preflight requests
-from fastapi import Request
-from fastapi.responses import Response
-
 @app.options("/{full_path:path}")
 async def preflight_handler(full_path: str):
     return Response(
