@@ -67,7 +67,10 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const response = await fetch(`${API_URL}/ask`, {
+      const url = `${API_URL}/ask`;
+      console.log(`Calling API at: ${url}`);
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,6 +102,7 @@ export const apiService = {
       };
     } catch (error: any) {
       const errorMsg = error?.message || 'Network error';
+      console.error(`API Error: ${errorMsg}`, error);
       throw new Error(errorMsg);
     }
   },
