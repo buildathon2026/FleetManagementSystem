@@ -3,11 +3,24 @@
 from typing import Optional, List, Dict, Any
 import json
 
+import sys
+
+chromadb = None
+EphemeralClient = None
+PersistentClient = None
+
 try:
     import chromadb
-    from chromadb import EphemeralClient, PersistentClient
+    print(f"[VectorStore] ChromaDB imported: {chromadb}", file=sys.stderr, flush=True)
 except ImportError as e:
+    print(f"[VectorStore] ChromaDB import failed: {e}", file=sys.stderr, flush=True)
     chromadb = None
+
+try:
+    from chromadb import EphemeralClient, PersistentClient
+    print(f"[VectorStore] EphemeralClient and PersistentClient imported", file=sys.stderr, flush=True)
+except ImportError as e:
+    print(f"[VectorStore] Client imports failed: {e}", file=sys.stderr, flush=True)
     EphemeralClient = None
     PersistentClient = None
 
@@ -17,23 +30,38 @@ class VectorStore:
 
     def __init__(self, persist_directory: str = "./chromadb"):
         """Initialize ChromaDB vector store."""
+        import sys
+
+        print(f"[VectorStore.__init__] Starting init", file=sys.stderr, flush=True)
+        print(f"[VectorStore.__init__] chromadb={chromadb}, EphemeralClient={EphemeralClient}, PersistentClient={PersistentClient}", file=sys.stderr, flush=True)
+
         if chromadb is None:
             raise ImportError("chromadb is not installed. Install it with: pip install chromadb")
 
         self.persist_directory = persist_directory
+        self.client = None
+
         try:
             # Try PersistentClient for persistence
+            print(f"[VectorStore.__init__] Trying PersistentClient", file=sys.stderr, flush=True)
             if PersistentClient:
                 self.client = PersistentClient(path=persist_directory)
+                print(f"[VectorStore.__init__] PersistentClient initialized", file=sys.stderr, flush=True)
             else:
                 raise ImportError("PersistentClient not available")
         except Exception as e:
-            print(f"Warning: PersistentClient failed ({e}), falling back to EphemeralClient")
+            print(f"[VectorStore.__init__] PersistentClient failed: {e}", file=sys.stderr, flush=True)
             # Fallback to EphemeralClient (in-memory)
-            if EphemeralClient:
-                self.client = EphemeralClient()
-            else:
-                raise ImportError("Neither PersistentClient nor EphemeralClient available")
+            try:
+                print(f"[VectorStore.__init__] Trying EphemeralClient", file=sys.stderr, flush=True)
+                if EphemeralClient:
+                    self.client = EphemeralClient()
+                    print(f"[VectorStore.__init__] EphemeralClient initialized", file=sys.stderr, flush=True)
+                else:
+                    raise ImportError("EphemeralClient not available")
+            except Exception as e2:
+                print(f"[VectorStore.__init__] EphemeralClient also failed: {e2}", file=sys.stderr, flush=True)
+                raise ImportError(f"Neither PersistentClient nor EphemeralClient available: {e}, {e2}")
 
         # Get or create collection for fleet documents
         try:
