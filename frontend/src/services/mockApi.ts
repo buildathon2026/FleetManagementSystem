@@ -66,7 +66,7 @@ export const apiService = {
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
       const isDev = import.meta.env.DEV;
-      const apiUrl = isDev ? 'http://localhost:8001/ask' : 'https://fleet-api.onrender.com/ask';
+      const apiUrl = isDev ? 'http://localhost:8001/ask' : 'https://fleet-api-7fjy.onrender.com/ask';
       console.log(`Calling API at: ${apiUrl}`);
 
       const response = await fetch(apiUrl, {
