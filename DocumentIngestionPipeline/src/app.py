@@ -3,6 +3,7 @@
 import logging
 import sys
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
@@ -42,6 +43,15 @@ app = FastAPI(
     title="Document Ingestion Pipeline",
     description="Module 3: Ingests, classifies, and processes fleet documents",
     version="1.0.0",
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Lazy initialization of pipeline
