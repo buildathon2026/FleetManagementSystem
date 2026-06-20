@@ -6,7 +6,7 @@ from dataclasses import asdict
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
-from starlette.middleware.base import BaseHTTPMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
 from .formatter import Formatter
@@ -37,30 +37,14 @@ app = FastAPI(
     ],
 )
 
-class CORSMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        # Handle preflight OPTIONS requests
-        if request.method == "OPTIONS":
-            return Response(
-                status_code=200,
-                headers={
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
-                    "Access-Control-Allow-Headers": "Content-Type, Authorization, *",
-                    "Access-Control-Max-Age": "3600",
-                },
-            )
-
-        # For all other requests, add CORS headers to response
-        response = await call_next(request)
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, *"
-        response.headers["Access-Control-Max-Age"] = "3600"
-        return response
-
-# Add the CORS middleware to the app
-app.add_middleware(CORSMiddleware)
+# Add CORS middleware with permissive settings
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Lazy initialization of components
 _planner = None
