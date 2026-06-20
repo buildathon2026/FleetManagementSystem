@@ -5,8 +5,11 @@ import json
 
 try:
     import chromadb
-except ImportError:
+    from chromadb import EphemeralClient, PersistentClient
+except ImportError as e:
     chromadb = None
+    EphemeralClient = None
+    PersistentClient = None
 
 
 class VectorStore:
@@ -19,22 +22,18 @@ class VectorStore:
 
         self.persist_directory = persist_directory
         try:
-            # Try new API (chromadb >= 0.4.0)
-            self.client = chromadb.PersistentClient(path=persist_directory)
-        except (TypeError, AttributeError):
-            # Fallback to old API for older versions
-            try:
-                from chromadb.config import Settings
-                self.client = chromadb.Client(
-                    Settings(
-                        chroma_db_impl="duckdb+parquet",
-                        persist_directory=persist_directory,
-                        anonymized_telemetry=False,
-                    )
-                )
-            except (ImportError, TypeError):
-                # If Settings import fails, try simple Client initialization
-                self.client = chromadb.Client()
+            # Try PersistentClient for persistence
+            if PersistentClient:
+                self.client = PersistentClient(path=persist_directory)
+            else:
+                raise ImportError("PersistentClient not available")
+        except Exception as e:
+            print(f"Warning: PersistentClient failed ({e}), falling back to EphemeralClient")
+            # Fallback to EphemeralClient (in-memory)
+            if EphemeralClient:
+                self.client = EphemeralClient()
+            else:
+                raise ImportError("Neither PersistentClient nor EphemeralClient available")
 
         # Get or create collection for fleet documents
         try:
