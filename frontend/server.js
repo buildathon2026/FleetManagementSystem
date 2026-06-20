@@ -1,90 +1,24 @@
 import express from 'express';
+import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const __dirname = join(fileURLToPath(import.meta.url), '..');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_URL = process.env.VITE_API_URL || 'http://localhost:8001';
 
-// Middleware
 app.use(express.json());
-
-console.log(`[Server] Starting on port ${PORT}`);
-console.log(`[Server] API URL: ${API_URL}`);
-
-// Health check - simplest possible route
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', server: 'express' });
-});
-
-// Debug route
-app.get('/debug', (req, res) => {
-  res.json({
-    PORT,
-    API_URL,
-    NODE_ENV: process.env.NODE_ENV,
-    VITE_API_URL: process.env.VITE_API_URL,
-  });
-});
-
-// API proxy routes (must be before static files!)
-const apiRoutes = ['/ask', '/feedback', '/conversation', '/resolve'];
-
-apiRoutes.forEach(route => {
-  app.all(route, async (req, res) => {
-    console.log(`[Proxy Match] ${req.method} ${route}`);
-    try {
-      const url = `${API_URL}${route}`;
-      console.log(`[Proxy] Forwarding to ${url}`);
-
-      const fetchOptions = {
-        method: req.method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      if (req.method !== 'GET' && req.method !== 'HEAD') {
-        fetchOptions.body = JSON.stringify(req.body);
-      }
-
-      console.log(`[Proxy] Fetch options:`, { method: req.method, url });
-
-      const response = await fetch(url, fetchOptions);
-      console.log(`[Proxy] Response status: ${response.status}`);
-
-      const data = await response.json();
-      res.status(response.status).json(data);
-    } catch (error) {
-      console.error(`[Proxy Error] ${route}:`, error);
-      res.status(500).json({ error: error.message });
-    }
-  });
-});
-
-// Serve static files
 app.use(express.static(join(__dirname, 'dist')));
 
-// SPA fallback - must be last!
+// Test endpoint
+app.get('/test', (req, res) => {
+  res.json({ msg: 'Express is working!' });
+});
+
+// All other routes serve index.html
 app.get('*', (req, res) => {
-  console.log(`[SPA] Serving index.html for ${req.path}`);
   res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`[Server] Ready to serve on http://0.0.0.0:${PORT}`);
-  console.log(`[Server] Routes registered:`, apiRoutes);
-  console.log(`[Server] Serving static from:`, join(__dirname, 'dist'));
-});
-
-server.on('error', (err) => {
-  console.error('[Server Error]', err);
-  process.exit(1);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('[Unhandled Rejection]', reason);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });

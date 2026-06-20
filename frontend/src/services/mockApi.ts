@@ -65,13 +65,15 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      console.log(`Calling API at: /ask`);
+      const apiUrl = 'https://fleet-api.onrender.com/ask';
+      console.log(`Calling API at: ${apiUrl}`);
 
-      const response = await fetch('/ask', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'omit',
         body: JSON.stringify({
           question,
           conversation_id: conversationId,
