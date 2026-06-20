@@ -1,7 +1,7 @@
 // Real API service - integrated with AI Agent backend via local proxy
 import axios from 'axios';
 
-const MCP_BASE_URL = 'http://192.168.1.160:8002';
+const MCP_BASE_URL = import.meta.env.DEV ? 'http://localhost:8002' : 'https://mcp-server.onrender.com';
 
 interface ToolResponse {
   tool: string;
@@ -65,7 +65,8 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const apiUrl = 'https://fleet-api.onrender.com/ask';
+      const isDev = import.meta.env.DEV;
+      const apiUrl = isDev ? 'http://localhost:8001/ask' : 'https://fleet-api.onrender.com/ask';
       console.log(`Calling API at: ${apiUrl}`);
 
       const response = await fetch(apiUrl, {

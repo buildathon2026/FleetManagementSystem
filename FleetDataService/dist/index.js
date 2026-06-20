@@ -19,6 +19,7 @@ const documents_1 = __importDefault(require("./routes/documents"));
 const entity_1 = __importDefault(require("./routes/entity"));
 const renewals_1 = __importDefault(require("./routes/renewals"));
 const fleetOverview_1 = __importDefault(require("./routes/fleetOverview"));
+const tools_1 = __importDefault(require("./routes/tools"));
 const PORT = parseInt(process.env.PORT || '8002', 10);
 const app = (0, express_1.default)();
 // Middleware
@@ -30,6 +31,7 @@ app.get('/openapi.json', (_req, res) => res.json(swagger_1.swaggerSpec));
 // Routes
 app.use(health_1.default);
 app.use(toolsList_1.default);
+app.use(tools_1.default);
 app.use(expenses_1.default);
 app.use(revenue_1.default);
 app.use(profit_1.default);
