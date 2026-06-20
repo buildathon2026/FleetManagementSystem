@@ -13,7 +13,7 @@ import os
 
 # Service definitions: (name, runtime, command, port, description)
 SERVICES = [
-    # ("Document Ingestion", "python", ["python", "-m", "uvicorn", "ingest_src.app:app", "--host", "0.0.0.0", "--port", "8004"], 8004, "Classifies & ingests documents"),
+    ("Document Ingestion", "python", ["python", "-m", "uvicorn", "ingest_src.app:app", "--host", "0.0.0.0", "--port", "8004", "--no-reload"], 8004, "Classifies & ingests documents"),
     ("Entity Resolution", "python", ["python", "-m", "uvicorn", "entity_src.app:app", "--host", "0.0.0.0", "--port", "8003"], 8003, "Maps truck references to IDs"),
     ("MCP Data Server", "node", ["node", "fleet/dist/index.js"], 8002, "Secure API for fleet data"),
     ("AI Agent", "python", ["python", "-m", "uvicorn", "agent_src.agent:app", "--host", "0.0.0.0", "--port", "8001"], 8001, "Natural language Q&A"),
