@@ -13,7 +13,7 @@ import os
 
 # Service definitions: (name, runtime, command, port, description)
 SERVICES = [
-    # ("Document Ingestion", "python", ["python", "-m", "uvicorn", "ingest_src.app:app", "--host", "0.0.0.0", "--port", "8004"], 8004, "Classifies & ingests documents"),
+    ("Document Ingestion", "python", ["python", "-m", "uvicorn", "ingest_src.app:app", "--host", "0.0.0.0", "--port", "8004"], 8004, "Classifies & ingests documents"),
     ("Entity Resolution", "python", ["python", "-m", "uvicorn", "entity_src.app:app", "--host", "0.0.0.0", "--port", "8003"], 8003, "Maps truck references to IDs"),
     ("MCP Data Server", "node", ["node", "fleet/dist/index.js"], 8002, "Secure API for fleet data"),
     ("AI Agent", "python", ["python", "-m", "uvicorn", "agent_src.agent:app", "--host", "0.0.0.0", "--port", "8001"], 8001, "Natural language Q&A"),
@@ -96,8 +96,13 @@ def main():
                 if process.poll() is not None:
                     name = services_started[i][0]
                     log(f"  ✗ {name} exited unexpectedly", "ERROR")
-                    log(f"  Bringing down all services...", "WARN")
-                    cleanup()
+                    # Don't crash all services if one fails
+                    # Just log and continue monitoring others
+                    if name == "Document Ingestion":
+                        log(f"  ⚠️  Document Ingestion failed but other services continue", "WARN")
+                    else:
+                        log(f"  Bringing down all services...", "WARN")
+                        cleanup()
     except KeyboardInterrupt:
         cleanup()
 

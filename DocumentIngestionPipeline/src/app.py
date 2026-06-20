@@ -1,28 +1,33 @@
 """FastAPI application for the Document Ingestion Pipeline."""
 
-import asyncio
 import logging
+import sys
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List, Optional
 
 # Configure logging first
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
 # Import dependencies with error handling
-try:
-    from .ingestion import DocumentIngestionPipeline
-except Exception as e:
-    logger.warning(f"Failed to import DocumentIngestionPipeline: {e}")
-    DocumentIngestionPipeline = None
+DocumentIngestionPipeline = None
+DocumentDB = None
 
 try:
-    from .database import DocumentDB
+    from .ingestion import DocumentIngestionPipeline as _DIP
+    DocumentIngestionPipeline = _DIP
+    logger.info("✓ DocumentIngestionPipeline imported successfully")
 except Exception as e:
-    logger.warning(f"Failed to import DocumentDB: {e}")
-    DocumentDB = None
+    logger.warning(f"⚠ DocumentIngestionPipeline import failed: {type(e).__name__}: {e}")
+
+try:
+    from .database import DocumentDB as _DB
+    DocumentDB = _DB
+    logger.info("✓ DocumentDB imported successfully")
+except Exception as e:
+    logger.warning(f"⚠ DocumentDB import failed: {type(e).__name__}: {e}")
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -33,19 +38,25 @@ app = FastAPI(
 
 # Lazy initialization of pipeline
 _pipeline = None
+_pipeline_error = None
 
 def get_pipeline():
     """Lazy initialize pipeline on first use."""
-    global _pipeline
-    if _pipeline is None:
+    global _pipeline, _pipeline_error
+    if _pipeline is None and _pipeline_error is None:
         if DocumentIngestionPipeline is None:
-            raise RuntimeError("DocumentIngestionPipeline module failed to import")
+            _pipeline_error = RuntimeError("DocumentIngestionPipeline module failed to import")
+            logger.error(f"Cannot initialize pipeline: {_pipeline_error}")
+            raise _pipeline_error
         try:
             _pipeline = DocumentIngestionPipeline()
-            logger.info("Document Ingestion Pipeline initialized successfully")
+            logger.info("✓ Document Ingestion Pipeline initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to initialize pipeline: {e}", exc_info=True)
+            _pipeline_error = e
+            logger.error(f"✗ Failed to initialize pipeline: {type(e).__name__}: {e}", exc_info=True)
             raise
+    elif _pipeline_error:
+        raise _pipeline_error
     return _pipeline
 
 
@@ -99,9 +110,18 @@ async def ingest_document(request: IngestRequest):
     logger.info(f"Ingesting document: {request.filename}")
 
     try:
-        pipeline = get_pipeline()
-        result = await pipeline.ingest_document(request.filename, request.content)
-        return IngestResponse(**result)
+        try:
+            pipeline = get_pipeline()
+            result = await pipeline.ingest_document(request.filename, request.content)
+            return IngestResponse(**result)
+        except Exception as pipeline_error:
+            logger.error(f"Pipeline unavailable: {pipeline_error}")
+            raise HTTPException(
+                status_code=503,
+                detail=f"Document Ingestion Pipeline unavailable: {type(pipeline_error).__name__}"
+            )
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error ingesting document: {e}")
         raise HTTPException(status_code=500, detail=str(e))
