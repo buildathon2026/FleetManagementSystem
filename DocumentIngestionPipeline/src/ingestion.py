@@ -28,11 +28,21 @@ class DocumentIngestionPipeline:
 
     def __init__(self):
         """Initialize pipeline components."""
-        init_database()
-        self.db = DocumentDB()
-        self.vector_store = VectorStore()
-        self.classifier = DocumentClassifier()
-        self.extractor = FieldExtractor()
+        try:
+            init_database()
+            self.db = DocumentDB()
+            self.vector_store = VectorStore()
+            self.classifier = DocumentClassifier()
+            self.extractor = FieldExtractor()
+            logger.info("✓ All pipeline components initialized successfully")
+        except Exception as e:
+            logger.error(f"✗ Pipeline initialization failed: {e}", exc_info=True)
+            # Allow service to continue in degraded mode
+            self.db = None
+            self.vector_store = None
+            self.classifier = None
+            self.extractor = None
+            self._init_error = e
 
     async def ingest_document(
         self,
@@ -48,6 +58,10 @@ class DocumentIngestionPipeline:
 
         Returns:
             Dictionary with ingestion results and metadata
+        """
+        # Check if pipeline is initialized
+        if not all([self.db, self.vector_store, self.classifier, self.extractor]):
+            raise RuntimeError(f"Pipeline not fully initialized: {getattr(self, '_init_error', 'Unknown error')}")
         """
         # Generate unique document ID
         doc_id = self._generate_doc_id(filename, content)
