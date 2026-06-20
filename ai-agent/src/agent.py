@@ -89,6 +89,18 @@ def health() -> dict[str, str]:
     """Returns service health status."""
     return {"status": "ok", "service": "ai-agent"}
 
+@app.get("/debug", tags=["System"], summary="Debug - list all routes")
+def debug() -> dict[str, list]:
+    """List all registered routes for debugging."""
+    routes = []
+    for route in app.routes:
+        routes.append({
+            "path": getattr(route, "path", "unknown"),
+            "methods": getattr(route, "methods", []),
+            "name": getattr(route, "name", "unknown")
+        })
+    return {"routes": routes}
+
 
 @app.post("/ask", response_model=AskResponse, tags=["Agent"], summary="Ask a question")
 async def ask(request: AskRequest) -> AskResponse:
