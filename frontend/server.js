@@ -11,12 +11,11 @@ const API_URL = process.env.VITE_API_URL || 'http://localhost:8001';
 
 // Middleware
 app.use(express.json());
-app.use(express.static(join(__dirname, 'dist')));
 
 console.log(`[Server] Starting on port ${PORT}`);
 console.log(`[Server] API URL: ${API_URL}`);
 
-// API proxy routes
+// API proxy routes (must be before static files!)
 const apiRoutes = ['/ask', '/health', '/feedback', '/conversation'];
 
 apiRoutes.forEach(route => {
@@ -47,8 +46,12 @@ apiRoutes.forEach(route => {
   });
 });
 
-// SPA fallback
+// Serve static files
+app.use(express.static(join(__dirname, 'dist')));
+
+// SPA fallback - must be last!
 app.get('*', (req, res) => {
+  console.log(`[SPA] Serving index.html for ${req.path}`);
   res.sendFile(join(__dirname, 'dist', 'index.html'));
 });
 
