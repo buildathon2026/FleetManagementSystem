@@ -4,7 +4,7 @@ services:
     name: fleet-frontend
     runtime: node
     buildCommand: "cd frontend && npm install && npm run build"
-    startCommand: "cd frontend && npm run preview -- --host 0.0.0.0"
+    startCommand: "cd frontend && npm run start"
     envVars:
       - key: VITE_API_URL
         value: "https://fleet-api.onrender.com"
