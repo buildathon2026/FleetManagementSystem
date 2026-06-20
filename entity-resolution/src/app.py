@@ -20,9 +20,24 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
+
+# Add a catch-all OPTIONS handler for preflight requests
+from fastapi import Request
+from fastapi.responses import Response
+
+@app.options("/{full_path:path}")
+async def preflight_handler(full_path: str):
+    return Response(
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
 
 # Lazy initialization of graph and resolver
 _graph = None
