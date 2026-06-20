@@ -28,6 +28,13 @@ export default defineConfig({
   preview: {
     host: '0.0.0.0',
     port: parseInt(process.env.PORT || '3000'),
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      '*.onrender.com',
+      'fleet-frontend.onrender.com',
+      'fleet-frontend-ct3o.onrender.com',
+    ],
   },
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:8001'),
