@@ -29,6 +29,14 @@ try:
 except Exception as e:
     logger.warning(f"⚠ DocumentDB import failed: {type(e).__name__}: {e}")
 
+# Check if we're running in degraded mode
+if DocumentIngestionPipeline is None or DocumentDB is None:
+    logger.warning("=" * 60)
+    logger.warning("⚠️  DOCUMENT INGESTION RUNNING IN DEGRADED MODE")
+    logger.warning("Some dependencies failed to import.")
+    logger.warning("Service will respond to requests but with limited functionality.")
+    logger.warning("=" * 60)
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Document Ingestion Pipeline",
