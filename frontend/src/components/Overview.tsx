@@ -77,9 +77,9 @@ export default function Overview() {
             </div>
           </div>
 
-          <div className="border-t border-slate-200 bg-slate-50 p-4 lg:border-l lg:border-t-0">
+          <div className="border-t border-slate-200 bg-[#f7f7ff] p-4 lg:border-l lg:border-t-0">
             <div className="grid gap-3">
-              <div className="rounded-lg border border-rose-100 bg-white p-4 shadow-sm">
+              <div className="rounded-lg border border-rose-100 bg-[#fff5f6] p-4 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-wide text-rose-700">
                   Before FleetProof AI
                 </p>
@@ -92,7 +92,7 @@ export default function Overview() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
+              <div className="rounded-lg border border-blue-200 bg-[#f7faff] p-4 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
