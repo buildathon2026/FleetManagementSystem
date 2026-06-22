@@ -8,6 +8,7 @@ interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
+  question?: string;
   sources?: string[];
   toolResults?: any[];
   isOfflineFallback?: boolean;
@@ -20,7 +21,7 @@ const exampleQuestions = [
   'Compare truck T-084 and T-091 revenue',
 ];
 
-export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) => void }) {
+export default function Chat() {
   const [searchParams] = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -63,16 +64,11 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
           id: `${Date.now()}-assistant`,
           role: 'assistant',
           content: response.answer,
+          question,
           sources: response.sources,
           toolResults: response.plan_executed.tool_results,
         },
       ]);
-
-      onToolExecuted({
-        queryType: response.query_type,
-        tools: response.plan_executed.tools_called,
-        executionTime: response.plan_executed.execution_time_ms,
-      });
     } catch (error: any) {
       setMessages((prev) => [
         ...prev,
@@ -80,6 +76,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
           id: `${Date.now()}-assistant`,
           role: 'assistant',
           content: getOfflineAnswer(question, error?.message),
+          question,
           isOfflineFallback: true,
         },
       ]);
@@ -173,7 +170,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
 
 function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === 'user';
-  const comparison = !isUser ? getComparisonData(message.toolResults) : null;
+  const comparison = !isUser ? getComparisonData(message.toolResults, message.content, message.question) : null;
 
   return (
     <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -186,7 +183,7 @@ function MessageBubble({ message }: { message: Message }) {
         className={
           isUser
             ? 'max-w-[78%] rounded-lg bg-teal-800 px-4 py-3 text-sm leading-6 text-white'
-            : 'max-w-[78%] rounded-lg border border-sky-100 bg-sky-50/80 px-4 py-3 text-sm leading-6 text-slate-800'
+            : 'w-full max-w-2xl rounded-lg border border-sky-100 bg-sky-50/80 px-4 py-3 text-sm leading-6 text-slate-800'
         }
       >
         {message.isOfflineFallback && (
@@ -238,11 +235,24 @@ interface ComparisonData {
   items: ComparisonItem[];
 }
 
-function getComparisonData(toolResults?: any[]): ComparisonData | null {
+function getComparisonData(toolResults?: any[], content = '', question = ''): ComparisonData | null {
+  const fromTools = getComparisonFromTools(toolResults);
+  if (fromTools) return fromTools;
+
+  return getComparisonFromText(content, question);
+}
+
+function getComparisonFromTools(toolResults?: any[]): ComparisonData | null {
   if (!toolResults || toolResults.length < 2) return null;
 
-  const successful = toolResults.filter((result) => result?.ok !== false && result?.data);
-  const revenue = successful.filter((result) => result.tool === 'get_revenue');
+  const normalized = toolResults
+    .map((result) => ({
+      ...result,
+      data: result?.data || result?.result,
+    }))
+    .filter((result) => result?.ok !== false && result?.data);
+
+  const revenue = normalized.filter((result) => result.tool === 'get_revenue');
   if (revenue.length > 1) {
     return {
       title: 'Revenue comparison',
@@ -256,7 +266,7 @@ function getComparisonData(toolResults?: any[]): ComparisonData | null {
     };
   }
 
-  const expenses = successful.filter((result) => result.tool === 'get_expenses');
+  const expenses = normalized.filter((result) => result.tool === 'get_expenses');
   if (expenses.length > 1) {
     return {
       title: 'Expense comparison',
@@ -270,7 +280,7 @@ function getComparisonData(toolResults?: any[]): ComparisonData | null {
     };
   }
 
-  const profits = successful.filter((result) => result.tool === 'get_truck_profit');
+  const profits = normalized.filter((result) => result.tool === 'get_truck_profit');
   if (profits.length > 1) {
     const items = profits.flatMap((result, index) => {
       const trucks = result.data.trucks || [];
@@ -296,6 +306,38 @@ function getComparisonData(toolResults?: any[]): ComparisonData | null {
   }
 
   return null;
+}
+
+function getComparisonFromText(content: string, question: string): ComparisonData | null {
+  if (!/comparison/i.test(content)) return null;
+
+  const countLabel = /records/i.test(content) ? 'records' : 'loads';
+  const title = /expense/i.test(content)
+    ? 'Expense comparison'
+    : /profit/i.test(content)
+      ? 'Profit comparison'
+      : 'Revenue comparison';
+  const totalLabel = /expense/i.test(content)
+    ? 'Combined expenses'
+    : /profit/i.test(content)
+      ? 'Combined net profit'
+      : 'Combined revenue';
+
+  const trucks = question.match(/\bT-\d{3}\b/gi)?.map((truck) => truck.toUpperCase()) || [];
+  const lines = [...content.matchAll(/\$\s*([\d,]+(?:\.\d{2})?)\s+across\s+(\d+)\s+(loads|records)/gi)];
+
+  if (lines.length < 2) return null;
+
+  return {
+    title,
+    totalLabel,
+    items: lines.map((match, index) => ({
+      label: trucks[index] || `Truck ${index + 1}`,
+      total: Number(match[1].replace(/,/g, '')),
+      count: Number(match[2]),
+      countLabel,
+    })),
+  };
 }
 
 function getTruckLabel(result: any, index: number) {
@@ -324,7 +366,7 @@ function ComparisonCards({ comparison }: { comparison: ComparisonData }) {
         )}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         {comparison.items.map((item) => (
           <div key={item.label} className="rounded-lg border border-sky-100 bg-white/90 p-4">
             <p className="text-sm font-semibold text-teal-800">{item.label}</p>

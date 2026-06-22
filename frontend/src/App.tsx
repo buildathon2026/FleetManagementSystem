@@ -5,12 +5,10 @@ import Chat from './components/Chat';
 import EntityGraph from './components/EntityGraph';
 import Dashboard from './components/Dashboard';
 import DocumentViewer from './components/DocumentViewer';
-import TransparencyPanel from './components/TransparencyPanel';
 import Overview from './components/Overview';
 
 export default function App() {
   const [selectedTruckId, setSelectedTruckId] = useState<string | null>(null);
-  const [transparencyData, setTransparencyData] = useState<any>(null);
 
   return (
     <Router>
@@ -43,19 +41,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/overview" element={<Overview />} />
-            <Route path="/chat" element={<Chat onToolExecuted={setTransparencyData} />} />
+            <Route path="/chat" element={<Chat />} />
             <Route path="/dashboard" element={<Dashboard onSelectTruck={setSelectedTruckId} />} />
             <Route path="/graph" element={<EntityGraph onSelectEntity={setSelectedTruckId} />} />
             <Route path="/documents" element={<DocumentViewer truckId={selectedTruckId} />} />
           </Routes>
         </main>
-
-        {/* Transparency Panel */}
-        {transparencyData && (
-          <div className="fixed bottom-4 right-4 max-w-md">
-            <TransparencyPanel data={transparencyData} onClose={() => setTransparencyData(null)} />
-          </div>
-        )}
       </div>
     </Router>
   );
