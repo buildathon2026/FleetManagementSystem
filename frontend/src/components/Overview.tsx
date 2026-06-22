@@ -7,11 +7,9 @@ import {
   CheckCircle2,
   Database,
   FileText,
-  Link2,
   Mail,
   MessageCircle,
   ReceiptText,
-  Search,
   ShieldCheck,
   Truck,
   UploadCloud,
@@ -80,44 +78,44 @@ export default function Overview() {
           </div>
 
           <div className="border-t border-sky-100 bg-gradient-to-br from-slate-950 via-teal-900 to-sky-900 p-6 text-white lg:border-l lg:border-t-0">
-            <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-xl">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-100">
-                    Live fleet record
-                  </p>
-                  <p className="mt-1 text-lg font-semibold text-white">Truck T-084</p>
-                </div>
-                <span className="rounded-full bg-emerald-300/20 px-3 py-1 text-xs font-semibold text-emerald-100">
-                  Verified
-                </span>
-              </div>
-
-              <div className="mt-4 rounded-md border border-white/15 bg-slate-950/35 p-3">
-                <div className="flex items-center gap-2 text-sm font-semibold text-sky-50">
-                  <Search size={16} />
-                  <span>Where is the renewal paperwork?</span>
-                </div>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <RecordChip icon={FileText} title="Registration" meta="REG-084" />
-                <RecordChip icon={ReceiptText} title="Fuel receipt" meta="FRT-18357" />
-                <RecordChip icon={Mail} title="Renewal email" meta="EML-4082" />
-                <RecordChip icon={Truck} title="Alias matched" meta="Unit 84 = T-084" />
-              </div>
-
-              <div className="mt-4 rounded-md border border-emerald-200/25 bg-emerald-100/10 p-4">
-                <div className="flex items-center gap-2 text-sm font-semibold text-emerald-100">
-                  <Link2 size={16} />
-                  <span>Answer with sources</span>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-sky-50">
-                  T-084 has registration renewal paperwork ready. The latest form is linked to
-                  driver Maya R. and trailer TR-19.
+            <div className="space-y-4">
+              <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-xl">
+                <p className="text-xs font-semibold uppercase tracking-wide text-rose-100">
+                  Before FleetProof AI
                 </p>
+                <p className="mt-1 text-lg font-semibold text-white">Paperwork is scattered</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <RecordChip icon={ReceiptText} title="Fuel receipt" meta="glove box" />
+                  <RecordChip icon={Mail} title="Renewal email" meta="old inbox thread" />
+                  <RecordChip icon={FileText} title="Tax form" meta="filing cabinet" />
+                  <RecordChip icon={Truck} title="Unit 84 / Trk 84" meta="same truck, unclear" />
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-emerald-200/25 bg-emerald-100/10 p-4 shadow-xl">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-emerald-100">
+                      After FleetProof AI
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-white">
+                      Everything links to the right truck
+                    </p>
+                  </div>
+                  <CheckCircle2 className="shrink-0 text-emerald-200" size={24} />
+                </div>
+
+                <p className="mt-4 rounded-md border border-white/15 bg-slate-950/30 p-3 text-sm font-semibold text-sky-50">
+                  Ask: What do I need to renew truck T-084 plates?
+                </p>
+
+                <div className="mt-3 rounded-md bg-white p-3 text-sm leading-6 text-slate-800">
+                  Registration, insurance, and tax form are ready. Fuel receipt and maintenance
+                  records are already attached to T-084.
+                </div>
+
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {['REG-084', 'EML-4082', 'TR-19'].map((source) => (
+                  {['T-084', 'REG-084', 'INS-084', 'TAX-2026'].map((source) => (
                     <span
                       key={source}
                       className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-teal-900"
