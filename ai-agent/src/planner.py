@@ -84,6 +84,10 @@ class Planner:
                 tools.append(ToolCall(tool="get_revenue", params=params))
             return Plan(query_type="STRUCTURED", tools=tools, rationale="Revenue comparison queries resolve all entities then fetch revenue data.")
 
+        if any(word in q for word in ["renewal", "renewals", "expire", "expires", "expiring", "due"]):
+            tools.append(ToolCall(tool="get_upcoming_renewals", params={"days_ahead": 30}))
+            return Plan(query_type="STRUCTURED", tools=tools, rationale="Renewal questions use upcoming renewals.")
+
         if any(word in q for word in ["document", "documents", "invoice", "registration", "insurance", "inspection", "title"]):
             # Handle multiple trucks for document comparison
             if is_comparison and len(entity_mentions) > 1:
@@ -106,10 +110,6 @@ class Planner:
                     params["doc_type"] = doc_type
                 tools.append(ToolCall(tool="find_document", params=params))
             return Plan(query_type="DOCUMENT", tools=tools, rationale="Document questions use document lookup.")
-
-        if any(word in q for word in ["renewal", "renewals", "expire", "expiring", "due"]):
-            tools.append(ToolCall(tool="get_upcoming_renewals", params={"days_ahead": 30}))
-            return Plan(query_type="STRUCTURED", tools=tools, rationale="Renewal questions use upcoming renewals.")
 
         if any(word in q for word in ["fleet", "overview", "dashboard", "status"]):
             tools.append(ToolCall(tool="get_fleet_overview", params={}))
