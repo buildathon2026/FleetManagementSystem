@@ -6,7 +6,12 @@ import {
   Boxes,
   CheckCircle2,
   Database,
+  FileText,
+  Link2,
+  Mail,
   MessageCircle,
+  ReceiptText,
+  Search,
   ShieldCheck,
   Truck,
   UploadCloud,
@@ -75,32 +80,52 @@ export default function Overview() {
           </div>
 
           <div className="border-t border-sky-100 bg-gradient-to-br from-slate-950 via-teal-900 to-sky-900 p-6 text-white lg:border-l lg:border-t-0">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-sky-100">
-                What FleetProof turns into an answer
-              </p>
-              <div className="mt-4 space-y-3">
-                <ProofStep
-                  step="1"
-                  title="Messy fleet records"
-                  body="Unit 84, Trk 84, T-084, receipts, forms, renewal emails, and filing cabinets."
-                />
-                <ProofStep
-                  step="2"
-                  title="One linked truck profile"
-                  body="Documents are tied to the correct truck, driver, trailer, dates, costs, and source IDs."
-                />
-                <ProofStep
-                  step="3"
-                  title="Verified plain-English answer"
-                  body="Operators ask about revenue, renewals, parts spend, or tax forms and get proof-backed results."
-                />
+            <div className="rounded-lg border border-white/15 bg-white/10 p-4 shadow-xl">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-100">
+                    Live fleet record
+                  </p>
+                  <p className="mt-1 text-lg font-semibold text-white">Truck T-084</p>
+                </div>
+                <span className="rounded-full bg-emerald-300/20 px-3 py-1 text-xs font-semibold text-emerald-100">
+                  Verified
+                </span>
               </div>
 
-              <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                <Metric label="Demo docs" value="230+" />
-                <Metric label="Aliases resolved" value="10" />
-                <Metric label="Direct AI database control" value="0" />
+              <div className="mt-4 rounded-md border border-white/15 bg-slate-950/35 p-3">
+                <div className="flex items-center gap-2 text-sm font-semibold text-sky-50">
+                  <Search size={16} />
+                  <span>Where is the renewal paperwork?</span>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <RecordChip icon={FileText} title="Registration" meta="REG-084" />
+                <RecordChip icon={ReceiptText} title="Fuel receipt" meta="FRT-18357" />
+                <RecordChip icon={Mail} title="Renewal email" meta="EML-4082" />
+                <RecordChip icon={Truck} title="Alias matched" meta="Unit 84 = T-084" />
+              </div>
+
+              <div className="mt-4 rounded-md border border-emerald-200/25 bg-emerald-100/10 p-4">
+                <div className="flex items-center gap-2 text-sm font-semibold text-emerald-100">
+                  <Link2 size={16} />
+                  <span>Answer with sources</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-sky-50">
+                  T-084 has registration renewal paperwork ready. The latest form is linked to
+                  driver Maya R. and trailer TR-19.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {['REG-084', 'EML-4082', 'TR-19'].map((source) => (
+                    <span
+                      key={source}
+                      className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-teal-900"
+                    >
+                      {source}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -222,25 +247,24 @@ export default function Overview() {
   );
 }
 
-function Metric({ label, value }: { label: string; value: string }) {
+function RecordChip({
+  icon: Icon,
+  title,
+  meta,
+}: {
+  icon: typeof FileText;
+  title: string;
+  meta: string;
+}) {
   return (
     <div className="rounded-md border border-white/15 bg-white/10 p-3">
-      <p className="text-xl font-semibold text-white">{value}</p>
-      <p className="mt-1 text-xs leading-4 text-sky-50">{label}</p>
-    </div>
-  );
-}
-
-function ProofStep({ step, title, body }: { step: string; title: string; body: string }) {
-  return (
-    <div className="rounded-md border border-white/15 bg-white/10 p-4">
-      <div className="flex gap-3">
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-sm font-semibold text-teal-900">
-          {step}
+      <div className="flex items-start gap-2">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/15 text-sky-50">
+          <Icon size={17} />
         </span>
-        <div>
-          <p className="text-sm font-semibold text-white">{title}</p>
-          <p className="mt-1 text-sm leading-6 text-sky-50">{body}</p>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-white">{title}</p>
+          <p className="mt-1 truncate text-xs text-sky-100">{meta}</p>
         </div>
       </div>
     </div>
