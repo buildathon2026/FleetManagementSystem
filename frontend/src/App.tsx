@@ -12,9 +12,9 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#eef6ff] text-slate-950">
+      <div className="min-h-screen bg-[#f6f7f9] text-slate-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-30 border-b border-sky-100 bg-[#f8fbff]/95 backdrop-blur">
+        <nav className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex min-h-16 flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center justify-between gap-4">
@@ -37,7 +37,7 @@ export default function App() {
         </nav>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <main className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/overview" element={<Overview />} />

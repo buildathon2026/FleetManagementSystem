@@ -11,11 +11,11 @@ html {
 }
 
 body {
-  @apply bg-[#eef6ff] text-slate-950;
+  @apply bg-[#f6f7f9] text-slate-950;
 }
 
 #root {
-  @apply min-h-screen bg-[#eef6ff] text-slate-950;
+  @apply min-h-screen bg-[#f6f7f9] text-slate-950;
 }
 
 /* Scrollbar styling */
@@ -24,7 +24,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-[#eef6ff];
+  @apply bg-[#f6f7f9];
 }
 
 ::-webkit-scrollbar-thumb {
