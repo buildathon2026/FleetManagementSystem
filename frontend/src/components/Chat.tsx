@@ -9,6 +9,7 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   sources?: string[];
+  toolResults?: any[];
   isOfflineFallback?: boolean;
 }
 
@@ -63,6 +64,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
           role: 'assistant',
           content: response.answer,
           sources: response.sources,
+          toolResults: response.plan_executed.tool_results,
         },
       ]);
 
@@ -171,6 +173,7 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
 
 function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === 'user';
+  const comparison = !isUser ? getComparisonData(message.toolResults) : null;
 
   return (
     <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -194,7 +197,11 @@ function MessageBubble({ message }: { message: Message }) {
             </p>
           </div>
         )}
-        <p className="whitespace-pre-line">{message.content}</p>
+        {comparison ? (
+          <ComparisonCards comparison={comparison} />
+        ) : (
+          <p className="whitespace-pre-line">{message.content}</p>
+        )}
         {message.sources && message.sources.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2 border-t border-slate-200 pt-3">
             {message.sources.slice(0, 5).map((source) => (
@@ -212,6 +219,149 @@ function MessageBubble({ message }: { message: Message }) {
       )}
     </div>
   );
+}
+
+interface ComparisonItem {
+  label: string;
+  total: number;
+  count: number;
+  countLabel: string;
+  secondary?: {
+    label: string;
+    value: number;
+  }[];
+}
+
+interface ComparisonData {
+  title: string;
+  totalLabel: string;
+  items: ComparisonItem[];
+}
+
+function getComparisonData(toolResults?: any[]): ComparisonData | null {
+  if (!toolResults || toolResults.length < 2) return null;
+
+  const successful = toolResults.filter((result) => result?.ok !== false && result?.data);
+  const revenue = successful.filter((result) => result.tool === 'get_revenue');
+  if (revenue.length > 1) {
+    return {
+      title: 'Revenue comparison',
+      totalLabel: 'Combined revenue',
+      items: revenue.map((result, index) => ({
+        label: getTruckLabel(result, index),
+        total: Number(result.data.total || 0),
+        count: Number(result.data.load_count || 0),
+        countLabel: 'loads',
+      })),
+    };
+  }
+
+  const expenses = successful.filter((result) => result.tool === 'get_expenses');
+  if (expenses.length > 1) {
+    return {
+      title: 'Expense comparison',
+      totalLabel: 'Combined expenses',
+      items: expenses.map((result, index) => ({
+        label: getTruckLabel(result, index),
+        total: Number(result.data.total || 0),
+        count: Number(result.data.count || 0),
+        countLabel: 'records',
+      })),
+    };
+  }
+
+  const profits = successful.filter((result) => result.tool === 'get_truck_profit');
+  if (profits.length > 1) {
+    const items = profits.flatMap((result, index) => {
+      const trucks = result.data.trucks || [];
+      return trucks.map((truck: any) => ({
+        label: truck.id || getTruckLabel(result, index),
+        total: Number(truck.net || 0),
+        count: 1,
+        countLabel: 'truck',
+        secondary: [
+          { label: 'Revenue', value: Number(truck.revenue || 0) },
+          { label: 'Expenses', value: Number(truck.expenses || 0) },
+        ],
+      }));
+    });
+
+    if (items.length > 1) {
+      return {
+        title: 'Profit comparison',
+        totalLabel: 'Combined net profit',
+        items,
+      };
+    }
+  }
+
+  return null;
+}
+
+function getTruckLabel(result: any, index: number) {
+  const truckId = result?.params?.truck_id;
+  if (typeof truckId === 'string' && truckId && !truckId.startsWith('$')) {
+    return truckId;
+  }
+  return `Truck ${index + 1}`;
+}
+
+function ComparisonCards({ comparison }: { comparison: ComparisonData }) {
+  const combined = comparison.items.reduce((sum, item) => sum + item.total, 0);
+  const winner = comparison.items.reduce<ComparisonItem | null>(
+    (best, item) => (!best || item.total > best.total ? item : best),
+    null
+  );
+
+  return (
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-base font-semibold text-slate-950">{comparison.title}</h3>
+        {winner && (
+          <p className="mt-1 text-sm text-slate-600">
+            {winner.label} is higher at {formatMoney(winner.total)}.
+          </p>
+        )}
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {comparison.items.map((item) => (
+          <div key={item.label} className="rounded-lg border border-sky-100 bg-white/90 p-4">
+            <p className="text-sm font-semibold text-teal-800">{item.label}</p>
+            <p className="mt-2 text-2xl font-semibold text-slate-950">{formatMoney(item.total)}</p>
+            <p className="mt-1 text-sm text-slate-500">
+              {item.count} {item.countLabel}
+            </p>
+            {item.secondary && (
+              <div className="mt-3 space-y-1 border-t border-slate-100 pt-3 text-sm">
+                {item.secondary.map((row) => (
+                  <div key={row.label} className="flex justify-between gap-3 text-slate-600">
+                    <span>{row.label}</span>
+                    <span className="font-medium text-slate-900">{formatMoney(row.value)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-md border border-teal-100 bg-teal-50/80 px-4 py-3">
+        <p className="text-sm text-teal-900">
+          {comparison.totalLabel}: <span className="font-semibold">{formatMoney(combined)}</span>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function formatMoney(value: number) {
+  return value.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 function getOfflineAnswer(question: string, errorMessage?: string) {
