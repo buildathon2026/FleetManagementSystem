@@ -142,7 +142,7 @@ export default function Overview() {
             className="inline-flex items-center gap-2 rounded-md border border-teal-200 bg-teal-50 px-4 py-2.5 text-sm font-semibold text-teal-900 hover:bg-teal-100"
           >
             <Truck size={18} />
-            View truck links
+            View aliases
           </Link>
         </div>
 

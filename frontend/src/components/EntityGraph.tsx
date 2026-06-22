@@ -38,7 +38,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
   }, []);
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-600">Loading relationships...</div>;
+    return <div className="text-center py-12 text-slate-600">Loading truck aliases...</div>;
   }
 
   return (
@@ -46,13 +46,17 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
       <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-6 shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4 text-slate-950">
           <Network size={24} />
-          Truck Links
+          Truck Aliases
         </h2>
+        <p className="mb-5 max-w-3xl text-sm leading-6 text-slate-600">
+          This shows how messy names from paperwork map back to the correct truck. For example,
+          Unit 84, Trk 84, Truck 84, and T-084 should all point to the same vehicle record.
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Entity List */}
           <div className="lg:col-span-1">
-            <h3 className="font-semibold text-slate-700 mb-3">Trucks ({entities.length})</h3>
+            <h3 className="font-semibold text-slate-700 mb-3">Canonical trucks ({entities.length})</h3>
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {entities.map((entity) => (
                 <button
@@ -104,7 +108,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
 
                       {entity.aliases.length > 0 && (
                         <div>
-                          <p className="text-sm font-semibold text-slate-700 mb-2">Aliases</p>
+                          <p className="text-sm font-semibold text-slate-700 mb-2">Known names for this truck</p>
                           <div className="flex flex-wrap gap-2">
                             {entity.aliases.map((alias) => (
                               <span key={alias} className="text-xs bg-white/80 px-2 py-1 rounded text-slate-700 border border-sky-100">
@@ -119,7 +123,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                       <div className="bg-white/80 rounded p-3 border border-sky-100">
                         <p className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
                           <Users size={16} />
-                          Connected Entities
+                          Connected records
                         </p>
                         <div className="text-xs text-slate-600">
                           <p>→ Driver relationship active</p>
@@ -145,9 +149,9 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
 
       {/* Connection Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatBox label="Total Entities" value={entities.length.toString()} />
-        <StatBox label="Truck Type" value={entities.filter((e) => e.type === 'truck').length.toString()} />
-        <StatBox label="Total Connections" value={entities.reduce((sum, e) => sum + e.docCount, 0).toString()} />
+        <StatBox label="Canonical trucks" value={entities.length.toString()} />
+        <StatBox label="Entity type" value={entities.filter((e) => e.type === 'truck').length.toString()} />
+        <StatBox label="Linked documents" value={entities.reduce((sum, e) => sum + e.docCount, 0).toString()} />
       </div>
     </div>
   );
