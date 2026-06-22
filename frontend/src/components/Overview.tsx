@@ -48,9 +48,6 @@ export default function Overview() {
       <section className="overflow-hidden rounded-lg border border-sky-100 bg-[#fbfffd] shadow-sm">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
           <div className="p-6 sm:p-8 lg:p-10">
-            <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
-              Statement 7 · Fleet document intelligence
-            </p>
             <h1 className="mt-3 max-w-4xl text-4xl font-semibold leading-tight text-slate-950 sm:text-5xl">
               Fleet paperwork becomes searchable, linked, and answerable.
             </h1>
