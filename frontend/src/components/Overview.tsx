@@ -49,12 +49,12 @@ export default function Overview() {
         <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
           <div className="p-6 sm:p-8 lg:p-10">
             <h1 className="mt-3 max-w-4xl text-4xl font-semibold leading-tight text-slate-950 sm:text-5xl">
-              Fleet paperwork becomes searchable, linked, and answerable.
+              Turn messy fleet paperwork into answers operators can verify.
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
-              Carriers run on titles, registrations, fuel receipts, tax forms, insurance files,
-              maintenance records, and email threads. FleetProof AI links the mess to the right
-              truck and lets operators ask questions in plain English.
+              FleetProof AI links titles, registrations, fuel receipts, tax forms, insurance files,
+              maintenance records, and email threads to the right truck, then lets operators ask
+              questions in plain English.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
