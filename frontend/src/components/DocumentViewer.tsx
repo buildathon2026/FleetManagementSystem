@@ -117,15 +117,14 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
               <div>
                 <h2 className="font-semibold text-slate-950">Upload fleet documents</h2>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
-                  Add titles, registrations, insurance, tax forms, fuel receipts, maintenance records, or text extracts.
+                  Upload a PDF, PNG, JPEG, or text document such as titles, registrations, insurance, tax forms, fuel receipts, or maintenance records.
                 </p>
-                <p className="mt-1 text-xs text-slate-500">Supported by backend: .txt, JSON, and UTF-8 text extracts.</p>
               </div>
             </div>
             <input
               type="file"
               multiple
-              accept=".txt,.json,.csv,.md,.pdf"
+              accept=".pdf,.png,.jpg,.jpeg,.txt,.json,.csv,.md,application/pdf,image/png,image/jpeg"
               className="sr-only"
               onChange={(event) => {
                 const files = Array.from(event.target.files || []);

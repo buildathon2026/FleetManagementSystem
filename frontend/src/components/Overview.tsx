@@ -75,7 +75,7 @@ export default function Overview() {
                 className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-800"
               >
                 <Bot size={18} />
-                Start judge demo
+                AI chat
               </Link>
               <Link
                 to="/documents"
