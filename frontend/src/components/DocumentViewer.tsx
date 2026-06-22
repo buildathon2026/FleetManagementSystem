@@ -100,7 +100,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
           </p>
         </div>
         {truckId && (
-          <div className="inline-flex items-center gap-2 rounded-md border border-teal-100 bg-[#fbfffd] px-3 py-2 text-sm font-medium text-slate-700">
+          <div className="inline-flex items-center gap-2 rounded-md border border-blue-100 bg-white px-3 py-2 text-sm font-medium text-slate-700">
             <Link2 size={16} />
             Selected truck: {truckId}
           </div>
@@ -138,7 +138,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
             <button
               onClick={handleUpload}
               disabled={uploading || uploadFiles.length === 0}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-teal-700 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-blue-700 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               <UploadCloud size={18} />
               {uploading ? 'Uploading...' : 'Upload to ingestion'}
@@ -153,7 +153,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
               <div
                 className={
                   uploadStatus.type === 'success'
-                    ? 'flex gap-2 rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-800'
+                    ? 'flex gap-2 rounded-md border border-indigo-200 bg-indigo-50 p-3 text-sm text-indigo-800'
                     : 'flex gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900'
                 }
               >
@@ -169,7 +169,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
         </div>
       </section>
 
-      <section className="rounded-lg border border-teal-100 bg-[#fbfffd] p-4 shadow-sm">
+      <section className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
         <div className="grid gap-3 lg:grid-cols-[1fr_220px]">
           <label className="relative block">
             <Search className="absolute left-3 top-3.5 text-slate-400" size={18} />
@@ -178,14 +178,14 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Search documents, for example T-084 or insurance"
-              className="w-full rounded-md border border-teal-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-950 placeholder:text-slate-400 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100"
+              className="w-full rounded-md border border-blue-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-950 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
             />
           </label>
 
           <select
             value={docTypeFilter}
             onChange={(event) => setDocTypeFilter(event.target.value)}
-            className="rounded-md border border-teal-200 bg-white px-3 py-3 text-sm text-slate-800 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100"
+            className="rounded-md border border-blue-200 bg-white px-3 py-3 text-sm text-slate-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
           >
             <option value="all">All document types</option>
             {docTypes.map((type) => (
@@ -198,8 +198,8 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[360px_1fr]">
-        <div className="rounded-lg border border-teal-100 bg-[#fbfffd] shadow-sm">
-          <div className="border-b border-teal-100 p-4">
+        <div className="rounded-lg border border-blue-100 bg-white shadow-sm">
+          <div className="border-b border-blue-100 p-4">
             <h2 className="font-semibold text-slate-950">Results</h2>
             <p className="mt-1 text-sm text-slate-500">
               {loading ? 'Searching...' : `${filteredDocs.length} documents found`}
@@ -219,8 +219,8 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
                   onClick={() => setSelectedDoc(doc)}
                   className={
                     selectedDoc?.id === doc.id
-                      ? 'w-full rounded-md border border-teal-700 bg-teal-800 p-3 text-left text-white'
-                      : 'w-full rounded-md border border-transparent p-3 text-left hover:border-teal-100 hover:bg-teal-50/70'
+                      ? 'w-full rounded-md border border-blue-700 bg-blue-800 p-3 text-left text-white'
+                      : 'w-full rounded-md border border-transparent p-3 text-left hover:border-blue-100 hover:bg-blue-50/70'
                   }
                 >
                   <div className="flex items-start gap-3">
@@ -228,7 +228,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
                       className={
                         selectedDoc?.id === doc.id
                           ? 'flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-white/10'
-                          : 'flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-700'
+                          : 'flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-blue-50 text-blue-700'
                       }
                     >
                       <FileText size={18} />
@@ -249,16 +249,16 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
           </div>
         </div>
 
-        <div className="rounded-lg border border-teal-100 bg-[#fbfffd] shadow-sm">
+        <div className="rounded-lg border border-blue-100 bg-white shadow-sm">
           {selectedDoc ? (
             <div>
-              <div className="border-b border-teal-100 p-5">
+              <div className="border-b border-blue-100 p-5">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="text-sm font-medium text-slate-500">{formatType(selectedDoc.type)}</p>
                     <h2 className="mt-1 text-2xl font-semibold text-slate-950">{selectedDoc.id}</h2>
                   </div>
-                  <span className="inline-flex items-center gap-2 rounded-md bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
+                  <span className="inline-flex items-center gap-2 rounded-md bg-indigo-50 px-3 py-2 text-sm font-semibold text-indigo-700">
                     <Link2 size={16} />
                     Linked to {selectedDoc.truck_id}
                   </span>
@@ -278,7 +278,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
                   <p className="mt-2 text-sm leading-6 text-slate-700">{selectedDoc.summary}</p>
                 </div>
 
-                <div className="rounded-lg border border-teal-100 bg-white/70 p-4">
+                <div className="rounded-lg border border-blue-100 bg-white/70 p-4">
                   <h3 className="text-sm font-semibold text-slate-950">Why this document appears here</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
                     The record is associated with {selectedDoc.truck_id}. Searches can match the truck ID,
@@ -304,7 +304,7 @@ export default function DocumentViewer({ truckId }: { truckId: string | null }) 
 
 function InfoItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-teal-100 bg-white/70 p-3">
+    <div className="rounded-md border border-blue-100 bg-white/70 p-3">
       <p className="text-xs font-semibold uppercase text-slate-500">{label}</p>
       <p className="mt-1 font-medium text-slate-950">{value}</p>
     </div>

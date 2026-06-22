@@ -19,7 +19,7 @@ export default function App() {
             <div className="flex min-h-16 flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center justify-between gap-4">
                 <Link to="/" className="flex items-center gap-2 text-lg font-semibold text-slate-950">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-teal-700 text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-700 text-white">
                     <LayoutDashboard size={19} />
                   </span>
                   FleetProof AI
@@ -56,7 +56,7 @@ function NavLink({ to, icon: Icon, label }: { to: string; icon: any; label: stri
   return (
     <Link
       to={to}
-      className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-teal-50 hover:text-teal-800"
+      className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-blue-800"
     >
       <Icon size={18} />
       {label}

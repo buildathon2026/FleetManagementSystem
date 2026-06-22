@@ -43,7 +43,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
 
   return (
     <div className="space-y-6">
-      <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-6 shadow-sm">
+      <div className="bg-white border border-blue-100 rounded-lg p-6 shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4 text-slate-950">
           <Network size={24} />
           Truck Aliases
@@ -67,14 +67,14 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                   }}
                   className={`w-full text-left p-3 rounded border transition-all ${
                     selectedEntity === entity.id
-                      ? 'bg-teal-800 border-teal-700 text-white'
-                      : 'bg-white/80 border-teal-100 hover:border-teal-200 hover:bg-teal-50/70'
+                      ? 'bg-blue-800 border-blue-700 text-white'
+                      : 'bg-white/80 border-blue-100 hover:border-blue-200 hover:bg-blue-50/70'
                   }`}
                 >
-                  <p className={selectedEntity === entity.id ? 'font-semibold text-white' : 'font-semibold text-teal-800'}>
+                  <p className={selectedEntity === entity.id ? 'font-semibold text-white' : 'font-semibold text-blue-800'}>
                     {entity.id}
                   </p>
-                  <p className={selectedEntity === entity.id ? 'text-xs text-teal-100' : 'text-xs text-slate-500'}>
+                  <p className={selectedEntity === entity.id ? 'text-xs text-blue-100' : 'text-xs text-slate-500'}>
                     {entity.type}
                   </p>
                 </button>
@@ -91,7 +91,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                   return entity ? (
                     <>
                       <div>
-                        <h4 className="text-lg font-semibold text-teal-800 mb-2">{entity.id}</h4>
+                        <h4 className="text-lg font-semibold text-blue-800 mb-2">{entity.id}</h4>
                         <p className="text-sm text-slate-600">{entity.name}</p>
                       </div>
 
@@ -159,9 +159,9 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-4 text-center shadow-sm">
+    <div className="bg-white border border-blue-100 rounded-lg p-4 text-center shadow-sm">
       <p className="text-sm text-slate-500 mb-2">{label}</p>
-      <p className="text-3xl font-semibold text-teal-800">{value}</p>
+      <p className="text-3xl font-semibold text-blue-800">{value}</p>
     </div>
   );
 }

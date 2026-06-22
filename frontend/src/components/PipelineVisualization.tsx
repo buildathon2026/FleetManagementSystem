@@ -25,7 +25,7 @@ export default function PipelineVisualization({ stages }: PipelineVisualizationP
               {/* Icon */}
               <div className="flex-shrink-0 w-6 h-6">
                 {stage.status === 'complete' && (
-                  <CheckCircle2 size={24} className="text-green-400" />
+                  <CheckCircle2 size={24} className="text-blue-400" />
                 )}
                 {stage.status === 'running' && (
                   <Loader size={24} className="text-blue-400 animate-spin" />

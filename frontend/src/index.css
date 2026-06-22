@@ -28,7 +28,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-teal-200 rounded hover:bg-teal-300;
+  @apply bg-blue-200 rounded hover:bg-blue-300;
 }
 
 /* Bouncing animation */

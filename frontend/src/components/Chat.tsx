@@ -92,7 +92,7 @@ export default function Chat() {
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-130px)] max-w-4xl flex-col gap-5">
-      <section className="rounded-lg border border-teal-100 bg-[#fbfffd] p-5 shadow-sm">
+      <section className="rounded-lg border border-blue-100 bg-white p-5 shadow-sm">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-slate-950">Ask About the Fleet</h1>
@@ -121,7 +121,7 @@ export default function Chat() {
         </section>
       )}
 
-      <section className="flex-1 rounded-lg border border-teal-100 bg-[#fbfffd] shadow-sm">
+      <section className="flex-1 rounded-lg border border-blue-100 bg-white shadow-sm">
         <div className="min-h-[360px] space-y-4 p-4">
           {messages.length === 0 ? (
             <div className="flex h-[320px] items-center justify-center text-center">
@@ -136,27 +136,27 @@ export default function Chat() {
           )}
 
           {loading && (
-            <div className="flex items-center gap-3 rounded-lg bg-teal-50 p-4 text-sm text-teal-800">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-teal-600" />
+            <div className="flex items-center gap-3 rounded-lg bg-blue-50 p-4 text-sm text-blue-800">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-blue-600" />
               Checking fleet data...
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        <form onSubmit={handleSubmit} className="border-t border-teal-100 bg-teal-50/40 p-4">
+        <form onSubmit={handleSubmit} className="border-t border-blue-100 bg-blue-50/40 p-4">
           <div className="flex gap-2">
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Ask about revenue, documents, renewals, or a truck..."
               disabled={loading}
-              className="min-w-0 flex-1 rounded-md border border-teal-200 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100 disabled:bg-teal-50"
+              className="min-w-0 flex-1 rounded-md border border-blue-200 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 disabled:bg-blue-50"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               <Send size={18} />
               <span className="hidden sm:inline">Ask</span>
@@ -175,14 +175,14 @@ function MessageBubble({ message }: { message: Message }) {
   return (
     <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
       {!isUser && (
-        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700">
           <Bot size={18} />
         </span>
       )}
       <div
         className={
           isUser
-            ? 'max-w-[78%] rounded-lg bg-teal-800 px-4 py-3 text-sm leading-6 text-white'
+            ? 'max-w-[78%] rounded-lg bg-blue-800 px-4 py-3 text-sm leading-6 text-white'
             : 'w-full max-w-2xl rounded-lg border border-sky-100 bg-sky-50/80 px-4 py-3 text-sm leading-6 text-slate-800'
         }
       >
@@ -210,7 +210,7 @@ function MessageBubble({ message }: { message: Message }) {
         )}
       </div>
       {isUser && (
-        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-800 text-white">
+        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white">
           <User size={18} />
         </span>
       )}
@@ -369,7 +369,7 @@ function ComparisonCards({ comparison }: { comparison: ComparisonData }) {
       <div className="grid gap-3 md:grid-cols-2">
         {comparison.items.map((item) => (
           <div key={item.label} className="rounded-lg border border-sky-100 bg-white/90 p-4">
-            <p className="text-sm font-semibold text-teal-800">{item.label}</p>
+            <p className="text-sm font-semibold text-blue-800">{item.label}</p>
             <p className="mt-2 text-2xl font-semibold text-slate-950">{formatMoney(item.total)}</p>
             <p className="mt-1 text-sm text-slate-500">
               {item.count} {item.countLabel}
@@ -388,8 +388,8 @@ function ComparisonCards({ comparison }: { comparison: ComparisonData }) {
         ))}
       </div>
 
-      <div className="rounded-md border border-teal-100 bg-teal-50/80 px-4 py-3">
-        <p className="text-sm text-teal-900">
+      <div className="rounded-md border border-blue-100 bg-blue-50/80 px-4 py-3">
+        <p className="text-sm text-blue-900">
           {comparison.totalLabel}: <span className="font-semibold">{formatMoney(combined)}</span>
         </p>
       </div>

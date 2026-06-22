@@ -62,7 +62,7 @@ export default function Overview() {
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 to="/chat?q=Compare%20truck%20T-084%20and%20T-091%20revenue"
-                className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-800"
+                className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
               >
                 <Bot size={18} />
                 AI chat
@@ -92,24 +92,24 @@ export default function Overview() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-teal-100 bg-white p-4 shadow-sm">
+              <div className="rounded-lg border border-blue-100 bg-white p-4 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
                       After FleetProof AI
                     </p>
                     <p className="mt-1 text-base font-semibold text-slate-950">
                       Everything links to the right truck
                     </p>
                   </div>
-                  <CheckCircle2 className="shrink-0 text-teal-700" size={22} />
+                  <CheckCircle2 className="shrink-0 text-blue-700" size={22} />
                 </div>
 
                 <p className="mt-3 rounded-md border border-slate-200 bg-slate-50 p-2.5 text-sm font-semibold text-slate-800">
                   Ask: What do I need to renew truck T-084 plates?
                 </p>
 
-                <div className="mt-2 rounded-md border border-teal-100 bg-teal-50 p-3 text-sm leading-6 text-slate-800">
+                <div className="mt-2 rounded-md border border-blue-100 bg-blue-50 p-3 text-sm leading-6 text-slate-800">
                   Registration, insurance, and tax form are ready. Fuel receipt and maintenance
                   records are already attached to T-084.
                 </div>
@@ -118,7 +118,7 @@ export default function Overview() {
                   {['T-084', 'REG-084', 'INS-084', 'TAX-2026'].map((source) => (
                     <span
                       key={source}
-                      className="rounded-full bg-teal-700 px-2.5 py-1 text-xs font-semibold text-white"
+                      className="rounded-full bg-blue-700 px-2.5 py-1 text-xs font-semibold text-white"
                     >
                       {source}
                     </span>
@@ -135,18 +135,18 @@ export default function Overview() {
           <Link
             key={title}
             to={to}
-            className="group rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-teal-200 hover:shadow-md"
+            className="group rounded-lg border border-slate-200 bg-white p-4 shadow-sm hover:border-blue-200 hover:shadow-md"
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-700 text-xs font-semibold text-white">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700 text-xs font-semibold text-white">
                   {index + 1}
                 </span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-md bg-slate-100 text-slate-700">
                   <Icon size={18} />
                 </span>
               </div>
-              <ArrowRight className="text-slate-300 group-hover:text-teal-700" size={18} />
+              <ArrowRight className="text-slate-300 group-hover:text-blue-700" size={18} />
             </div>
             <h2 className="mt-4 text-lg font-semibold text-slate-950">{title}</h2>
             <p className="mt-1.5 text-sm leading-6 text-slate-600">{body}</p>
@@ -158,7 +158,7 @@ export default function Overview() {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <Boxes className="text-teal-800" size={22} />
+              <Boxes className="text-blue-800" size={22} />
               <h2 className="text-lg font-semibold text-slate-950">Demo pipeline</h2>
             </div>
             <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -167,7 +167,7 @@ export default function Overview() {
           </div>
           <Link
             to="/graph"
-            className="inline-flex items-center gap-2 rounded-md border border-teal-200 bg-teal-50 px-4 py-2.5 text-sm font-semibold text-teal-900 hover:bg-teal-100"
+            className="inline-flex items-center gap-2 rounded-md border border-blue-200 bg-blue-50 px-4 py-2.5 text-sm font-semibold text-blue-900 hover:bg-blue-100"
           >
             <Truck size={18} />
             View aliases
@@ -177,7 +177,7 @@ export default function Overview() {
         <div className="mt-4 grid gap-2 md:grid-cols-5">
           {pipeline.map((item, index) => (
             <div key={item} className="rounded-md border border-slate-200 bg-slate-50 p-3">
-              <p className="text-xs font-semibold uppercase text-teal-700">Step {index + 1}</p>
+              <p className="text-xs font-semibold uppercase text-blue-700">Step {index + 1}</p>
               <p className="mt-2 text-sm font-semibold leading-5 text-slate-950">{item}</p>
             </div>
           ))}
@@ -223,9 +223,9 @@ export default function Overview() {
         </div>
       </section>
 
-      <section className="rounded-lg border border-emerald-100 bg-emerald-50/70 p-5 shadow-sm">
+      <section className="rounded-lg border border-indigo-100 bg-indigo-50/70 p-5 shadow-sm">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="text-emerald-700" size={22} />
+          <ShieldCheck className="text-indigo-700" size={22} />
           <h2 className="text-lg font-semibold text-slate-950">Why hallucination is reduced</h2>
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
@@ -234,8 +234,8 @@ export default function Overview() {
             'Answers cite load IDs, invoices, or document IDs returned by those tools.',
             'The LLM never gets raw SQL access or direct database control.',
           ].map((point) => (
-            <div key={point} className="rounded-md border border-emerald-100 bg-white/80 p-3">
-              <CheckCircle2 className="text-emerald-600" size={18} />
+            <div key={point} className="rounded-md border border-indigo-100 bg-white/80 p-3">
+              <CheckCircle2 className="text-indigo-600" size={18} />
               <p className="mt-2 text-sm leading-6 text-slate-700">{point}</p>
             </div>
           ))}
@@ -259,7 +259,7 @@ function RecordChip({
   const toneClasses =
     tone === 'messy'
       ? 'border-rose-100 bg-rose-50 text-rose-700'
-      : 'border-teal-100 bg-teal-50 text-teal-700';
+      : 'border-blue-100 bg-blue-50 text-blue-700';
 
   return (
     <div className="rounded-md border border-slate-200 bg-white p-2.5">
