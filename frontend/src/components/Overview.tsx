@@ -158,7 +158,7 @@ export default function Overview() {
           <div className="flex items-start gap-3">
             <AlertTriangle className="mt-1 text-amber-700" size={22} />
             <div>
-              <h2 className="text-lg font-semibold text-amber-950">What judges should notice</h2>
+              <h2 className="text-lg font-semibold text-amber-950">What the demo proves</h2>
               <p className="mt-2 text-sm leading-6 text-amber-800">
                 The app does not just chat. It uploads documents, normalizes truck aliases,
                 queries structured data, retrieves documents, and shows source-backed answers.

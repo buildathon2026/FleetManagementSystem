@@ -332,7 +332,7 @@ The architecture ensures:
 - The LLM is never the source of truth. It plans. It formats. It never invents.
 - The LLM never touches data directly. MCP tools are the only interface. Typed. Validated. Logged.
 
-That's not a prompt trick. That's not fine-tuning. That's system design with MCP as the security boundary. And it's the thing judges will remember.
+That's not a prompt trick. That's not fine-tuning. That's system design with MCP as the security boundary. And it's the thing that makes the demo memorable.
 
 ---
 
@@ -599,7 +599,7 @@ GET  /health
 | 2nd | Entity Resolution Engine + seed entity graph | Backend dev | Ingestion and agent both need this |
 | 3rd | Document Ingestion + synthetic data generation | Backend dev | Populates the DB for all demos |
 | 4th | AI Agent (Planner + Formatter) | AI/ML dev | Brain that ties it together. Test via curl. |
-| 5th | Frontend UI | Frontend dev | Makes it demoable for judges |
+| 5th | Frontend UI | Frontend dev | Makes it demoable end to end |
 
 **Parallel work possible:**
 - Backend dev: Modules 1 + 2 + 3 (sequential, ~7h)
