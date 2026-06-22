@@ -143,7 +143,7 @@ async def ask_llm(request: AskRequest) -> AskResponse:
     """
     LLM-powered version of /ask for hackathon comparison.
 
-    Uses a Featherless-hosted LLM (Meta-Llama-3.1-8B-Instruct) to:
+    Uses an OpenAI-compatible hosted LLM (for example Groq Llama 3.1 8B) to:
     1. **Plan** — generate tool-call plans from natural language (vs rule-based)
     2. **Execute** — same MCP tool calls against Module 1
     3. **Format** — produce natural language answers with the LLM (vs templates)

@@ -14,16 +14,16 @@ export default function TransparencyPanel({
   onClose: () => void;
 }) {
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-lg shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-bottom-4">
+    <div className="bg-[#fbfffd] border border-teal-100 rounded-lg shadow-2xl p-4 space-y-3 animate-in fade-in slide-in-from-bottom-4">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-slate-700">
-        <div className="flex items-center gap-2 text-purple-400 font-semibold">
+      <div className="flex items-center justify-between pb-2 border-b border-teal-100">
+        <div className="flex items-center gap-2 text-teal-800 font-semibold">
           <Eye size={16} />
           Execution Transparency
         </div>
         <button
           onClick={onClose}
-          className="text-slate-400 hover:text-slate-100 transition-colors"
+          className="text-slate-500 hover:text-slate-950 transition-colors"
         >
           <X size={16} />
         </button>
@@ -32,7 +32,7 @@ export default function TransparencyPanel({
       {/* Query Type */}
       <div className="text-xs">
         <p className="text-slate-400 mb-1">Query Type</p>
-        <div className="inline-block bg-purple-900/30 px-2 py-1 rounded border border-purple-600 text-purple-300 font-semibold">
+        <div className="inline-block bg-teal-50 px-2 py-1 rounded border border-teal-200 text-teal-800 font-semibold">
           [{data.queryType}]
         </div>
       </div>
@@ -43,8 +43,8 @@ export default function TransparencyPanel({
           <p className="text-slate-400 mb-2">Tools Executed ({data.tools.length})</p>
           <div className="space-y-1 max-h-32 overflow-y-auto">
             {data.tools.map((tool, i) => (
-              <div key={i} className="bg-slate-800 p-2 rounded border border-slate-700">
-                <p className="font-semibold text-slate-100">{tool.tool}</p>
+              <div key={i} className="bg-sky-50/70 p-2 rounded border border-sky-100">
+                <p className="font-semibold text-slate-900">{tool.tool}</p>
                 {tool.params && Object.keys(tool.params).length > 0 && (
                   <p className="text-slate-400 text-xs mt-1">
                     params: {JSON.stringify(tool.params)}
@@ -62,13 +62,13 @@ export default function TransparencyPanel({
       )}
 
       {/* Execution Time */}
-      <div className="text-xs bg-slate-800 p-2 rounded border border-slate-700">
+      <div className="text-xs bg-sky-50/70 p-2 rounded border border-sky-100">
         <p className="text-slate-400">Total Execution Time</p>
         <p className="text-green-400 font-semibold">{data.executionTime}ms</p>
       </div>
 
       {/* Anti-Hallucination Note */}
-      <div className="text-xs bg-green-900/20 p-2 rounded border border-green-600 text-green-300">
+      <div className="text-xs bg-emerald-50 p-2 rounded border border-emerald-200 text-emerald-800">
         ✓ LLM never saw database schema or raw SQL
       </div>
     </div>

@@ -1,7 +1,9 @@
 // Real API service - integrated with AI Agent backend via local proxy
 import axios from 'axios';
 
-const MCP_BASE_URL = import.meta.env.DEV ? 'http://localhost:8002' : 'https://mcp-server.onrender.com';
+const AGENT_BASE_URL = import.meta.env.VITE_AGENT_API_URL || 'http://localhost:8001';
+const MCP_BASE_URL = import.meta.env.VITE_MCP_API_URL || 'http://localhost:8002';
+const INGEST_BASE_URL = import.meta.env.VITE_INGEST_API_URL || 'http://localhost:8004';
 
 interface ToolResponse {
   tool: string;
@@ -65,8 +67,7 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const isDev = import.meta.env.DEV;
-      const apiUrl = isDev ? 'http://localhost:8001/ask' : 'https://fleet-api-7fjy.onrender.com/ask';
+      const apiUrl = `${AGENT_BASE_URL}/ask`;
       console.log(`Calling API at: ${apiUrl}`);
 
       const response = await fetch(apiUrl, {
@@ -165,6 +166,18 @@ export const apiService = {
         count: mockDocuments.length,
       };
     }
+  },
+
+  // Upload files to the document ingestion pipeline
+  async uploadDocuments(files: File[]) {
+    const formData = new FormData();
+    files.forEach((file) => formData.append('files', file));
+
+    const response = await axios.post(`${INGEST_BASE_URL}/ingest/from-files`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    return response.data;
   },
 
   // Resolve entity

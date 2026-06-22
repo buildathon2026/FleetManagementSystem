@@ -1,5 +1,5 @@
 """
-LLM-based Planner — uses Featherless 8B model to convert
+LLM-based Planner — uses an OpenAI-compatible model to convert
 natural language questions into JSON tool-call plans.
 """
 
@@ -10,7 +10,7 @@ from typing import Any
 
 from openai import OpenAI
 
-from .config import FEATHERLESS_API_KEY, FEATHERLESS_BASE_URL, PLANNER_MODEL
+from .config import LLM_API_KEY, LLM_BASE_URL, PLANNER_MODEL
 from .models import Plan, ToolCall
 
 SYSTEM_PROMPT = """You are a fleet management query planner. Your ONLY job is to convert a user question into a JSON array of tool calls.
@@ -49,9 +49,9 @@ class LLMPlanner:
 
     def _get_client(self) -> OpenAI:
         if self._client is None:
-            if not FEATHERLESS_API_KEY:
-                raise RuntimeError("FEATHERLESS_API_KEY not set")
-            self._client = OpenAI(api_key=FEATHERLESS_API_KEY, base_url=FEATHERLESS_BASE_URL)
+            if not LLM_API_KEY:
+                raise RuntimeError("LLM_API_KEY or GROQ_API_KEY not set")
+            self._client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
         return self._client
 
     def plan(self, question: str) -> Plan:

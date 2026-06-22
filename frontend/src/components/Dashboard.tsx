@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { AlertCircle, TrendingUp, DollarSign, FileCheck, Archive, Zap } from 'lucide-react';
+import type { ReactNode } from 'react';
+import { AlertTriangle, ArrowRight, DollarSign, FileCheck, Truck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import apiService from '../services/mockApi';
 
-interface Truck {
+interface FleetTruck {
   id: string;
   driver: string;
   status: string;
@@ -10,7 +12,7 @@ interface Truck {
   doc_count: number;
 }
 
-interface Alert {
+interface FleetAlert {
   id: number;
   truck_id: string;
   type: string;
@@ -18,11 +20,17 @@ interface Alert {
   severity: string;
 }
 
+const currency = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+});
+
 export default function Dashboard({ onSelectTruck }: { onSelectTruck: (id: string) => void }) {
-  const [trucks, setTrucks] = useState<Truck[]>([]);
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [trucks, setTrucks] = useState<FleetTruck[]>([]);
+  const [alerts, setAlerts] = useState<FleetAlert[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortBy, setSortBy] = useState<'revenue' | 'documents' | 'id'>('revenue');
+  const [sortBy, setSortBy] = useState<'attention' | 'revenue' | 'documents'>('attention');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,235 +49,202 @@ export default function Dashboard({ onSelectTruck }: { onSelectTruck: (id: strin
   }, []);
 
   if (loading) {
-    return <div className="text-center py-12 text-slate-400">Loading fleet data...</div>;
+    return (
+      <div className="rounded-lg border border-teal-100 bg-[#fbfffd] p-8 text-center text-slate-600">
+        Loading fleet status...
+      </div>
+    );
   }
 
+  const alertTruckIds = new Set(alerts.map((alert) => alert.truck_id));
   const sortedTrucks = [...trucks].sort((a, b) => {
+    if (sortBy === 'attention') {
+      return Number(alertTruckIds.has(b.id)) - Number(alertTruckIds.has(a.id));
+    }
     if (sortBy === 'revenue') return b.revenue_mtd - a.revenue_mtd;
-    if (sortBy === 'documents') return b.doc_count - a.doc_count;
-    return a.id.localeCompare(b.id);
+    return b.doc_count - a.doc_count;
   });
 
-  const totalRevenue = trucks.reduce((sum, t) => sum + t.revenue_mtd, 0);
-  const activeTrucks = trucks.filter((t) => t.status === 'active').length;
-  const totalDocs = trucks.reduce((sum, t) => sum + t.doc_count, 0);
-  const avgExpenses = totalRevenue / trucks.length;
+  const totalRevenue = trucks.reduce((sum, truck) => sum + truck.revenue_mtd, 0);
+  const activeTrucks = trucks.filter((truck) => truck.status === 'active').length;
+  const totalDocs = trucks.reduce((sum, truck) => sum + truck.doc_count, 0);
 
   return (
     <div className="space-y-6">
-      {/* Problem Context */}
-      <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 backdrop-blur">
-        <p className="text-sm text-slate-300 leading-relaxed">
-          <span className="font-semibold">The Challenge:</span> {totalDocs} documents across {trucks.length} trucks—
-          all stored before in filing cabinets and emails, unsearchable, unorganized.
-          <br />
-          <span className="text-slate-400">Today: Everything is ingested, linked to the right truck, and queryable in plain English.</span>
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-slate-950">Fleet Status</h1>
+          <p className="mt-1 text-sm text-slate-600">
+            Start here to see revenue, document coverage, and trucks that need attention.
+          </p>
+        </div>
+        <Link
+          to="/documents"
+          className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800"
+        >
+          <FileCheck size={18} />
+          Search documents
+        </Link>
       </div>
 
-      {/* Summary Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <StatCard
-          icon={TrendingUp}
-          label="Total Revenue (MTD)"
-          value={`$${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          color="bg-green-900/20 text-green-400"
-          description="Across all trucks"
-        />
-        <StatCard
-          icon={FileCheck}
-          label="Documents Ingested"
-          value={totalDocs.toString()}
-          color="bg-blue-900/20 text-blue-400"
-          description="Pre-scanned & linked"
-        />
-        <StatCard
-          icon={Archive}
-          label="Active Trucks"
-          value={`${activeTrucks}/${trucks.length}`}
-          color="bg-purple-900/20 text-purple-400"
-          description="In fleet"
-        />
-        <StatCard
-          icon={DollarSign}
-          label="Avg Spend/Truck"
-          value={`$${avgExpenses.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          color="bg-orange-900/20 text-orange-400"
-          description="Monthly"
-        />
-      </div>
+      <section className="grid gap-4 md:grid-cols-3">
+        <StatCard icon={DollarSign} label="Revenue this month" value={currency.format(totalRevenue)} />
+        <StatCard icon={Truck} label="Active trucks" value={`${activeTrucks} of ${trucks.length}`} />
+        <StatCard icon={FileCheck} label="Documents linked" value={totalDocs.toString()} />
+      </section>
 
-      {/* Critical Alerts */}
-      {alerts.length > 0 && (
-        <div className="bg-slate-900 border border-red-800/50 rounded-lg p-4">
-          <h3 className="flex items-center gap-2 font-semibold text-red-400 mb-3">
-            <AlertCircle size={20} />
-            Critical Alerts ({alerts.length})
-          </h3>
-          <div className="space-y-2">
-            {alerts.map((alert) => (
-              <div
-                key={alert.id}
-                className={`p-3 rounded border-l-4 flex justify-between items-start ${
-                  alert.severity === 'critical'
-                    ? 'bg-red-900/20 border-red-600 text-red-200'
-                    : alert.severity === 'alert'
-                      ? 'bg-yellow-900/20 border-yellow-600 text-yellow-200'
-                      : 'bg-orange-900/20 border-orange-600 text-orange-200'
-                }`}
-              >
-                <div>
-                  <p className="font-medium text-sm">{alert.message}</p>
-                  <p className="text-xs opacity-75">Vehicle: {alert.truck_id}</p>
-                </div>
-                <span className="text-xs font-semibold">
-                  {alert.severity === 'critical' ? '🔴' : alert.severity === 'alert' ? '🟡' : '🟠'}
-                </span>
-              </div>
-            ))}
+      <section className="rounded-lg border border-amber-100 bg-[#fffdf7] shadow-sm">
+        <div className="border-b border-amber-100 p-4">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="text-amber-600" size={20} />
+            <h2 className="font-semibold text-slate-950">Needs Attention</h2>
           </div>
+          <p className="mt-1 text-sm text-slate-600">
+            These are the items an operator would probably check first.
+          </p>
         </div>
-      )}
-
-      {/* Trucks Grid */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-slate-100">Fleet Overview</h2>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setSortBy('revenue')}
-              className={`px-3 py-2 text-sm rounded ${
-                sortBy === 'revenue'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-              } transition-colors`}
-            >
-              💰 Revenue
-            </button>
-            <button
-              onClick={() => setSortBy('documents')}
-              className={`px-3 py-2 text-sm rounded ${
-                sortBy === 'documents'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-              } transition-colors`}
-            >
-              📄 Documents
-            </button>
-            <button
-              onClick={() => setSortBy('id')}
-              className={`px-3 py-2 text-sm rounded ${
-                sortBy === 'id'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-              } transition-colors`}
-            >
-              🆔 Name
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sortedTrucks.map((truck) => (
-            <button
-              key={truck.id}
-              onClick={() => onSelectTruck(truck.id)}
-              className="bg-slate-900 border border-slate-800 rounded-lg p-4 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-600/20 transition-all text-left group"
-            >
-              {/* Header */}
-              <div className="flex justify-between items-start mb-3">
+        <div className="divide-y divide-slate-100">
+          {alerts.length === 0 ? (
+            <p className="p-4 text-sm text-slate-600">No open alerts.</p>
+          ) : (
+            alerts.map((alert) => (
+              <div key={alert.id} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-purple-400 group-hover:text-purple-300 transition-colors">
-                    {truck.id}
-                  </h3>
-                  <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                    {truck.driver}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={severityClass(alert.severity)}>{alert.severity}</span>
+                    <span className="font-semibold text-slate-950">{alert.truck_id}</span>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-600">{alert.message}</p>
                 </div>
-                <span
-                  className={`text-xs px-2 py-1 rounded-full font-semibold ${
-                    truck.status === 'active'
-                      ? 'bg-green-900/30 text-green-400'
-                      : 'bg-red-900/30 text-red-400'
-                  }`}
+                <button
+                  onClick={() => onSelectTruck(alert.truck_id)}
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-slate-900 hover:text-slate-600"
                 >
-                  {truck.status === 'active' ? '🟢 Active' : '🔴 Inactive'}
-                </span>
+                  Select truck <ArrowRight size={16} />
+                </button>
               </div>
-
-              {/* Metrics */}
-              <div className="space-y-2 border-t border-slate-700 pt-3">
-                {/* Revenue */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-400">Revenue (MTD)</span>
-                  <span className="font-semibold text-green-400">
-                    ${truck.revenue_mtd.toLocaleString('en-US', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </span>
-                </div>
-
-                {/* Documents */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-400">Documents</span>
-                  <span className="font-semibold text-slate-100 flex items-center gap-1">
-                    <FileCheck size={14} />
-                    {truck.doc_count}
-                  </span>
-                </div>
-
-                {/* Profitability */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-slate-400">Profitability</span>
-                  <span className={`font-semibold text-sm ${
-                    truck.revenue_mtd > avgExpenses
-                      ? 'text-green-400'
-                      : truck.revenue_mtd > avgExpenses * 0.8
-                        ? 'text-yellow-400'
-                        : 'text-red-400'
-                  }`}>
-                    {truck.revenue_mtd > avgExpenses ? '📈 Above Avg' : truck.revenue_mtd > avgExpenses * 0.8 ? '📊 At Avg' : '📉 Below Avg'}
-                  </span>
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="mt-3 pt-3 border-t border-slate-700 text-xs text-slate-500 group-hover:text-purple-400 transition-colors flex items-center gap-1">
-                <Zap size={14} />
-                Click to view documents & details →
-              </div>
-            </button>
-          ))}
+            ))
+          )}
         </div>
+      </section>
+
+      <section className="rounded-lg border border-teal-100 bg-[#fbfffd] shadow-sm">
+        <div className="flex flex-col gap-3 border-b border-teal-100 p-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="font-semibold text-slate-950">Truck List</h2>
+            <p className="mt-1 text-sm text-slate-600">Choose a truck, then open Documents to see its records.</p>
+          </div>
+          <div className="flex gap-2">
+            <SortButton active={sortBy === 'attention'} onClick={() => setSortBy('attention')}>
+              Attention
+            </SortButton>
+            <SortButton active={sortBy === 'revenue'} onClick={() => setSortBy('revenue')}>
+              Revenue
+            </SortButton>
+            <SortButton active={sortBy === 'documents'} onClick={() => setSortBy('documents')}>
+              Documents
+            </SortButton>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] text-left text-sm">
+            <thead className="bg-teal-50 text-xs font-semibold uppercase text-teal-800">
+              <tr>
+                <th className="px-4 py-3">Truck</th>
+                <th className="px-4 py-3">Driver</th>
+                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Revenue</th>
+                <th className="px-4 py-3">Documents</th>
+                <th className="px-4 py-3">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {sortedTrucks.map((truck) => (
+                <tr key={truck.id} className="hover:bg-teal-50/60">
+                  <td className="px-4 py-3 font-semibold text-slate-950">
+                    <div className="flex items-center gap-2">
+                      {alertTruckIds.has(truck.id) && <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />}
+                      {truck.id}
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">{truck.driver}</td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={
+                        truck.status === 'active'
+                          ? 'rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700'
+                          : 'rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700'
+                      }
+                    >
+                      {truck.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 font-medium text-slate-900">{currency.format(truck.revenue_mtd)}</td>
+                  <td className="px-4 py-3 text-slate-700">{truck.doc_count}</td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => onSelectTruck(truck.id)}
+                      className="rounded-md border border-teal-200 px-3 py-1.5 font-semibold text-teal-800 hover:bg-teal-50"
+                    >
+                      Select
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function StatCard({ icon: Icon, label, value }: { icon: any; label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-teal-100 bg-[#fbfffd] p-5 shadow-sm">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-slate-500">{label}</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-950">{value}</p>
+        </div>
+        <span className="flex h-11 w-11 items-center justify-center rounded-md bg-teal-50 text-teal-800">
+          <Icon size={22} />
+        </span>
       </div>
     </div>
   );
 }
 
-function StatCard({
-  icon: Icon,
-  label,
-  value,
-  color,
-  description,
+function SortButton({
+  active,
+  onClick,
+  children,
 }: {
-  icon: any;
-  label: string;
-  value: string;
-  color: string;
-  description?: string;
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
 }) {
   return (
-    <div className={`${color} border border-opacity-20 rounded-lg p-4`}>
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs opacity-75 mb-1">{label}</p>
-          <p className="text-2xl font-bold">{value}</p>
-          {description && <p className="text-xs opacity-50 mt-1">{description}</p>}
-        </div>
-        <Icon size={32} className="opacity-30 flex-shrink-0" />
-      </div>
-    </div>
+    <button
+      onClick={onClick}
+      className={
+        active
+          ? 'rounded-md bg-teal-700 px-3 py-2 text-sm font-semibold text-white'
+          : 'rounded-md border border-teal-200 px-3 py-2 text-sm font-semibold text-teal-800 hover:bg-teal-50'
+      }
+    >
+      {children}
+    </button>
   );
+}
+
+function severityClass(severity: string) {
+  if (severity === 'critical') {
+    return 'rounded-full bg-rose-50 px-2.5 py-1 text-xs font-semibold uppercase text-rose-700';
+  }
+  if (severity === 'alert') {
+    return 'rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold uppercase text-amber-700';
+  }
+  return 'rounded-full bg-sky-50 px-2.5 py-1 text-xs font-semibold uppercase text-sky-700';
 }

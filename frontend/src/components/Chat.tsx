@@ -1,108 +1,68 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import { Send, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { AlertCircle, Bot, Send, User } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import apiService from '../services/mockApi';
-import type { PipelineStage } from './PipelineVisualization';
 
 interface Message {
   id: string;
-  role: 'user' | 'assistant' | 'pipeline';
+  role: 'user' | 'assistant';
   content: string;
   sources?: string[];
-  stages?: PipelineStage[];
-  timestamp: Date;
+  isOfflineFallback?: boolean;
 }
 
+const exampleQuestions = [
+  'Which trucks have documents expiring soon?',
+  'Show documents for truck T-084',
+  'How much revenue did truck T-091 make?',
+  'Compare truck T-084 and T-091 revenue',
+];
+
 export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) => void }) {
+  const [searchParams] = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState<{ [key: string]: 'up' | 'down' | null }>({});
-  const [feedbackModal, setFeedbackModal] = useState<{ messageId: string; isOpen: boolean; text: string }>({
-    messageId: '',
-    isOpen: false,
-    text: '',
-  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const initialQuestionSent = useRef(false);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const getPipelineStages = (): PipelineStage[] => [
-    { id: '1', name: 'Classification', description: 'Analyzing document..', status: 'pending', duration: 0 },
-    { id: '2', name: 'Extraction', description: 'Extracting fields..', status: 'pending', duration: 0 },
-    { id: '3', name: 'Entity Resolution', description: 'Resolving references..', status: 'pending', duration: 0 },
-    { id: '4', name: 'Semantic Search', description: 'Searching documents..', status: 'pending', duration: 0 },
-    { id: '5', name: 'Query Planning', description: 'Planning execution..', status: 'pending', duration: 0 },
-    { id: '6', name: 'Tool Execution', description: 'Running tools..', status: 'pending', duration: 0 },
-    { id: '7', name: 'Formatting', description: 'Formatting response..', status: 'pending', duration: 0 },
-  ];
-
-  const animatePipeline = async (messageId: string) => {
-    const stages = getPipelineStages();
-    const stageTiming = [150, 120, 100, 80, 90, 200, 150];
-
-    for (let i = 0; i < stages.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, stageTiming[i]));
-
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === messageId && msg.stages
-            ? {
-                ...msg,
-                stages: msg.stages.map((s, idx) =>
-                  idx === i ? { ...s, status: 'complete' as const, duration: stageTiming[i] } : s
-                ),
-              }
-            : msg
-        )
-      );
+  useEffect(() => {
+    const question = searchParams.get('q');
+    if (question && !initialQuestionSent.current) {
+      initialQuestionSent.current = true;
+      sendMessage(question);
     }
-  };
+  }, [searchParams]);
 
   const sendMessage = async (text: string) => {
-    if (!text.trim()) return;
+    const question = text.trim();
+    if (!question || loading) return;
 
-    const userMsg: Message = {
-      id: Date.now().toString(),
-      role: 'user',
-      content: text,
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, userMsg]);
-
-    const pipelineId = (Date.now() + 1).toString();
-    const pipelineMsg: Message = {
-      id: pipelineId,
-      role: 'pipeline',
-      content: '',
-      stages: getPipelineStages(),
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, pipelineMsg]);
-
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `${Date.now()}-user`,
+        role: 'user',
+        content: question,
+      },
+    ]);
     setInput('');
     setLoading(true);
 
-    animatePipeline(pipelineId);
-
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-
-      const response = await apiService.ask(text, 'conv-001');
-
-      // Keep pipeline visible and add response below it
+      const response = await apiService.ask(question, 'conv-001');
       setMessages((prev) => [
         ...prev,
         {
-          id: (Date.now() + 2).toString(),
+          id: `${Date.now()}-assistant`,
           role: 'assistant',
           content: response.answer,
           sources: response.sources,
-          timestamp: new Date(),
         },
       ]);
 
@@ -112,16 +72,13 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
         executionTime: response.plan_executed.execution_time_ms,
       });
     } catch (error: any) {
-      console.error('Error:', error);
-      const errorMessage = error?.response?.data?.message || error?.message || 'Error processing your question. Please try again.';
-      // Keep pipeline visible and add error message below it
       setMessages((prev) => [
         ...prev,
         {
-          id: (Date.now() + 2).toString(),
+          id: `${Date.now()}-assistant`,
           role: 'assistant',
-          content: `Error: ${errorMessage}`,
-          timestamp: new Date(),
+          content: getOfflineAnswer(question, error?.message),
+          isOfflineFallback: true,
         },
       ]);
     } finally {
@@ -129,279 +86,148 @@ export default function Chat({ onToolExecuted }: { onToolExecuted: (data: any) =
     }
   };
 
-  const handleSendMessage = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     sendMessage(input);
   };
 
-  const handleBubbleYes = (messageId: string) => {
-    setFeedback((prev) => ({
-      ...prev,
-      [messageId]: 'up',
-    }));
-  };
-
-  const handleBubbleNo = (messageId: string) => {
-    setFeedback((prev) => ({
-      ...prev,
-      [messageId]: 'down',
-    }));
-    openFeedbackModal(messageId);
-  };
-
-  const openFeedbackModal = (messageId: string) => {
-    setFeedbackModal({ messageId, isOpen: true, text: '' });
-  };
-
-  const closeFeedbackModal = () => {
-    setFeedbackModal({ messageId: '', isOpen: false, text: '' });
-  };
-
-  const sendFeedback = () => {
-    // TODO: Send feedback to backend when ready
-    console.log('Feedback:', {
-      messageId: feedbackModal.messageId,
-      text: feedbackModal.text,
-    });
-    // Modal closes automatically, feedback stays marked as 'down'
-    closeFeedbackModal();
-  };
-
   return (
-    <div className="flex flex-col h-screen bg-slate-950">
-      {/* Header */}
-      <div className="border-b border-slate-800 px-4 py-3">
-        <Link to="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-slate-300 transition-colors">
-          <ArrowLeft size={18} />
-          <span className="text-sm">Back</span>
-        </Link>
-      </div>
-
-      {/* Search Bar at Top */}
-      {messages.length === 0 && (
-        <div className="pt-16 px-4 pb-8 text-center">
-          <h1 className="text-4xl font-bold text-white mb-8">Fleet</h1>
-
-          <form onSubmit={handleSendMessage} className="max-w-2xl mx-auto mb-12">
-            <div className="relative">
-              <div className="bg-slate-800 border border-slate-700 rounded-full px-6 py-4 flex items-center gap-3 hover:border-slate-600 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
-                <svg
-                  className="w-5 h-5 text-slate-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about expenses, documents, trucks..."
-                  className="flex-1 bg-transparent outline-none text-slate-100 placeholder-slate-500 text-base"
-                />
-                <button
-                  type="submit"
-                  disabled={!input.trim() || loading}
-                  className="text-slate-500 hover:text-blue-500 disabled:opacity-50 transition-colors"
-                >
-                  <Send size={18} />
-                </button>
-              </div>
-            </div>
-          </form>
-
-          {/* Example Queries */}
-          <div className="max-w-2xl mx-auto">
-            <p className="text-xs text-slate-600 uppercase tracking-wider mb-4">Example queries</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {[
-                { emoji: '💰', text: 'What is the revenue for truck T-084?', desc: 'Entity + analytics' },
-                { emoji: '📄', text: 'Show all loads for truck T-084', desc: 'Load retrieval' },
-                { emoji: '📊', text: 'What is the revenue for truck T-091?', desc: 'Multi-truck data' },
-                { emoji: '🚚', text: 'Compare revenue between T-084 and T-091', desc: 'Analysis' },
-              ].map((example, i) => (
-                <button
-                  key={i}
-                  onClick={() => sendMessage(example.text)}
-                  className="p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all text-left group"
-                >
-                  <p className="text-sm text-slate-300 group-hover:text-slate-100">
-                    {example.emoji} {example.text}
-                  </p>
-                  <p className="text-xs text-slate-600 mt-1">{example.desc}</p>
-                </button>
-              ))}
-            </div>
+    <div className="mx-auto flex min-h-[calc(100vh-130px)] max-w-4xl flex-col gap-5">
+      <section className="rounded-lg border border-teal-100 bg-[#fbfffd] p-5 shadow-sm">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-950">Ask About the Fleet</h1>
+            <p className="mt-1 text-sm leading-6 text-slate-600">
+              Ask a normal business question. The assistant can look up trucks, documents,
+              revenue, expenses, and renewals when the local backend is running.
+            </p>
+          </div>
+          <div className="rounded-md border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-800">
+            Tip: try a truck ID like T-084.
           </div>
         </div>
+      </section>
+
+      {messages.length === 0 && (
+        <section className="grid gap-3 md:grid-cols-2">
+          {exampleQuestions.map((question) => (
+            <button
+              key={question}
+              onClick={() => sendMessage(question)}
+            className="rounded-lg border border-sky-100 bg-white/90 p-4 text-left text-sm font-medium text-slate-700 shadow-sm hover:border-sky-200 hover:text-slate-950"
+            >
+              {question}
+            </button>
+          ))}
+        </section>
       )}
 
-      {/* Messages Area */}
-      {messages.length > 0 && (
-        <div className="flex-1 overflow-y-auto px-4 py-6 max-w-3xl mx-auto w-full space-y-4">
-          {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              {message.role === 'user' && (
-                <div className="bg-blue-600 text-white rounded-2xl rounded-tr-sm px-4 py-2 max-w-sm">
-                  <p className="text-sm">{message.content}</p>
-                </div>
-              )}
-
-              {message.role === 'pipeline' && message.stages && (
-                <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-2">
-                  {message.stages?.map((stage, idx) => (
-                    <div key={stage.id}>
-                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5">
-                          {stage.status === 'complete' && (
-                            <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">✓</span>
-                            </div>
-                          )}
-                          {stage.status === 'pending' && (
-                            <div className="w-5 h-5 rounded-full border-2 border-slate-600 border-t-blue-400 animate-spin" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-medium text-slate-300">{stage.name}</p>
-                          <p className="text-xs text-slate-500">{stage.description}</p>
-                        </div>
-                        {stage.duration && stage.duration > 0 && (
-                          <span className="text-xs text-slate-500">{stage.duration}ms</span>
-                        )}
-                      </div>
-                      {idx < (message.stages?.length ?? 0) - 1 && (
-                        <div className="ml-2 h-2 border-l border-slate-700" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {message.role === 'assistant' && (
-                <div className="space-y-3">
-                  <div className="bg-slate-800 rounded-lg p-4 max-w-lg border border-slate-700 space-y-3">
-                    <p className="text-sm text-slate-200">{message.content}</p>
-                    {message.sources && message.sources.length > 0 && (
-                      <div className="space-y-2">
-                        <p className="text-xs text-slate-500">Sources:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {message.sources.slice(0, 5).map((source) => (
-                            <span key={source} className="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">
-                              {source}
-                            </span>
-                          ))}
-                          {message.sources.length > 5 && (
-                            <span className="text-xs text-slate-500">+{message.sources.length - 5}</span>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Bouncing Feedback Bubble - Shows by default */}
-                  {!feedback[message.id] && (
-                    <div className="animate-bounce-gentle flex items-center gap-3 bg-blue-600/20 border border-blue-500/50 text-blue-300 px-4 py-3 rounded-full text-sm max-w-lg">
-                      <span>💬 Was this helpful?</span>
-                      <button
-                        onClick={() => handleBubbleYes(message.id)}
-                        className="ml-auto px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-full font-medium transition-colors"
-                      >
-                        Yes
-                      </button>
-                      <button
-                        onClick={() => handleBubbleNo(message.id)}
-                        className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-full font-medium transition-colors"
-                      >
-                        No
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Smiley when user clicks Yes */}
-                  {feedback[message.id] === 'up' && (
-                    <div className="text-3xl">😊</div>
-                  )}
-
-                  {/* Thank you message when user submits feedback (No) */}
-                  {feedback[message.id] === 'down' && (
-                    <div className="flex items-center gap-2 text-sm text-slate-400 py-1">
-                      <span>✓ Thank you for your feedback</span>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Feedback Modal - Shows when user clicks No */}
-              {feedbackModal.isOpen && feedbackModal.messageId === message.id && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                  <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 max-w-md w-full mx-4 space-y-4">
-                    <h3 className="text-lg font-semibold text-slate-100">Help Us Improve</h3>
-                    <p className="text-sm text-slate-400">
-                      What could we have done better with this response?
-                    </p>
-                    <textarea
-                      value={feedbackModal.text}
-                      onChange={(e) =>
-                        setFeedbackModal((prev) => ({ ...prev, text: e.target.value }))
-                      }
-                      placeholder="Tell us what went wrong..."
-                      className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none h-24"
-                    />
-                    <div className="flex gap-3 justify-end">
-                      <button
-                        onClick={closeFeedbackModal}
-                        className="px-4 py-2 text-sm text-slate-300 hover:text-slate-100 transition-colors"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        onClick={sendFeedback}
-                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
-                      >
-                        Send
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
+      <section className="flex-1 rounded-lg border border-teal-100 bg-[#fbfffd] shadow-sm">
+        <div className="min-h-[360px] space-y-4 p-4">
+          {messages.length === 0 ? (
+            <div className="flex h-[320px] items-center justify-center text-center">
+              <div>
+                <Bot className="mx-auto text-slate-300" size={44} />
+                <p className="mt-3 font-medium text-slate-700">No conversation yet</p>
+                <p className="mt-1 text-sm text-slate-500">Choose an example or type your own question below.</p>
+              </div>
             </div>
-          ))}
+          ) : (
+            messages.map((message) => <MessageBubble key={message.id} message={message} />)
+          )}
 
+          {loading && (
+            <div className="flex items-center gap-3 rounded-lg bg-teal-50 p-4 text-sm text-teal-800">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-teal-600" />
+              Checking fleet data...
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
-      )}
 
-      {/* Input at Bottom (when messages exist) */}
-      {messages.length > 0 && (
-        <div className="border-t border-slate-800 px-4 py-4 bg-slate-950/50">
-          <form onSubmit={handleSendMessage} className="flex gap-2 max-w-3xl mx-auto">
+        <form onSubmit={handleSubmit} className="border-t border-teal-100 bg-teal-50/40 p-4">
+          <div className="flex gap-2">
             <input
-              ref={inputRef}
-              type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask another question..."
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Ask about revenue, documents, renewals, or a truck..."
               disabled={loading}
-              className="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="min-w-0 flex-1 rounded-md border border-teal-200 bg-white px-4 py-3 text-sm text-slate-950 placeholder:text-slate-400 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-100 disabled:bg-teal-50"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-700 text-white p-2 rounded-lg transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-md bg-teal-700 px-4 py-3 text-sm font-semibold text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               <Send size={18} />
+              <span className="hidden sm:inline">Ask</span>
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  );
+}
+
+function MessageBubble({ message }: { message: Message }) {
+  const isUser = message.role === 'user';
+
+  return (
+    <div className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
+      {!isUser && (
+        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+          <Bot size={18} />
+        </span>
+      )}
+      <div
+        className={
+          isUser
+            ? 'max-w-[78%] rounded-lg bg-teal-800 px-4 py-3 text-sm leading-6 text-white'
+            : 'max-w-[78%] rounded-lg border border-sky-100 bg-sky-50/80 px-4 py-3 text-sm leading-6 text-slate-800'
+        }
+      >
+        {message.isOfflineFallback && (
+          <div className="mb-3 flex items-start gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-amber-900">
+            <AlertCircle className="mt-0.5 shrink-0" size={17} />
+            <p className="text-xs leading-5">
+              The AI backend is not reachable, so this is a local demo response.
+            </p>
+          </div>
+        )}
+        <p className="whitespace-pre-line">{message.content}</p>
+        {message.sources && message.sources.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2 border-t border-slate-200 pt-3">
+            {message.sources.slice(0, 5).map((source) => (
+              <span key={source} className="rounded-full bg-white px-2.5 py-1 text-xs font-medium text-slate-600">
+                {source}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      {isUser && (
+        <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-800 text-white">
+          <User size={18} />
+        </span>
       )}
     </div>
   );
+}
+
+function getOfflineAnswer(question: string, errorMessage?: string) {
+  const lower = question.toLowerCase();
+
+  if (lower.includes('renew') || lower.includes('expir') || lower.includes('attention')) {
+    return 'In the local demo data, these items need attention:\n\n- T-125 has an insurance renewal coming up soon.\n- T-140 has an inspection follow-up.\n- T-112 is marked inactive.\n\nOpen Fleet Status to review the alert list.';
+  }
+
+  if (lower.includes('document') || lower.includes('t-084')) {
+    return 'The demo has documents linked to T-084, including fuel, maintenance, tax, insurance, and registration records. Open Documents and search for T-084 to review them.';
+  }
+
+  if (lower.includes('revenue') || lower.includes('compare')) {
+    return 'The demo dashboard includes monthly revenue for each truck. Open Fleet Status to compare trucks by revenue and document count.';
+  }
+
+  return `I could not reach the local AI service${errorMessage ? ` (${errorMessage})` : ''}. You can still use Fleet Status and Documents with demo data while the backend is offline.`;
 }

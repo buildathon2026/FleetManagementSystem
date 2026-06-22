@@ -38,21 +38,21 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
   }, []);
 
   if (loading) {
-    return <div className="text-center py-12">Loading entity graph...</div>;
+    return <div className="text-center py-12 text-slate-600">Loading relationships...</div>;
   }
 
   return (
     <div className="space-y-6">
-      <div className="bg-slate-900 border border-slate-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold flex items-center gap-2 mb-4 text-slate-100">
+      <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-6 shadow-sm">
+        <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4 text-slate-950">
           <Network size={24} />
-          Fleet Entity Relationships
+          Fleet Relationships
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Entity List */}
           <div className="lg:col-span-1">
-            <h3 className="font-semibold text-slate-300 mb-3">Entities ({entities.length})</h3>
+            <h3 className="font-semibold text-slate-700 mb-3">Trucks ({entities.length})</h3>
             <div className="space-y-2 max-h-96 overflow-y-auto">
               {entities.map((entity) => (
                 <button
@@ -63,12 +63,16 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                   }}
                   className={`w-full text-left p-3 rounded border transition-all ${
                     selectedEntity === entity.id
-                      ? 'bg-purple-900/30 border-purple-600'
-                      : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                      ? 'bg-teal-800 border-teal-700 text-white'
+                      : 'bg-white/80 border-teal-100 hover:border-teal-200 hover:bg-teal-50/70'
                   }`}
                 >
-                  <p className="font-semibold text-purple-400">{entity.id}</p>
-                  <p className="text-xs text-slate-400">{entity.type}</p>
+                  <p className={selectedEntity === entity.id ? 'font-semibold text-white' : 'font-semibold text-teal-800'}>
+                    {entity.id}
+                  </p>
+                  <p className={selectedEntity === entity.id ? 'text-xs text-teal-100' : 'text-xs text-slate-500'}>
+                    {entity.type}
+                  </p>
                 </button>
               ))}
             </div>
@@ -77,33 +81,33 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
           {/* Entity Details */}
           <div className="lg:col-span-2">
             {selectedEntity ? (
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 space-y-4">
+              <div className="bg-sky-50/70 border border-sky-100 rounded-lg p-4 space-y-4">
                 {(() => {
                   const entity = entities.find((e) => e.id === selectedEntity);
                   return entity ? (
                     <>
                       <div>
-                        <h4 className="text-lg font-semibold text-purple-400 mb-2">{entity.id}</h4>
-                        <p className="text-sm text-slate-300">{entity.name}</p>
+                        <h4 className="text-lg font-semibold text-teal-800 mb-2">{entity.id}</h4>
+                        <p className="text-sm text-slate-600">{entity.name}</p>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-900 rounded p-3">
-                          <p className="text-xs text-slate-400 mb-1">Type</p>
-                          <p className="font-semibold text-slate-100">{entity.type}</p>
+                        <div className="bg-white/80 rounded p-3 border border-sky-100">
+                          <p className="text-xs text-slate-500 mb-1">Type</p>
+                          <p className="font-semibold text-slate-950">{entity.type}</p>
                         </div>
-                        <div className="bg-slate-900 rounded p-3">
-                          <p className="text-xs text-slate-400 mb-1">Documents</p>
-                          <p className="font-semibold text-slate-100">{entity.docCount}</p>
+                        <div className="bg-white/80 rounded p-3 border border-sky-100">
+                          <p className="text-xs text-slate-500 mb-1">Documents</p>
+                          <p className="font-semibold text-slate-950">{entity.docCount}</p>
                         </div>
                       </div>
 
                       {entity.aliases.length > 0 && (
                         <div>
-                          <p className="text-sm font-semibold text-slate-300 mb-2">Aliases</p>
+                          <p className="text-sm font-semibold text-slate-700 mb-2">Aliases</p>
                           <div className="flex flex-wrap gap-2">
                             {entity.aliases.map((alias) => (
-                              <span key={alias} className="text-xs bg-slate-900 px-2 py-1 rounded text-slate-300 border border-slate-700">
+                              <span key={alias} className="text-xs bg-white/80 px-2 py-1 rounded text-slate-700 border border-sky-100">
                                 {alias}
                               </span>
                             ))}
@@ -112,12 +116,12 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                       )}
 
                       {/* Related Entities */}
-                      <div className="bg-slate-900 rounded p-3 border border-slate-700">
-                        <p className="text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
+                      <div className="bg-white/80 rounded p-3 border border-sky-100">
+                        <p className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
                           <Users size={16} />
                           Connected Entities
                         </p>
-                        <div className="text-xs text-slate-400">
+                        <div className="text-xs text-slate-600">
                           <p>→ Driver relationship active</p>
                           <p>→ Documents: {entity.docCount}</p>
                           <p>→ Cross-references: {Math.floor(Math.random() * 10) + 1}</p>
@@ -125,14 +129,14 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
                       </div>
                     </>
                   ) : (
-                    <p className="text-slate-400">Entity not found</p>
+                    <p className="text-slate-500">Entity not found</p>
                   );
                 })()}
               </div>
             ) : (
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-8 text-center">
+              <div className="bg-sky-50/70 border border-sky-100 rounded-lg p-8 text-center">
                 <MapPin size={40} className="mx-auto mb-3 opacity-50" />
-                <p className="text-slate-400">Select an entity to view details</p>
+                <p className="text-slate-600">Select a truck to view details</p>
               </div>
             )}
           </div>
@@ -151,9 +155,9 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
 
 function StatBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-lg p-4 text-center">
-      <p className="text-sm text-slate-400 mb-2">{label}</p>
-      <p className="text-3xl font-bold text-purple-400">{value}</p>
+    <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-4 text-center shadow-sm">
+      <p className="text-sm text-slate-500 mb-2">{label}</p>
+      <p className="text-3xl font-semibold text-teal-800">{value}</p>
     </div>
   );
 }

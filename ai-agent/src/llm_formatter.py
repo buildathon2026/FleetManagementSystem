@@ -1,5 +1,5 @@
 """
-LLM-based Formatter — uses Featherless model to produce natural language
+LLM-based Formatter — uses an OpenAI-compatible model to produce natural language
 answers from tool execution results.
 """
 
@@ -10,7 +10,7 @@ from typing import Any
 
 from openai import OpenAI
 
-from .config import FEATHERLESS_API_KEY, FEATHERLESS_BASE_URL, FORMATTER_MODEL
+from .config import LLM_API_KEY, LLM_BASE_URL, FORMATTER_MODEL
 from .models import Confidence, Plan, ToolResult
 
 SYSTEM_PROMPT = """You are a fleet management assistant. Format tool execution results into a clear, concise natural language answer for a fleet operator.
@@ -32,9 +32,9 @@ class LLMFormatter:
 
     def _get_client(self) -> OpenAI:
         if self._client is None:
-            if not FEATHERLESS_API_KEY:
-                raise RuntimeError("FEATHERLESS_API_KEY not set")
-            self._client = OpenAI(api_key=FEATHERLESS_API_KEY, base_url=FEATHERLESS_BASE_URL)
+            if not LLM_API_KEY:
+                raise RuntimeError("LLM_API_KEY or GROQ_API_KEY not set")
+            self._client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
         return self._client
 
     def format(

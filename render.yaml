@@ -28,14 +28,17 @@ services:
         value: "1"
       - key: PYTHONDONTWRITEBYTECODE
         value: "1"
-      - key: OPENAI_API_KEY
-        fromSecretFile: openai_api_key
-      - key: ANTHROPIC_API_KEY
-        fromSecretFile: anthropic_api_key
+      - key: LLM_API_KEY
+        fromSecretFile: groq_api_key
+      - key: LLM_BASE_URL
+        value: "https://api.groq.com/openai/v1"
+      - key: PLANNER_MODEL
+        value: "llama-3.1-8b-instant"
+      - key: FORMATTER_MODEL
+        value: "llama-3.1-8b-instant"
     healthCheckPath: "/health"
     autoDeploy: true
 
 # Environment secrets (create these in Render dashboard)
 # You'll need to set:
-# - openai_api_key
-# - anthropic_api_key
+# - groq_api_key
