@@ -100,7 +100,7 @@ export default function Chat() {
             <h1 className="text-2xl font-semibold text-slate-950">Ask About the Fleet</h1>
             <p className="mt-1 text-sm leading-6 text-slate-600">
               Ask a normal business question. The assistant can look up trucks, documents,
-              revenue, expenses, and renewals when the local backend is running.
+              revenue, expenses, and renewals through the connected backend.
             </p>
           </div>
           <div className="rounded-md border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-800">

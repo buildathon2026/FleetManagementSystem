@@ -62,31 +62,41 @@ const mockAlerts = [
   { id: 3, truck_id: 'T-140', type: 'inspection', message: 'DOT inspection overdue', severity: 'critical' },
 ];
 
+async function postQuestion(path: '/ask/llm' | '/ask', question: string, conversationId: string) {
+  const apiUrl = `${AGENT_BASE_URL}${path}`;
+  console.log(`Calling API at: ${apiUrl}`);
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'omit',
+    body: JSON.stringify({
+      question,
+      conversation_id: conversationId,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${path} HTTP ${response.status}: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
 // API functions
 export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const apiUrl = `${AGENT_BASE_URL}/ask/llm`;
-      console.log(`Calling API at: ${apiUrl}`);
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'omit',
-        body: JSON.stringify({
-          question,
-          conversation_id: conversationId,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      let data: any;
+      try {
+        data = await postQuestion('/ask/llm', question, conversationId);
+      } catch (llmError) {
+        console.warn('/ask/llm failed, falling back to /ask', llmError);
+        data = await postQuestion('/ask', question, conversationId);
       }
-
-      const data = await response.json();
 
       return {
         conversation_id: data.conversation_id,
