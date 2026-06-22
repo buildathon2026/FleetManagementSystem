@@ -49,6 +49,13 @@ class ConversationStore:
                     comment TEXT,
                     created_at TEXT NOT NULL
                 );
+
+                CREATE TABLE IF NOT EXISTS prompt_improvement_runs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    created_at TEXT NOT NULL,
+                    example_count INTEGER NOT NULL,
+                    prompt_snippet TEXT NOT NULL
+                );
                 """
             )
 
@@ -120,3 +127,85 @@ class ConversationStore:
                 """,
                 (conversation_id, rating, comment, now),
             )
+
+    def get_negative_feedback_examples(self, limit: int = 5) -> list[dict[str, Any]]:
+        with self.connect() as conn:
+            rows = conn.execute(
+                """
+                SELECT f.conversation_id, f.comment, f.created_at
+                FROM feedback f
+                WHERE f.rating = 'down'
+                ORDER BY f.created_at DESC
+                LIMIT ?
+                """,
+                (limit,),
+            ).fetchall()
+
+            examples: list[dict[str, Any]] = []
+            for row in rows:
+                messages = conn.execute(
+                    """
+                    SELECT role, content, payload_json
+                    FROM messages
+                    WHERE conversation_id = ?
+                    ORDER BY id ASC
+                    """,
+                    (row["conversation_id"],),
+                ).fetchall()
+
+                user_messages = [m for m in messages if m["role"] == "user"]
+                assistant_messages = [m for m in messages if m["role"] == "assistant"]
+                if not user_messages or not assistant_messages:
+                    continue
+
+                payload = json.loads(assistant_messages[-1]["payload_json"] or "{}")
+                examples.append(
+                    {
+                        "conversation_id": row["conversation_id"],
+                        "question": user_messages[-1]["content"],
+                        "answer": assistant_messages[-1]["content"],
+                        "plan": payload.get("plan_executed", {}),
+                        "comment": row["comment"],
+                        "created_at": row["created_at"],
+                    }
+                )
+
+        return examples
+
+    def save_prompt_improvement_run(self, examples: list[dict[str, Any]]) -> dict[str, Any]:
+        prompt_snippet = self._build_prompt_snippet(examples)
+        now = datetime.now(UTC).isoformat()
+        with self.connect() as conn:
+            cursor = conn.execute(
+                """
+                INSERT INTO prompt_improvement_runs (created_at, example_count, prompt_snippet)
+                VALUES (?, ?, ?)
+                """,
+                (now, len(examples), prompt_snippet),
+            )
+
+        return {
+            "run_id": cursor.lastrowid,
+            "created_at": now,
+            "example_count": len(examples),
+            "prompt_snippet": prompt_snippet,
+        }
+
+    def _build_prompt_snippet(self, examples: list[dict[str, Any]]) -> str:
+        if not examples:
+            return "No negative feedback examples found. Keep current planner prompt unchanged."
+
+        lines = [
+            "Weekly feedback-derived planner guidance:",
+            "Avoid repeating these failure patterns. Prefer resolving entities first, calling the narrowest approved tool, and returning grounded source IDs.",
+        ]
+        for index, example in enumerate(examples, start=1):
+            tools = [
+                tool.get("tool")
+                for tool in example.get("plan", {}).get("tools_called", [])
+                if isinstance(tool, dict)
+            ]
+            lines.append(
+                f"{index}. Question: {example['question']} | Tools: {tools or 'none'} | User note: {example.get('comment') or 'thumbs down'}"
+            )
+        return "\n".join(lines)

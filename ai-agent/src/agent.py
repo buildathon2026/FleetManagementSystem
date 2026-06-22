@@ -210,3 +210,17 @@ def feedback(request: FeedbackRequest) -> dict[str, str]:
         raise HTTPException(status_code=404, detail="Conversation not found")
     store.save_feedback(request.conversation_id, request.rating, request.comment)
     return {"status": "ok"}
+
+
+@app.post("/maintenance/prompt-improvements", tags=["Conversations"], summary="Run RLHF-lite prompt improvement job")
+def prompt_improvements(limit: int = 5) -> dict[str, Any]:
+    """
+    Compile recent thumbs-down feedback into prompt-improvement examples.
+
+    This is the weekly cron target for the demo: it does not retrain a model.
+    It stores a reviewed prompt snippet that can be added to the planner prompt
+    as negative examples / routing guidance.
+    """
+    _, _, _, _, _, store = get_components()
+    examples = store.get_negative_feedback_examples(limit=limit)
+    return store.save_prompt_improvement_run(examples)

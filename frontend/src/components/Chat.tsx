@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
-import { AlertCircle, Bot, Send, User } from 'lucide-react';
+import { AlertCircle, Bot, Send, ThumbsDown, ThumbsUp, User } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import apiService from '../services/mockApi';
 
@@ -9,6 +9,7 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   question?: string;
+  conversationId?: string;
   sources?: string[];
   toolResults?: any[];
   isOfflineFallback?: boolean;
@@ -65,6 +66,7 @@ export default function Chat() {
           role: 'assistant',
           content: response.answer,
           question,
+          conversationId: response.conversation_id,
           sources: response.sources,
           toolResults: response.plan_executed.tool_results,
         },
@@ -208,12 +210,63 @@ function MessageBubble({ message }: { message: Message }) {
             ))}
           </div>
         )}
+        {!isUser && !message.isOfflineFallback && message.conversationId && (
+          <FeedbackButtons conversationId={message.conversationId} />
+        )}
       </div>
       {isUser && (
         <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white">
           <User size={18} />
         </span>
       )}
+    </div>
+  );
+}
+
+function FeedbackButtons({ conversationId }: { conversationId: string }) {
+  const [rating, setRating] = useState<'up' | 'down' | null>(null);
+  const [error, setError] = useState('');
+
+  const submit = async (nextRating: 'up' | 'down') => {
+    setError('');
+    setRating(nextRating);
+    try {
+      await apiService.submitFeedback(conversationId, nextRating);
+    } catch (feedbackError) {
+      setRating(null);
+      setError('Could not save feedback');
+    }
+  };
+
+  return (
+    <div className="mt-3 flex items-center gap-2 border-t border-slate-200 pt-3">
+      <span className="text-xs font-medium text-slate-500">Was this answer useful?</span>
+      <button
+        type="button"
+        onClick={() => submit('up')}
+        aria-label="Mark answer useful"
+        className={
+          rating === 'up'
+            ? 'inline-flex h-8 w-8 items-center justify-center rounded-md bg-blue-700 text-white'
+            : 'inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-500 hover:border-blue-200 hover:text-blue-700'
+        }
+      >
+        <ThumbsUp size={15} />
+      </button>
+      <button
+        type="button"
+        onClick={() => submit('down')}
+        aria-label="Mark answer not useful"
+        className={
+          rating === 'down'
+            ? 'inline-flex h-8 w-8 items-center justify-center rounded-md bg-rose-600 text-white'
+            : 'inline-flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-500 hover:border-rose-200 hover:text-rose-700'
+        }
+      >
+        <ThumbsDown size={15} />
+      </button>
+      {rating && <span className="text-xs text-slate-500">Saved</span>}
+      {error && <span className="text-xs text-rose-600">{error}</span>}
     </div>
   );
 }

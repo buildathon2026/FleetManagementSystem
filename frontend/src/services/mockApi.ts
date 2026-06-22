@@ -67,7 +67,7 @@ export const apiService = {
   // Ask question and get AI response from real backend
   async ask(question: string, conversationId: string): Promise<AskResponse> {
     try {
-      const apiUrl = `${AGENT_BASE_URL}/ask`;
+      const apiUrl = `${AGENT_BASE_URL}/ask/llm`;
       console.log(`Calling API at: ${apiUrl}`);
 
       const response = await fetch(apiUrl, {
@@ -106,6 +106,27 @@ export const apiService = {
       console.error(`API Error: ${errorMsg}`, error);
       throw new Error(errorMsg);
     }
+  },
+
+  async submitFeedback(conversationId: string, rating: 'up' | 'down', comment?: string) {
+    const response = await fetch(`${AGENT_BASE_URL}/feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'omit',
+      body: JSON.stringify({
+        conversation_id: conversationId,
+        rating,
+        comment,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return response.json();
   },
 
   // Get fleet overview
