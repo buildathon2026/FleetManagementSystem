@@ -30,7 +30,7 @@ export default function App() {
                 <NavLink to="/dashboard" icon={LayoutDashboard} label="Fleet" />
                 <NavLink to="/documents" icon={FileText} label="Documents" />
                 <NavLink to="/chat" icon={MessageCircle} label="Ask" />
-                <NavLink to="/graph" icon={Network} label="Relationships" />
+                <NavLink to="/graph" icon={Network} label="Truck Links" />
               </div>
             </div>
           </div>

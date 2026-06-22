@@ -46,7 +46,7 @@ export default function EntityGraph({ onSelectEntity }: { onSelectEntity: (id: s
       <div className="bg-[#fbfffd] border border-teal-100 rounded-lg p-6 shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-4 text-slate-950">
           <Network size={24} />
-          Fleet Relationships
+          Truck Links
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
