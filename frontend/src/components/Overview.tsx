@@ -145,11 +145,11 @@ export default function Overview() {
                 <span className="flex h-9 w-9 items-center justify-center rounded-md bg-slate-100 text-slate-700">
                   <Icon size={18} />
                 </span>
+                <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
               </div>
               <ArrowRight className="text-slate-300 group-hover:text-blue-700" size={18} />
             </div>
-            <h2 className="mt-4 text-lg font-semibold text-slate-950">{title}</h2>
-            <p className="mt-1.5 text-sm leading-6 text-slate-600">{body}</p>
+            <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
           </Link>
         ))}
       </section>
