@@ -75,23 +75,32 @@ export default function Overview() {
           </div>
 
           <div className="border-t border-sky-100 bg-gradient-to-br from-slate-950 via-teal-900 to-sky-900 p-6 text-white lg:border-l lg:border-t-0">
-            <div className="space-y-5">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-sky-100">Before</p>
-                <div className="mt-3 rounded-lg border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm leading-6 text-sky-50">
-                    Unit 84, Trk 84, T-084, glove box receipts, renewal emails, and filing cabinets.
-                  </p>
-                </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-sky-100">
+                What FleetProof turns into an answer
+              </p>
+              <div className="mt-4 space-y-3">
+                <ProofStep
+                  step="1"
+                  title="Messy fleet records"
+                  body="Unit 84, Trk 84, T-084, receipts, forms, renewal emails, and filing cabinets."
+                />
+                <ProofStep
+                  step="2"
+                  title="One linked truck profile"
+                  body="Documents are tied to the correct truck, driver, trailer, dates, costs, and source IDs."
+                />
+                <ProofStep
+                  step="3"
+                  title="Verified plain-English answer"
+                  body="Operators ask about revenue, renewals, parts spend, or tax forms and get proof-backed results."
+                />
               </div>
 
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-emerald-100">After</p>
-                <div className="mt-3 grid gap-3">
-                  <Metric label="Documents in demo" value="230+" />
-                  <Metric label="Truck aliases resolved" value="10" />
-                  <Metric label="Raw SQL exposed to AI" value="0" />
-                </div>
+              <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                <Metric label="Demo docs" value="230+" />
+                <Metric label="Aliases resolved" value="10" />
+                <Metric label="Direct AI database control" value="0" />
               </div>
             </div>
           </div>
@@ -215,9 +224,25 @@ export default function Overview() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
+    <div className="rounded-md border border-white/15 bg-white/10 p-3">
+      <p className="text-xl font-semibold text-white">{value}</p>
+      <p className="mt-1 text-xs leading-4 text-sky-50">{label}</p>
+    </div>
+  );
+}
+
+function ProofStep({ step, title, body }: { step: string; title: string; body: string }) {
+  return (
     <div className="rounded-md border border-white/15 bg-white/10 p-4">
-      <p className="text-2xl font-semibold text-white">{value}</p>
-      <p className="mt-1 text-sm text-sky-50">{label}</p>
+      <div className="flex gap-3">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-sm font-semibold text-teal-900">
+          {step}
+        </span>
+        <div>
+          <p className="text-sm font-semibold text-white">{title}</p>
+          <p className="mt-1 text-sm leading-6 text-sky-50">{body}</p>
+        </div>
+      </div>
     </div>
   );
 }
