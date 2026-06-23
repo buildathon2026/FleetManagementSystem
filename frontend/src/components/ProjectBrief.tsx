@@ -1,253 +1,207 @@
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Bot,
-  CheckCircle2,
-  Database,
-  FileSearch,
-  FileText,
-  GitBranch,
-  Layers,
-  Network,
-  ShieldCheck,
-  Sparkles,
-  Truck,
-  Wrench,
-} from 'lucide-react';
+import { ArrowRight, Bot, CheckCircle2, FileText, LayoutDashboard } from 'lucide-react';
+
+const architecture = [
+  ['1. Document ingestion', 'Classifies fleet documents and extracts structured fields like truck ID, date, amount, vendor, and document type.'],
+  ['2. Entity resolution', 'Maps messy truck names such as Unit 84, Trk 84, T-084, and 84 to the same canonical truck.'],
+  ['3. Data storage', 'Stores verified records in structured tables and keeps searchable document embeddings for semantic search.'],
+  ['4. AI agent', 'Routes user questions to approved tools instead of allowing the model to invent facts or write SQL.'],
+  ['5. Frontend demo', 'Shows the dashboard, document search, AI chat, alias resolution, and answer transparency.'],
+];
 
 const features = [
-  {
-    title: 'Document intelligence',
-    body: 'Classifies fleet paperwork and extracts dates, amounts, truck mentions, vendors, and renewal details.',
-    icon: FileSearch,
-  },
-  {
-    title: 'Entity resolution',
-    body: 'Normalizes messy references like Unit 84, Trk 84, T-084, and 84 into one canonical truck record.',
-    icon: Network,
-  },
-  {
-    title: 'Semantic search',
-    body: 'Finds relevant documents by meaning, so operators can search like they talk.',
-    icon: Sparkles,
-  },
-  {
-    title: 'Grounded AI answers',
-    body: 'Routes questions through typed tools and source records instead of relying on model memory.',
-    icon: ShieldCheck,
-  },
+  'Document classification for fuel receipts, maintenance invoices, registrations, insurance, tax forms, emails, settlements, inspections, toll receipts, and titles.',
+  'Field extraction for operational data such as truck reference, amount, date, vendor, and document summary.',
+  'Truck alias resolution so multiple document formats still connect to the correct fleet asset.',
+  'Semantic document search for natural queries like fuel receipt truck 84.',
+  'AI chat interface with source citations and tool-call transparency.',
+  'Fleet dashboard for revenue, document coverage, and operational alerts.',
 ];
 
 const techStack = [
-  'React',
-  'TypeScript',
-  'Vite',
-  'Tailwind CSS',
-  'Python',
-  'FastAPI',
-  'SQLite',
-  'ChromaDB',
-  'MCP-style tools',
-  'LLM planner',
+  'React + TypeScript frontend',
+  'Vite build system',
+  'Tailwind CSS styling',
+  'Python backend services',
+  'FastAPI-style service architecture',
+  'SQLite for structured records',
+  'ChromaDB for vector search',
+  'MCP-style typed tools for controlled data access',
+  'LLM planner and formatter for natural-language Q&A',
 ];
 
 const realItems = [
-  'Frontend demo flow for dashboard, documents, AI chat, and alias resolution',
-  'Synthetic fleet dataset with 230 documents across 10 document types',
-  'Document ingestion pipeline for classification, extraction, storage, and search',
-  'Mock-aware API layer that can connect to backend services when available',
+  'Frontend demo routes for Documentation, Fleet, Documents, Ask, and Aliases.',
+  'Synthetic dataset with 230 fleet documents across 10 document categories.',
+  'Document ingestion pipeline for classification, extraction, entity linking, and search.',
+  'API service layer that can call local backend services and fall back for demo continuity.',
 ];
 
 const mockedItems = [
-  'Some dashboard and chat responses can fall back to mock data during a live demo',
-  'Production authentication and tenant isolation are planned, not finalized',
-  'Full MCP data server and complete AI-agent orchestration are represented in the architecture and API contracts',
+  'Some dashboard and chat responses can fall back to mock data if backend services are unavailable.',
+  'Production authentication, roles, and tenant isolation are not complete yet.',
+  'The full MCP data server and complete AI-agent orchestration are represented by contracts and planned service boundaries.',
 ];
 
 const improvements = [
-  'Connect all frontend views to the live backend services',
-  'Add production auth, user roles, and tenant isolation',
-  'Expand document preview with highlighting and original file rendering',
-  'Add analytics for cost trends, renewal risk, and truck profitability',
+  'Connect every frontend view to live backend services in the deployed environment.',
+  'Add production login, tenant isolation, and role-based access.',
+  'Render original uploaded files with highlighted extracted fields.',
+  'Add profitability analytics by truck, route, vendor, and time period.',
+  'Add deployment monitoring and audit logs for tool calls.',
 ];
 
 export default function ProjectBrief() {
   return (
-    <div className="space-y-5">
-      <section className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm lg:grid-cols-[1fr_0.8fr] lg:p-6">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold uppercase text-blue-800">
-            <Truck size={15} />
-            Project brief
-          </div>
-          <h1 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
-            FleetProof AI turns messy fleet paperwork into source-backed answers.
-          </h1>
-          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
-            This page replaces a slide deck: it explains the problem, solution, architecture,
-            technical choices, current implementation, and next steps before the live product demo.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              to="/dashboard"
-              className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
-            >
-              Start demo
-              <ArrowRight size={18} />
-            </Link>
-            <Link
-              to="/chat?q=Which%20trucks%20have%20documents%20expiring%20soon%3F"
-              className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              <Bot size={18} />
-              Ask AI
-            </Link>
-          </div>
-        </div>
+    <article className="mx-auto max-w-4xl rounded-lg border border-slate-200 bg-white px-5 py-6 shadow-sm sm:px-8 lg:px-10">
+      <header className="border-b border-slate-200 pb-6">
+        <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">Documentation</p>
+        <h1 className="mt-3 text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
+          FleetProof AI
+        </h1>
+        <p className="mt-3 text-lg leading-8 text-slate-600">
+          AI-powered document intelligence for fleet operators. The system turns messy truck
+          paperwork into searchable records and source-backed answers.
+        </p>
 
-        <div className="rounded-lg border border-slate-200 bg-slate-950 p-4 text-white">
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">Demo story</p>
-          <div className="mt-4 space-y-3">
-            {['Find the right truck', 'Search linked documents', 'Ask an operational question', 'Verify with sources'].map(
-              (item, index) => (
-                <div key={item} className="flex items-center gap-3 rounded-md border border-white/10 bg-white/5 p-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500 text-xs font-semibold">
-                    {index + 1}
-                  </span>
-                  <span className="text-sm font-medium text-slate-100">{item}</span>
-                </div>
-              ),
-            )}
-          </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
+          >
+            <LayoutDashboard size={18} />
+            Start demo
+          </Link>
+          <Link
+            to="/chat?q=Which%20trucks%20have%20documents%20expiring%20soon%3F"
+            className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+          >
+            <Bot size={18} />
+            Ask a sample question
+          </Link>
         </div>
-      </section>
+      </header>
 
-      <section className="grid gap-4 lg:grid-cols-2">
-        <BriefCard icon={FileText} title="Problem">
-          Fleet operators manage fuel receipts, maintenance invoices, registrations, insurance
-          certificates, tax forms, and emails across disconnected places. The same truck may appear
-          under several names, which makes simple questions slow and error-prone.
-        </BriefCard>
-        <BriefCard icon={CheckCircle2} title="Solution">
-          FleetProof AI ingests documents, extracts structured fields, resolves truck aliases, stores
-          searchable records, and answers natural-language questions with cited sources and tool-call
-          transparency.
-        </BriefCard>
-      </section>
+      <DocSection title="Overview">
+        <p>
+          FleetProof AI is a demo system for trucking and fleet operations. It ingests operational
+          documents, extracts useful fields, links every record to the correct truck, and lets users
+          ask questions through a grounded AI interface.
+        </p>
+        <p>
+          The presentation flow is designed to work without slides: read this documentation page
+          first, then move through Fleet, Documents, Ask, and Aliases in the navigation.
+        </p>
+      </DocSection>
 
-      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="flex items-center gap-2">
-          <Layers className="text-blue-800" size={22} />
-          <h2 className="text-lg font-semibold text-slate-950">Architecture Diagram</h2>
-        </div>
-        <div className="mt-4 grid gap-3 lg:grid-cols-5">
-          {[
-            ['Ingest', 'Raw documents enter the pipeline'],
-            ['Classify + Extract', 'Document type and fields are detected'],
-            ['Resolve Entities', 'Aliases map to canonical truck IDs'],
-            ['Store + Search', 'SQLite and vector search hold verified records'],
-            ['Answer', 'AI agent calls tools and cites sources'],
-          ].map(([title, body], index) => (
-            <div key={title} className="relative rounded-md border border-blue-100 bg-blue-50/70 p-4">
-              <p className="text-xs font-semibold uppercase text-blue-700">Layer {index + 1}</p>
-              <h3 className="mt-2 text-sm font-semibold text-slate-950">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{body}</p>
-              {index < 4 && (
-                <ArrowRight className="absolute right-3 top-4 hidden text-blue-300 lg:block" size={18} />
-              )}
-            </div>
+      <DocSection title="Problem">
+        <p>
+          Fleet operators deal with receipts, invoices, insurance certificates, registrations, tax
+          forms, toll receipts, inspections, settlements, and emails. These records are often split
+          across inboxes, folders, filing cabinets, and different vendor formats.
+        </p>
+        <p>
+          A single truck can appear as Unit 84, Trk 84, T-084, or just 84. Because the data is
+          inconsistent, operators waste time answering basic questions like which documents belong
+          to a truck, what renewals are coming up, or how much was spent on maintenance.
+        </p>
+      </DocSection>
+
+      <DocSection title="Solution">
+        <p>
+          The system creates one searchable, structured view of fleet documents. It classifies each
+          document, extracts the important fields, resolves messy truck references, stores the
+          information, and answers questions using tool-backed data.
+        </p>
+        <p>
+          The important design choice is that the AI does not directly control the database or invent
+          numbers. It uses approved tools and returns answers with sources.
+        </p>
+      </DocSection>
+
+      <DocSection title="Architecture">
+        <ol className="space-y-3">
+          {architecture.map(([title, body]) => (
+            <li key={title} className="rounded-md border border-slate-200 bg-slate-50 p-4">
+              <p className="font-semibold text-slate-950">{title}</p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">{body}</p>
+            </li>
           ))}
-        </div>
-      </section>
+        </ol>
+      </DocSection>
 
-      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {features.map(({ title, body, icon: Icon }) => (
-          <div key={title} className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-            <span className="flex h-10 w-10 items-center justify-center rounded-md bg-blue-50 text-blue-800">
-              <Icon size={20} />
-            </span>
-            <h2 className="mt-4 text-base font-semibold text-slate-950">{title}</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">{body}</p>
-          </div>
-        ))}
-      </section>
+      <DocSection title="Key Features">
+        <Checklist items={features} />
+      </DocSection>
 
-      <section className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-2">
-            <Wrench className="text-blue-800" size={22} />
-            <h2 className="text-lg font-semibold text-slate-950">Tech Stack</h2>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {techStack.map((item) => (
-              <span key={item} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="flex items-center gap-2">
-            <Database className="text-blue-800" size={22} />
-            <h2 className="text-lg font-semibold text-slate-950">Design and Implementation Summary</h2>
-          </div>
-          <p className="mt-3 text-sm leading-6 text-slate-600">
-            The system is split into independent services so ingestion, entity resolution, data access,
-            AI planning, and the frontend can evolve separately. The frontend is demo-ready and uses an
-            API layer that falls back gracefully when local backend services are unavailable.
-          </p>
-        </div>
-      </section>
-
-      <section className="grid gap-4 lg:grid-cols-2">
-        <ListPanel title="What is real" items={realItems} tone="blue" />
-        <ListPanel title="What is mocked or planned" items={mockedItems} tone="amber" />
-      </section>
-
-      <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="flex items-center gap-2">
-          <GitBranch className="text-blue-800" size={22} />
-          <h2 className="text-lg font-semibold text-slate-950">Future Improvements</h2>
-        </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {improvements.map((item) => (
-            <div key={item} className="rounded-md border border-slate-200 bg-slate-50 p-3 text-sm leading-6 text-slate-700">
+      <DocSection title="Tech Stack">
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {techStack.map((item) => (
+            <li key={item} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
               {item}
-            </div>
+            </li>
           ))}
-        </div>
-      </section>
-    </div>
+        </ul>
+      </DocSection>
+
+      <DocSection title="What Is Real vs Mocked">
+        <h3 className="text-base font-semibold text-slate-950">Real in this build</h3>
+        <Checklist items={realItems} />
+
+        <h3 className="mt-6 text-base font-semibold text-slate-950">Mocked or planned</h3>
+        <Checklist items={mockedItems} />
+      </DocSection>
+
+      <DocSection title="Design and Implementation Summary">
+        <p>
+          The project is organized as independent modules so each part can evolve separately:
+          document ingestion, entity resolution, secure data access, AI planning, and the frontend.
+          This keeps the demo understandable while also matching a production-style architecture.
+        </p>
+        <p>
+          The frontend is built as the presentation surface. The Documentation page explains the
+          project, and the remaining pages demonstrate the product experience live.
+        </p>
+      </DocSection>
+
+      <DocSection title="Future Improvements">
+        <Checklist items={improvements} />
+      </DocSection>
+
+      <footer className="mt-8 border-t border-slate-200 pt-5">
+        <Link
+          to="/dashboard"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-blue-800 hover:text-blue-600"
+        >
+          Continue to Fleet demo
+          <ArrowRight size={16} />
+        </Link>
+      </footer>
+    </article>
   );
 }
 
-function BriefCard({ icon: Icon, title, children }: { icon: any; title: string; children: React.ReactNode }) {
+function DocSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex items-center gap-2">
-        <Icon className="text-blue-800" size={22} />
-        <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
+    <section className="border-b border-slate-200 py-7 last:border-b-0">
+      <div className="mb-3 flex items-center gap-2">
+        <FileText className="text-blue-800" size={20} />
+        <h2 className="text-xl font-semibold text-slate-950">{title}</h2>
       </div>
-      <p className="mt-3 text-sm leading-6 text-slate-600">{children}</p>
+      <div className="space-y-4 text-sm leading-7 text-slate-600">{children}</div>
     </section>
   );
 }
 
-function ListPanel({ title, items, tone }: { title: string; items: string[]; tone: 'blue' | 'amber' }) {
-  const isBlue = tone === 'blue';
-
+function Checklist({ items }: { items: string[] }) {
   return (
-    <section className={isBlue ? 'rounded-lg border border-blue-100 bg-blue-50/70 p-5 shadow-sm' : 'rounded-lg border border-amber-100 bg-[#fffdf7] p-5 shadow-sm'}>
-      <h2 className={isBlue ? 'text-lg font-semibold text-blue-950' : 'text-lg font-semibold text-amber-950'}>{title}</h2>
-      <div className="mt-4 space-y-3">
-        {items.map((item) => (
-          <div key={item} className="flex gap-3 rounded-md border border-white/80 bg-white/80 p-3">
-            <CheckCircle2 className={isBlue ? 'mt-0.5 shrink-0 text-blue-700' : 'mt-0.5 shrink-0 text-amber-700'} size={18} />
-            <p className="text-sm leading-6 text-slate-700">{item}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item} className="flex gap-3">
+          <CheckCircle2 className="mt-1 shrink-0 text-blue-700" size={17} />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
