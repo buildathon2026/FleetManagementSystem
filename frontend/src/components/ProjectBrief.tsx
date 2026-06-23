@@ -39,14 +39,6 @@ const hallucinationControls = [
   'The UI exposes tool calls and sources so the operator can verify where the answer came from.',
 ];
 
-const improvements = [
-  'Connect every frontend view to live backend services in the deployed environment.',
-  'Add production login, tenant isolation, and role-based access.',
-  'Render original uploaded files with highlighted extracted fields.',
-  'Add profitability analytics by truck, route, vendor, and time period.',
-  'Add deployment monitoring and audit logs for tool calls.',
-];
-
 export default function ProjectBrief() {
   return (
     <article className="mx-auto max-w-4xl rounded-lg border border-cyan-100 bg-white px-5 py-5 shadow-sm shadow-cyan-100/60 sm:px-8">
@@ -157,10 +149,6 @@ export default function ProjectBrief() {
           The frontend is built as the presentation surface. The Documentation page explains the
           project, and the remaining pages demonstrate the product experience live.
         </p>
-      </DocSection>
-
-      <DocSection title="Future Improvements">
-        <Checklist items={improvements} />
       </DocSection>
 
       <footer className="mt-8 border-t border-cyan-100 pt-5">
