@@ -96,14 +96,31 @@ export default function ProjectBrief() {
 
       <DocSection title="Problem">
         <p>
-          Fleet operators deal with receipts, invoices, insurance certificates, registrations, tax
-          forms, toll receipts, inspections, settlements, and emails. These records are often split
-          across inboxes, folders, filing cabinets, and different vendor formats.
+          Trucking carriers run on paper. An active fleet generates 50+ documents every week:
+          titles, tax forms, fuel records, registration renewals, maintenance receipts, insurance
+          certificates, toll receipts, inspections, settlements, and emails.
         </p>
         <p>
-          A single truck can appear as Unit 84, Trk 84, T-084, or just 84. Because the data is
-          inconsistent, operators waste time answering basic questions like which documents belong
-          to a truck, what renewals are coming up, or how much was spent on maintenance.
+          Today, those records live in filing cabinets, glove boxes, and email threads. Nothing is
+          searchable. Nothing is organized by truck. Operators cannot answer basic questions without
+          digging through physical files and disconnected messages.
+        </p>
+        <ul className="space-y-2">
+          {[
+            'Which trucks are profitable?',
+            'How much did I spend on parts last month?',
+            'Where is the tax form for truck 84?',
+            'What documents do I need to renew these plates?',
+          ].map((question) => (
+            <li key={question} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-700">
+              {question}
+            </li>
+          ))}
+        </ul>
+        <p>
+          The challenge is that some questions require database queries, some require document
+          retrieval, and some require both in one answer. The system needs to handle all of them
+          accurately, grounded in real records, with no hallucinations.
         </p>
       </DocSection>
 
