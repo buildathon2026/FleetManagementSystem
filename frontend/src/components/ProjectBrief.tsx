@@ -19,7 +19,8 @@ const techStack = [
   'SQLite for structured records',
   'ChromaDB for vector search',
   'MCP-style typed tools for controlled data access',
-  'LLM planner and formatter for natural-language Q&A',
+  'Planner LLM: Meta-Llama-3.1-8B-Instruct via Featherless',
+  'Formatter LLM: Meta-Llama-3.1-70B-Instruct via Featherless',
 ];
 
 const realItems = [
@@ -47,13 +48,13 @@ const improvements = [
 
 export default function ProjectBrief() {
   return (
-    <article className="mx-auto max-w-4xl rounded-lg border border-slate-200 bg-white px-5 py-6 shadow-sm sm:px-8 lg:px-10">
-      <header className="border-b border-slate-200 pb-6">
-        <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">Documentation</p>
-        <h1 className="mt-3 text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
+    <article className="mx-auto max-w-4xl rounded-lg border border-slate-200 bg-white px-5 py-5 shadow-sm sm:px-8">
+      <header className="border-b border-slate-200 pb-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-blue-800">Documentation</p>
+        <h1 className="mt-3 text-2xl font-semibold leading-tight text-slate-950 sm:text-3xl">
           FleetProof AI
         </h1>
-        <p className="mt-3 text-lg leading-8 text-slate-600">
+        <p className="mt-3 text-base leading-7 text-slate-600">
           AI-powered document intelligence for fleet operators. The system turns messy truck
           paperwork into searchable records and source-backed answers.
         </p>
@@ -133,7 +134,7 @@ export default function ProjectBrief() {
       <DocSection title="Tech Stack">
         <ul className="grid gap-2 sm:grid-cols-2">
           {techStack.map((item) => (
-            <li key={item} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+            <li key={item} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs leading-5 text-slate-700">
               {item}
             </li>
           ))}
@@ -141,7 +142,7 @@ export default function ProjectBrief() {
       </DocSection>
 
       <DocSection title="What Is Built">
-        <h3 className="text-base font-semibold text-slate-950">Real in this build</h3>
+        <h3 className="text-sm font-semibold text-slate-950">Real in this build</h3>
         <Checklist items={realItems} />
       </DocSection>
 
@@ -176,12 +177,12 @@ export default function ProjectBrief() {
 
 function DocSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-b border-slate-200 py-7 last:border-b-0">
+    <section className="border-b border-slate-200 py-6 last:border-b-0">
       <div className="mb-3 flex items-center gap-2">
-        <FileText className="text-blue-800" size={20} />
-        <h2 className="text-xl font-semibold text-slate-950">{title}</h2>
+        <FileText className="text-blue-800" size={18} />
+        <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
       </div>
-      <div className="space-y-4 text-sm leading-7 text-slate-600">{children}</div>
+      <div className="space-y-4 text-xs leading-6 text-slate-600 sm:text-sm">{children}</div>
     </section>
   );
 }
@@ -238,9 +239,9 @@ function ArchitectureDiagram() {
 
 function DiagramBox({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-md border border-blue-100 bg-white p-4 shadow-sm">
-      <h3 className="font-semibold text-slate-950">{title}</h3>
-      <ul className="mt-3 space-y-1.5 text-sm leading-6 text-slate-600">
+    <div className="rounded-md border border-blue-100 bg-white p-3 shadow-sm">
+      <h3 className="text-sm font-semibold text-slate-950">{title}</h3>
+      <ul className="mt-2 space-y-1 text-xs leading-5 text-slate-600">
         {items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -260,7 +261,7 @@ function Checklist({ items }: { items: string[] }) {
     <ul className="space-y-2">
       {items.map((item) => (
         <li key={item} className="flex gap-3">
-          <CheckCircle2 className="mt-1 shrink-0 text-blue-700" size={17} />
+          <CheckCircle2 className="mt-1 shrink-0 text-blue-700" size={15} />
           <span>{item}</span>
         </li>
       ))}
