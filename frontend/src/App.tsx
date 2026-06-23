@@ -5,6 +5,7 @@ import Chat from './components/Chat';
 import EntityGraph from './components/EntityGraph';
 import Dashboard from './components/Dashboard';
 import DocumentViewer from './components/DocumentViewer';
+import Overview from './components/Overview';
 import ProjectBrief from './components/ProjectBrief';
 
 export default function App() {
@@ -26,11 +27,12 @@ export default function App() {
                 </Link>
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">
-                <NavLink to="/documentation" icon={FileText} label="Documentation" />
+                <NavLink to="/overview" icon={LayoutDashboard} label="Overview" />
                 <NavLink to="/dashboard" icon={LayoutDashboard} label="Fleet" />
                 <NavLink to="/documents" icon={FileText} label="Documents" />
                 <NavLink to="/chat" icon={MessageCircle} label="Ask" />
                 <NavLink to="/graph" icon={Network} label="Aliases" />
+                <NavLink to="/documentation" icon={FileText} label="Documentation" />
               </div>
             </div>
           </div>
@@ -39,8 +41,8 @@ export default function App() {
         {/* Main Content */}
         <main className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <Routes>
-            <Route path="/" element={<ProjectBrief />} />
-            <Route path="/overview" element={<ProjectBrief />} />
+            <Route path="/" element={<Overview />} />
+            <Route path="/overview" element={<Overview />} />
             <Route path="/brief" element={<ProjectBrief />} />
             <Route path="/documentation" element={<ProjectBrief />} />
             <Route path="/chat" element={<Chat />} />
