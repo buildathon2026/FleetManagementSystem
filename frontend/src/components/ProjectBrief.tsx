@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Bot, CheckCircle2, FileText, LayoutDashboard } from 'lucide-react';
-
-const architecture = [
-  ['1. Document ingestion', 'Classifies fleet documents and extracts structured fields like truck ID, date, amount, vendor, and document type.'],
-  ['2. Entity resolution', 'Maps messy truck names such as Unit 84, Trk 84, T-084, and 84 to the same canonical truck.'],
-  ['3. Data storage', 'Stores verified records in structured tables and keeps searchable document embeddings for semantic search.'],
-  ['4. AI agent', 'Routes user questions to approved tools instead of allowing the model to invent facts or write SQL.'],
-  ['5. Frontend demo', 'Shows the dashboard, document search, AI chat, alias resolution, and answer transparency.'],
-];
+import { ArrowRight, CheckCircle2, FileText } from 'lucide-react';
 
 const features = [
   'Document classification for fuel receipts, maintenance invoices, registrations, insurance, tax forms, emails, settlements, inspections, toll receipts, and titles.',
@@ -34,13 +26,15 @@ const realItems = [
   'Frontend demo routes for Documentation, Fleet, Documents, Ask, and Aliases.',
   'Synthetic dataset with 230 fleet documents across 10 document categories.',
   'Document ingestion pipeline for classification, extraction, entity linking, and search.',
-  'API service layer that can call local backend services and fall back for demo continuity.',
+  'API service layer designed to connect the frontend to the fleet data and AI-agent services.',
 ];
 
-const mockedItems = [
-  'Some dashboard and chat responses can fall back to mock data if backend services are unavailable.',
-  'Production authentication, roles, and tenant isolation are not complete yet.',
-  'The full MCP data server and complete AI-agent orchestration are represented by contracts and planned service boundaries.',
+const hallucinationControls = [
+  'The AI agent is not allowed to write SQL or directly query the database.',
+  'The planner converts a user question into typed tool calls such as get_expenses, find_document, resolve_entity, or get_fleet_overview.',
+  'Each tool validates parameters, runs backend-owned logic, and returns structured results from stored records.',
+  'The final answer is formatted only from tool outputs and includes source IDs, document IDs, confidence, and execution details.',
+  'The UI exposes tool calls and sources so the operator can verify where the answer came from.',
 ];
 
 const improvements = [
@@ -63,23 +57,6 @@ export default function ProjectBrief() {
           AI-powered document intelligence for fleet operators. The system turns messy truck
           paperwork into searchable records and source-backed answers.
         </p>
-
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            to="/dashboard"
-            className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
-          >
-            <LayoutDashboard size={18} />
-            Start demo
-          </Link>
-          <Link
-            to="/chat?q=Which%20trucks%20have%20documents%20expiring%20soon%3F"
-            className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            <Bot size={18} />
-            Ask a sample question
-          </Link>
-        </div>
       </header>
 
       <DocSection title="Overview">
@@ -137,14 +114,16 @@ export default function ProjectBrief() {
       </DocSection>
 
       <DocSection title="Architecture">
-        <ol className="space-y-3">
-          {architecture.map(([title, body]) => (
-            <li key={title} className="rounded-md border border-slate-200 bg-slate-50 p-4">
-              <p className="font-semibold text-slate-950">{title}</p>
-              <p className="mt-1 text-sm leading-6 text-slate-600">{body}</p>
-            </li>
-          ))}
-        </ol>
+        <ArchitectureDiagram />
+      </DocSection>
+
+      <DocSection title="How We Avoid Hallucinations">
+        <p>
+          FleetProof AI uses the model as a planner and formatter, not as the source of truth. The
+          answer must come from validated tools, structured data, retrieved documents, and cited
+          records.
+        </p>
+        <Checklist items={hallucinationControls} />
       </DocSection>
 
       <DocSection title="Key Features">
@@ -161,12 +140,9 @@ export default function ProjectBrief() {
         </ul>
       </DocSection>
 
-      <DocSection title="What Is Real vs Mocked">
+      <DocSection title="What Is Built">
         <h3 className="text-base font-semibold text-slate-950">Real in this build</h3>
         <Checklist items={realItems} />
-
-        <h3 className="mt-6 text-base font-semibold text-slate-950">Mocked or planned</h3>
-        <Checklist items={mockedItems} />
       </DocSection>
 
       <DocSection title="Design and Implementation Summary">
@@ -207,6 +183,75 @@ function DocSection({ title, children }: { title: string; children: React.ReactN
       </div>
       <div className="space-y-4 text-sm leading-7 text-slate-600">{children}</div>
     </section>
+  );
+}
+
+function ArchitectureDiagram() {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+        <DiagramBox
+          title="Fleet Documents"
+          items={['Titles', 'Fuel records', 'Tax forms', 'Renewals', 'Maintenance receipts']}
+        />
+        <DiagramArrow />
+        <DiagramBox
+          title="Ingestion Pipeline"
+          items={['Classify document', 'Extract fields', 'Normalize dates and amounts']}
+        />
+      </div>
+
+      <div className="my-3 flex justify-center">
+        <div className="h-8 border-l border-blue-300" />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+        <DiagramBox
+          title="Entity Resolution"
+          items={['Unit 84', 'Trk 84', 'T-084', '84', 'Same canonical truck']}
+        />
+        <DiagramArrow />
+        <DiagramBox
+          title="Fleet Knowledge Store"
+          items={['SQLite structured records', 'ChromaDB document search', 'Source metadata']}
+        />
+      </div>
+
+      <div className="my-3 flex justify-center">
+        <div className="h-8 border-l border-blue-300" />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+        <DiagramBox
+          title="Typed Tool Layer"
+          items={['get_expenses', 'find_document', 'resolve_entity', 'get_fleet_overview']}
+        />
+        <DiagramArrow />
+        <DiagramBox
+          title="Operator Experience"
+          items={['Ask in plain English', 'See cited answers', 'Inspect tool calls']}
+        />
+      </div>
+    </div>
+  );
+}
+
+function DiagramBox({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="rounded-md border border-blue-100 bg-white p-4 shadow-sm">
+      <h3 className="font-semibold text-slate-950">{title}</h3>
+      <ul className="mt-3 space-y-1.5 text-sm leading-6 text-slate-600">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function DiagramArrow() {
+  return (
+    <div className="hidden h-px w-10 bg-blue-300 lg:block" aria-hidden="true" />
   );
 }
 
