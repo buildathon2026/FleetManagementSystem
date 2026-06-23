@@ -50,44 +50,33 @@ export default function Overview() {
     <div className="space-y-4">
       <section className="overflow-hidden rounded-lg border border-cyan-100 bg-white shadow-sm shadow-cyan-100/60">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative overflow-hidden bg-[#fbfeff] p-5 sm:p-6 lg:p-7">
+          <div className="relative overflow-hidden bg-[#e9fbff] p-5 sm:p-6 lg:p-7">
             <div className="absolute inset-y-0 left-0 w-1.5 bg-teal-500" aria-hidden="true" />
-            <div className="absolute right-8 top-8 h-28 w-28 rounded-full bg-cyan-100/60 blur-3xl" aria-hidden="true" />
             <div className="relative">
-              <span className="inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-800">
-                Fleet document intelligence
-              </span>
-            <h1 className="max-w-3xl text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
-              Instant, verifiable answers from every fleet record
-            </h1>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600">
-              Ask FleetProof AI anything about your fleet and get verified answers from every
-              document, receipt, form, and email associated with each truck.
-            </p>
+              <h1 className="max-w-3xl text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
+                Instant, verifiable answers from every fleet record
+              </h1>
+              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-700">
+                Ask FleetProof AI anything about your fleet and get verified answers from every
+                document, receipt, form, and email associated with each truck.
+              </p>
 
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                to="/chat?q=Compare%20truck%20T-084%20and%20T-091%20revenue"
-                className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
-              >
-                <Bot size={18} />
-                AI chat
-              </Link>
-              <Link
-                to="/documents"
-                className="inline-flex items-center gap-2 rounded-md border border-cyan-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800 shadow-sm hover:bg-cyan-50"
-              >
-                <UploadCloud size={18} />
-                Upload document
-              </Link>
-            </div>
-            <div className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
-              {['230 documents', '10 document types', 'Source-backed answers'].map((stat) => (
-                <div key={stat} className="rounded-md border border-cyan-100 bg-white/80 px-3 py-2 text-sm font-semibold text-slate-800 shadow-sm">
-                  {stat}
-                </div>
-              ))}
-            </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  to="/chat?q=Compare%20truck%20T-084%20and%20T-091%20revenue"
+                  className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
+                >
+                  <Bot size={18} />
+                  AI chat
+                </Link>
+                <Link
+                  to="/documents"
+                  className="inline-flex items-center gap-2 rounded-md border border-cyan-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-cyan-50"
+                >
+                  <UploadCloud size={18} />
+                  Upload document
+                </Link>
+              </div>
             </div>
           </div>
 
