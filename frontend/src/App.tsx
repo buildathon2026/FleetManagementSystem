@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { MessageCircle, Network, LayoutDashboard, FileText, Home } from 'lucide-react';
+import { MessageCircle, Network, LayoutDashboard, FileText, Home, Presentation } from 'lucide-react';
 import Chat from './components/Chat';
 import EntityGraph from './components/EntityGraph';
 import Dashboard from './components/Dashboard';
 import DocumentViewer from './components/DocumentViewer';
 import Overview from './components/Overview';
+import ProjectBrief from './components/ProjectBrief';
 
 export default function App() {
   const [selectedTruckId, setSelectedTruckId] = useState<string | null>(null);
@@ -27,6 +28,7 @@ export default function App() {
               </div>
               <div className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">
                 <NavLink to="/overview" icon={Home} label="Home" />
+                <NavLink to="/brief" icon={Presentation} label="Brief" />
                 <NavLink to="/dashboard" icon={LayoutDashboard} label="Fleet" />
                 <NavLink to="/documents" icon={FileText} label="Documents" />
                 <NavLink to="/chat" icon={MessageCircle} label="Ask" />
@@ -41,6 +43,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/overview" element={<Overview />} />
+            <Route path="/brief" element={<ProjectBrief />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/dashboard" element={<Dashboard onSelectTruck={setSelectedTruckId} />} />
             <Route path="/graph" element={<EntityGraph onSelectEntity={setSelectedTruckId} />} />
