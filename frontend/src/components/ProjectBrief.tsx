@@ -19,8 +19,9 @@ const techStack = [
   'SQLite for structured records',
   'ChromaDB for vector search',
   'MCP-style typed tools for controlled data access',
-  'Planner LLM: Meta-Llama-3.1-8B-Instruct via Featherless',
-  'Formatter LLM: Meta-Llama-3.1-70B-Instruct via Featherless',
+  'LLM provider: Groq OpenAI-compatible API',
+  'Planner model: llama-3.1-8b-instant',
+  'Formatter model: llama-3.1-8b-instant',
 ];
 
 const realItems = [
