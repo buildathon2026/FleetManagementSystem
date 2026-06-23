@@ -48,9 +48,9 @@ const pipeline = ['Ingest', 'Classify', 'Extract fields', 'Resolve aliases', 'An
 export default function Overview() {
   return (
     <div className="space-y-4">
-      <section className="overflow-hidden rounded-lg border border-slate-200 bg-[#eef1f8] shadow-sm">
+      <section className="overflow-hidden rounded-lg border border-cyan-100 bg-white shadow-sm shadow-cyan-100/60">
         <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="bg-[#eef1f8] p-5 sm:p-6 lg:p-7">
+          <div className="bg-[#fbfeff] p-5 sm:p-6 lg:p-7">
             <h1 className="max-w-3xl text-3xl font-semibold leading-tight text-slate-950 sm:text-4xl">
               Instant, verifiable answers from every fleet record
             </h1>
@@ -62,14 +62,14 @@ export default function Overview() {
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 to="/chat?q=Compare%20truck%20T-084%20and%20T-091%20revenue"
-                className="inline-flex items-center gap-2 rounded-md bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-800"
+                className="inline-flex items-center gap-2 rounded-md bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700"
               >
                 <Bot size={18} />
                 AI chat
               </Link>
               <Link
                 to="/documents"
-                className="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                className="inline-flex items-center gap-2 rounded-md border border-cyan-100 bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 hover:bg-cyan-50"
               >
                 <UploadCloud size={18} />
                 Upload document
@@ -77,13 +77,13 @@ export default function Overview() {
             </div>
           </div>
 
-          <div className="border-t border-slate-700 bg-slate-900 p-4 lg:border-l lg:border-t-0">
+          <div className="border-t border-cyan-100 bg-[#e9fbff] p-4 lg:border-l lg:border-t-0">
             <div className="grid gap-3">
-              <div className="rounded-lg border border-rose-200/20 bg-rose-100/10 p-4 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-wide text-rose-200">
+              <div className="rounded-lg border border-amber-100 bg-white p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">
                   Before FleetProof AI
                 </p>
-                <p className="mt-1 text-base font-semibold text-white">Paperwork is scattered</p>
+                <p className="mt-1 text-base font-semibold text-slate-950">Paperwork is scattered</p>
                 <div className="mt-3 grid gap-2 sm:grid-cols-2">
                   <RecordChip icon={ReceiptText} title="Fuel receipt" meta="glove box" tone="messyDark" />
                   <RecordChip icon={Mail} title="Renewal email" meta="old inbox thread" tone="messyDark" />
@@ -92,24 +92,24 @@ export default function Overview() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-blue-300/30 bg-blue-100/10 p-4 shadow-sm">
+              <div className="rounded-lg border border-teal-100 bg-white p-4 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-blue-200">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">
                       After FleetProof AI
                     </p>
-                    <p className="mt-1 text-base font-semibold text-white">
+                    <p className="mt-1 text-base font-semibold text-slate-950">
                       Everything links to the right truck
                     </p>
                   </div>
-                  <CheckCircle2 className="shrink-0 text-blue-200" size={22} />
+                  <CheckCircle2 className="shrink-0 text-emerald-600" size={22} />
                 </div>
 
-                <p className="mt-3 rounded-md border border-white/10 bg-slate-950 p-2.5 text-sm font-semibold text-slate-100">
+                <p className="mt-3 rounded-md border border-teal-100 bg-teal-50 p-2.5 text-sm font-semibold text-teal-950">
                   Ask: What do I need to renew truck T-084 plates?
                 </p>
 
-                <div className="mt-2 rounded-md border border-blue-200/20 bg-white p-3 text-sm leading-6 text-slate-800">
+                <div className="mt-2 rounded-md border border-cyan-100 bg-white p-3 text-sm leading-6 text-slate-800">
                   Registration, insurance, and tax form are ready. Fuel receipt and maintenance
                   records are already attached to T-084.
                 </div>
@@ -118,7 +118,7 @@ export default function Overview() {
                   {['T-084', 'REG-084', 'INS-084', 'TAX-2026'].map((source) => (
                     <span
                       key={source}
-                      className="rounded-full bg-blue-500 px-2.5 py-1 text-xs font-semibold text-white"
+                      className="rounded-full bg-teal-600 px-2.5 py-1 text-xs font-semibold text-white"
                     >
                       {source}
                     </span>
@@ -136,24 +136,20 @@ export default function Overview() {
             key={title}
             to={to}
             className={
-              index === 0
-                ? 'group rounded-lg border border-blue-100 bg-[#edf4ff] p-4 shadow-sm hover:border-blue-200 hover:shadow-md'
-                : index === 1
-                  ? 'group rounded-lg border border-violet-100 bg-[#f3efff] p-4 shadow-sm hover:border-violet-200 hover:shadow-md'
-                  : 'group rounded-lg border border-slate-200 bg-[#eef1f8] p-4 shadow-sm hover:border-blue-200 hover:shadow-md'
+              'group rounded-lg border border-cyan-100 bg-white p-4 shadow-sm shadow-cyan-100/50 hover:border-teal-200 hover:bg-cyan-50/40 hover:shadow-md'
             }
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-700 text-xs font-semibold text-white">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-600 text-xs font-semibold text-white">
                   {index + 1}
                 </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-slate-100 text-slate-700">
+                <span className="flex h-9 w-9 items-center justify-center rounded-md bg-cyan-50 text-teal-700">
                   <Icon size={18} />
                 </span>
                 <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
               </div>
-              <ArrowRight className="text-slate-300 group-hover:text-blue-700" size={18} />
+              <ArrowRight className="text-cyan-200 group-hover:text-teal-700" size={18} />
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
           </Link>
@@ -264,25 +260,25 @@ function RecordChip({
 }) {
   const toneClasses =
     tone === 'messy' || tone === 'messyDark'
-      ? 'border-rose-100 bg-rose-50 text-rose-700'
-      : 'border-blue-100 bg-blue-50 text-blue-700';
+      ? 'border-amber-100 bg-amber-50 text-amber-700'
+      : 'border-cyan-100 bg-cyan-50 text-teal-700';
   const dark = tone === 'messyDark';
 
   return (
-    <div className={dark ? 'rounded-md border border-white/10 bg-white/10 p-2.5' : 'rounded-md border border-slate-200 bg-white p-2.5'}>
+    <div className={dark ? 'rounded-md border border-amber-100 bg-amber-50 p-2.5' : 'rounded-md border border-cyan-100 bg-white p-2.5'}>
       <div className="flex items-start gap-2">
         <span
           className={
             dark
-              ? 'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-rose-200/20 bg-rose-100/10 text-rose-100'
+              ? 'flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-amber-100 bg-white text-amber-700'
               : `flex h-8 w-8 shrink-0 items-center justify-center rounded-md border ${toneClasses}`
           }
         >
           <Icon size={17} />
         </span>
         <div className="min-w-0">
-          <p className={dark ? 'truncate text-sm font-semibold text-white' : 'truncate text-sm font-semibold text-slate-900'}>{title}</p>
-          <p className={dark ? 'mt-0.5 truncate text-xs text-slate-300' : 'mt-0.5 truncate text-xs text-slate-500'}>{meta}</p>
+          <p className={dark ? 'truncate text-sm font-semibold text-slate-950' : 'truncate text-sm font-semibold text-slate-900'}>{title}</p>
+          <p className={dark ? 'mt-0.5 truncate text-xs text-amber-800' : 'mt-0.5 truncate text-xs text-slate-500'}>{meta}</p>
         </div>
       </div>
     </div>
