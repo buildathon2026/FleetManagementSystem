@@ -49,9 +49,9 @@ const improvements = [
 
 export default function ProjectBrief() {
   return (
-    <article className="mx-auto max-w-4xl rounded-lg border border-slate-200 bg-white px-5 py-5 shadow-sm sm:px-8">
-      <header className="border-b border-slate-200 pb-5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-blue-800">Documentation</p>
+    <article className="mx-auto max-w-4xl rounded-lg border border-cyan-100 bg-white px-5 py-5 shadow-sm shadow-cyan-100/60 sm:px-8">
+      <header className="border-b border-cyan-100 pb-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Documentation</p>
         <h1 className="mt-3 text-2xl font-semibold leading-tight text-slate-950 sm:text-3xl">
           FleetProof AI
         </h1>
@@ -91,7 +91,7 @@ export default function ProjectBrief() {
             'Where is the tax form for truck 84?',
             'What documents do I need to renew these plates?',
           ].map((question) => (
-            <li key={question} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-slate-700">
+            <li key={question} className="rounded-md border border-amber-100 bg-amber-50 px-3 py-2 text-amber-950">
               {question}
             </li>
           ))}
@@ -135,7 +135,7 @@ export default function ProjectBrief() {
       <DocSection title="Tech Stack">
         <ul className="grid gap-2 sm:grid-cols-2">
           {techStack.map((item) => (
-            <li key={item} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-xs leading-5 text-slate-700">
+            <li key={item} className="rounded-md border border-cyan-100 bg-cyan-50/70 px-3 py-2 text-xs leading-5 text-slate-700">
               {item}
             </li>
           ))}
@@ -163,10 +163,10 @@ export default function ProjectBrief() {
         <Checklist items={improvements} />
       </DocSection>
 
-      <footer className="mt-8 border-t border-slate-200 pt-5">
+      <footer className="mt-8 border-t border-cyan-100 pt-5">
         <Link
           to="/dashboard"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-blue-800 hover:text-blue-600"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-teal-800 hover:text-teal-600"
         >
           Continue to Fleet demo
           <ArrowRight size={16} />
@@ -178,9 +178,9 @@ export default function ProjectBrief() {
 
 function DocSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-b border-slate-200 py-6 last:border-b-0">
+    <section className="border-b border-cyan-100 py-6 last:border-b-0">
       <div className="mb-3 flex items-center gap-2">
-        <FileText className="text-blue-800" size={18} />
+        <FileText className="text-teal-700" size={18} />
         <h2 className="text-lg font-semibold text-slate-950">{title}</h2>
       </div>
       <div className="space-y-4 text-xs leading-6 text-slate-600 sm:text-sm">{children}</div>
@@ -190,7 +190,7 @@ function DocSection({ title, children }: { title: string; children: React.ReactN
 
 function ArchitectureDiagram() {
   return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+    <div className="rounded-lg border border-cyan-100 bg-[#f5fcff] p-4">
       <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
         <DiagramBox
           title="Fleet Documents"
@@ -204,7 +204,7 @@ function ArchitectureDiagram() {
       </div>
 
       <div className="my-3 flex justify-center">
-        <div className="h-8 border-l border-blue-300" />
+        <div className="h-8 border-l border-teal-300" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
@@ -220,7 +220,7 @@ function ArchitectureDiagram() {
       </div>
 
       <div className="my-3 flex justify-center">
-        <div className="h-8 border-l border-blue-300" />
+        <div className="h-8 border-l border-teal-300" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
@@ -240,7 +240,7 @@ function ArchitectureDiagram() {
 
 function DiagramBox({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className="rounded-md border border-blue-100 bg-white p-3 shadow-sm">
+    <div className="rounded-md border border-cyan-100 bg-white p-3 shadow-sm">
       <h3 className="text-sm font-semibold text-slate-950">{title}</h3>
       <ul className="mt-2 space-y-1 text-xs leading-5 text-slate-600">
         {items.map((item) => (
@@ -253,7 +253,7 @@ function DiagramBox({ title, items }: { title: string; items: string[] }) {
 
 function DiagramArrow() {
   return (
-    <div className="hidden h-px w-10 bg-blue-300 lg:block" aria-hidden="true" />
+    <div className="hidden h-px w-10 bg-teal-300 lg:block" aria-hidden="true" />
   );
 }
 
@@ -262,7 +262,7 @@ function Checklist({ items }: { items: string[] }) {
     <ul className="space-y-2">
       {items.map((item) => (
         <li key={item} className="flex gap-3">
-          <CheckCircle2 className="mt-1 shrink-0 text-blue-700" size={15} />
+          <CheckCircle2 className="mt-1 shrink-0 text-emerald-600" size={15} />
           <span>{item}</span>
         </li>
       ))}

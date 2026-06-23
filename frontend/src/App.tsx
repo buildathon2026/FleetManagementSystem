@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink as RouterNavLink } from 'react-router-dom';
 import { MessageCircle, Network, LayoutDashboard, FileText } from 'lucide-react';
 import Chat from './components/Chat';
 import EntityGraph from './components/EntityGraph';
@@ -13,14 +13,14 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#f2f3f8] text-slate-950">
+      <div className="min-h-screen bg-[#f7fbff] text-slate-950">
         {/* Navigation */}
-        <nav className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
+        <nav className="sticky top-0 z-30 border-b border-cyan-100 bg-white/95 shadow-sm backdrop-blur">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex min-h-16 flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex items-center justify-between gap-4">
                 <Link to="/" className="flex items-center gap-2 text-lg font-semibold text-slate-950">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-700 text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-md bg-teal-600 text-white shadow-sm shadow-teal-100">
                     <LayoutDashboard size={19} />
                   </span>
                   FleetProof AI
@@ -58,12 +58,16 @@ export default function App() {
 
 function NavLink({ to, icon: Icon, label }: { to: string; icon: any; label: string }) {
   return (
-    <Link
+    <RouterNavLink
       to={to}
-      className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-blue-800"
+      className={({ isActive }) =>
+        isActive
+          ? 'flex shrink-0 items-center gap-2 rounded-md bg-teal-50 px-3 py-2 text-sm font-semibold text-teal-800 ring-1 ring-teal-100'
+          : 'flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-cyan-50 hover:text-cyan-800'
+      }
     >
       <Icon size={18} />
       {label}
-    </Link>
+    </RouterNavLink>
   );
 }
